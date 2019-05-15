@@ -1,0 +1,33 @@
+<section id="main_content">
+  <div class="container">
+
+    <ol class="breadcrumb">
+      <li><a href="#">Home</a></li>
+      <li class="active">Mis Cursos</li>
+    </ol>
+
+    <div class="row">
+
+      <%= render 'courses/filters' %>
+
+      <div class="col-lg-9 col-md-8 col-sm-8">
+        <div class="row">
+          <%if @courses %>
+            <% @courses.each do |course|  %>
+                  <% if (course.all_subscribed and !current_user.external_user?) or
+                          (course.external_users_subscribed and current_user.external_user?) or
+                          current_user.admin? or
+                          current_user.id == course.teacher_id or
+                          @course_subscription_ids.include?(course.id) %>
+                <% course_completion = course_completion_check(course.id) %>
+                <% if course_completion_check(course.id)%>
+                  <%= render 'courses/course_link', :course => course, :course_completion => course_completion %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div><!-- End row -->
+      </div><!-- End col-lg-9-->
+    </div><!-- End row -->
+  </div>
+</section>

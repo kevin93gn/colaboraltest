@@ -1,0 +1,59 @@
+
+<%= simple_form_for(@news, url: edit_news_path(:coaching_id => @news.coaching_id), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+    <%= f.error_notification %>
+    <section id="wizard_bg">
+      <div class="container">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <h3 class="col-md-9"><i class="icon-doc-6"></i> Editar Noticia : <b><%=@coaching.name%></b></h3>
+                <div class="col-md-3">
+                  <%= link_to news_path(:coaching_id => @coaching.id),  :class => 'button_medium pull-right' do%>
+                      <i class="icon-level-up"></i> Volver
+                  <%end%>
+                </div>
+                <p class="col-md-12"></p>
+                <div class="col-md-6">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-tumbler"></i> T&iacutetulo</label>
+                        <%= f.input :title, required: true, :input_html => { :class => 'required form-control', :id => 'email'}, :label => false, :placeholder => 'Nombre' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-picture"></i> Imagen</label>
+                        <div class="row" style="margin-top:10px">
+                          <div class="col-md-8">
+                            <%= f.input :image, as: :file, :label => false %>
+                          </div>
+                          <div class="col-md-3">
+                            <% if @news.image.to_s.length != 0 %>
+                                <%= image_tag @news.image, size: '110' %>
+                            <% else %>
+                                <%= image_tag 'default-course.png', size: '110' %>
+                            <%end%>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-doc-6"></i> Texto</label>
+                        <%= f.bootsy_area :text, :as => 'text', :input_html => { :class => 'required form-control text-area'}, editor_options: {font_styles: false, emphasis: true, color: false, image: false, lists: false }, :label => false, editor_options: {font_styles: false, emphasis: true, color: false, image: false, lists: false }, :placeholder => 'Texto' %>
+                      </div>
+                    </li>
+                  </ul>
+                </div><!-- end col-md-6 -->
+              </div>
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div><%= f.button :submit, "Editar", :class => 'button_medium' %></div>
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>

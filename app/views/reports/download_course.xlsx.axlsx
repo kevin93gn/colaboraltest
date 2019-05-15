@@ -1,0 +1,67 @@
+workbook = xlsx_package.workbook
+i = 0
+step = 0
+workbook.styles do |s|
+
+    bold = s.add_style :b => true, :alignment => { :horizontal=> :left,
+                                                    :vertical => :top}
+    index = s.add_style :b => true, :alignment => { :horizontal=> :center,
+                                                    :vertical => :center}
+
+    date = s.add_style :format_code => "dd-mm-yyyy hh:MM", :alignment => { :horizontal=> :left }
+    centered = s.add_style :alignment => { :horizontal=> :center,
+                                          :vertical => :center}
+    centered_bold = s.add_style :b => true,
+                           :alignment => { :horizontal=> :center,
+                                        :vertical => :center}
+    wrap = s.add_style :alignment => { :horizontal => :left,
+                                       :vertical => :center ,
+                                       :wrap_text => true}
+    bold_wrap = s.add_style :b => true,
+                            :alignment => { :horizontal => :left,
+                                                       :vertical => :center ,
+                                                       :wrap_text => true}
+    black_cell = s.add_style :bg_color => "00", :fg_color => "FF", :sz => 14, :alignment => { :horizontal=> :center }
+    blue_cell =  s.add_style  :bg_color => "0000FF", :fg_color => "FF", :sz => 20, :alignment => { :horizontal=> :center }
+    workbook.add_worksheet(Reporte: "#{@course.name}") do |sheet|
+
+        sheet.add_row ['']
+        sheet.add_row ['', "Reporte #{@course.name}",], :style => [bold, bold]
+
+        sheet.add_row ['']
+        sheet.add_row ['', 'Cantidad de usuarios', @user_count], :style => [bold, bold]
+        sheet.add_row ['', 'Cantidad de alumnos que completaron el curso', @users_who_completed_the_course], :style => [bold, bold]
+        unless @course.all_subscribed
+            sheet.add_row ['', 'Cantidad de alumnos que no han iniciado el curso (No han completado ningún tema)',@users_who_havent_initiated_the_course ], :style => [bold, bold]
+        end
+        sheet.add_row ['']
+        sheet.add_row ['', 'Cantidad de alumnos que completaron el curso parcialmente por % '], :style => [bold, bold]
+        sheet.add_row ['', 'Más de 30%', @completed_30_percent], :style => [bold, bold]
+        sheet.add_row ['', 'Más de 50%', @completed_50_percent ], :style => [bold, bold]
+        sheet.add_row ['', 'Más de 70%', @completed_70_percent ], :style => [bold, bold]
+        sheet.add_row ['']
+
+        sheet.add_row ['', 'Usuarios'], :style => [bold, bold]
+        sheet.add_row ['']
+        sheet.add_row ['', 'Nombre Alumno', 'Estado Curso', 'Temas Completados', 'Cantidad de temas vistos','Cantidad Visitas' ], :style => [bold, bold, bold, bold, bold, bold]
+        course_completion = ''
+
+
+        @users.each do |user|
+            if @item_completion_by_user[user.id] == 0
+                course_completion = 'No Iniciado'
+            elsif @item_completion_by_user[user.id] == @course_item_count
+                course_completion = 'Finalizado'
+            else
+                course_completion = 'En curso'
+            end
+            sheet.add_row ['', "#{user.first_name} #{user.last_name}", course_completion, "#{@item_completion_by_user[user.id]} / #{@course_item_count}", "#{@items_viewed_by_user[user.id]}", "#{@item_visits_by_user[user.id]}"]
+        end
+        workbook.apply_styles
+        sheet.column_widths *([33]*sheet.column_info.count)
+        sheet.column_widths 4, 60, 18, 20, 24, 15
+
+    end
+end
+
+

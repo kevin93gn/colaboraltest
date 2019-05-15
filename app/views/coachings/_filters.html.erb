@@ -1,0 +1,92 @@
+<aside class="col-lg-3 col-md-4 col-sm-4">
+  <div class="box_style_1">
+    <h4><i class="icon-person"></i>Mis Tutorias</h4>
+    <ul class="submenu-col">
+      <% @coachings.each do |c| %>
+          <li>
+            <% if c.id == @coaching.id %>
+                <%= link_to c.name, coachings_path(:coaching_id => c.id), :id => 'active' %>
+            <% else %>
+                <%= link_to c.name, coachings_path(:coaching_id => c.id) %>
+            <% end %>
+        </li>
+      <% end %>
+    </ul>
+    <br>
+  </div>
+  <% if @courses.nil? or @courses.count > 0 %>
+      <div class="box_style_1">
+        <h4><i class="icon-book-open"></i> Mis Cursos</h4>
+        <ul class="submenu-col">
+          <% @courses.each do |c| %>
+              <li>
+                <%= link_to c.name, course_path(:id => c.id) %>
+              </li>
+          <% end %>
+        </ul>
+        <br>
+      </div>
+  <% end %>
+  <div class="box_style_1">
+    <h4>
+      <%= link_to coaching_sessions_path(:coaching_id => @coaching.id) do%>
+          SESIONES
+      <% end %>
+      <span class="pull-right"><%=@all_sessions%></span></h4>
+    <h4>
+      <%= link_to coaching_goals_path(:coaching_id => @coaching.id) do%>
+        COMPROMISOS
+      <% end %>
+      <span class="pull-right"><%="#{@complete_items} / #{@coachee_goals.count}" %></span>
+    </h4>
+    <h4>
+      <%= link_to coaching_news_path(:coaching_id => @coaching.id) do%>
+        NOTICIAS
+      <%end%>
+      <span class="pull-right"><%="#{@news.count}" %></span>
+
+    </h4>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="progress">
+          <div class="progress-bar progress-bar-info" role="progressbar" data-percentage="<%=(@coaching_completion > 100) ? '100':@coaching_completion%>"></div>
+        </div>
+      </div>
+    </div><!-- End progress bar -->
+    <br/>
+    <h4>TUTOR</h4>
+    <div class="media">
+      <div class="pull-right">
+        <% if @coach.avatar_url.to_s.length != 0 %>
+            <%= image_tag @coach.avatar_url, :class => 'img-circle', :size => '68' %>
+        <% else %>
+            <%= image_tag 'default-course.png', :class => 'img-circle', :size => '68' %>
+        <%end%>
+      </div>
+      <div class="media-body">
+        <h5 class="media-heading"><%="#{@coach.first_name} #{@coach.last_name}"%></h5>
+      </div>
+    </div>
+    <hr>
+        <h4>Inicio <span class="pull-right"><%=@coaching.start.strftime("%d/%m/%Y")%></span></h4>
+        <h4>T&eacute;rmino <span class="pull-right"><%=@coaching.end.strftime("%d/%m/%Y")%></span></h4>
+    <h4>Descripci&oacute;n</h4>
+    <div class="media">
+      <p>
+        <%=@coaching.description%>
+      </p>
+    </div>
+  </div>
+
+  <div class="box_style_1">
+    <h4>
+      <i     class="icon-link-1"></i>Links</h4>
+    <ul class="list_1">
+      <li>
+        <a data-toggle="modal" href="#contact_modal"><i class="icon-mail"></i> Contactar al Tutor</a>
+      </li>
+    </ul>
+  </div>
+</aside>
+
+

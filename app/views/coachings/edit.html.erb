@@ -1,0 +1,89 @@
+
+<%= simple_form_for(@coaching, url: edit_coaching_path, html: { method: :put,  autocomplete: 'off' }) do |f| %>
+    <%= f.error_notification %>
+    <section id="wizard_bg">
+      <div class="container">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <h3 class="col-md-9"><i class="icon-puzzle-1"></i> Editar Coaching</h3>
+                <div class="col-md-3">
+                  <%= link_to coaching_admin_path,  :class => 'button_medium pull-right' do%>
+                      <i class="icon-level-up"></i> Volver
+                  <%end%>
+                </div>
+                <p class="col-md-12"></p>
+                <div class="col-md-6">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-user-1"></i> Descripci&oacute;n</label>
+                        <%= f.input :name, required: true, :input_html => { :class => 'required form-control', :id => 'email'}, :label => false, :placeholder => 'Nombre' %>
+                        <%= f.input :id, :as => :hidden, :input_html => { :value => @coaching.id } %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-calendar-empty"></i> Fecha Inicio:</label>
+                        <%= f.input :start, as: :date, start_year: Date.today.year,
+                                    end_year: Date.today.year + 2, discard_day: false,
+                                    order: [:day, :month, :year], label: false %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-flickr-1"></i> Descripci&oacute;n</label>
+                        <%= f.input :description, :as => 'text', :input_html => { :class => 'required form-control', :id => 'text_area_coaching'}, :label => false,  :placeholder => 'Descripción' %>
+                      </div>
+                    </li>
+
+                  </ul>
+                </div><!-- end col-md-6 -->
+
+                <div class="col-md-6">
+                  <ul class="data-list" style="margin:0; padding:0;">
+
+                    <li>
+                      <label><i class=" icon-graduation-cap"></i> Coach</label>
+                      <div class="styled-select">
+                        <%= f.input :user_id,
+                                    collection: @coachees,
+                                    :label_method => :first_name,
+                                    :value_method => :id,
+                                    :input_html => { :class => 'form-control', :id => 'coachee_id'},
+                                    :label => false,
+                                    :include_blank => false%>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-calendar-empty"></i> Fecha Termino:</label>
+                        <%= f.input :end, as: :date, start_year: Date.today.year,
+                                    end_year: Date.today.year + 3, discard_day: false,
+                                    order: [:day, :month, :year], label: false %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-eye-4"></i> ¿Coaching Visible?</label>
+                        <%=f.input :publish,
+                                   :as => :radio_buttons,
+                                   :item_wrapper_class => 'inline',
+                                   :label => false
+                        %>
+                      </div>
+                    </li>
+                  </ul>
+
+                </div><!-- end col-md-6 -->
+              </div><!-- end row -->
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div><%= f.button :submit, "Editar", :class => 'button_medium' %></div>
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>

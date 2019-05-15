@@ -1,0 +1,94 @@
+<section id="wizard_bg">
+  <div class="container reports">
+    <div id="survey_container">
+      <div id="middle-wizard">
+        <div class="step">
+          <ol class="breadcrumb">
+            <li>
+              <%= link_to root_path do%>
+                  <i class="icon-home"></i> Home
+              <% end %>
+            </li>
+            <li><%= @coaching.name %></li>
+            <li class="active">Reporte Metas</li>
+
+          </ol>
+
+          <div class="row">
+            <div class="col-lg-11 col-md-11 col-sm-11">
+              <h3><i class="icon-chart-bar"></i> Reporte Metas : <b><%= @coaching.name %> </b> </h3>
+
+              <div class="row">
+                <p class="col-md-12"></p>
+                <div class="col-md-12">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-users"></i> Cantidad de usuarios</label><br>
+                        <p class="data"> <i class=" icon-level-down-1"></i> <%= @users.count %> </p>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-check-1"></i> Cantidad de Metas Plan</label><br>
+                        <p class="data"> <i class=" icon-level-down-1"></i> <%= @goals_count %> </p>
+                      </div>
+                    </li>
+
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-flag-checkered"></i> Cantidad de alumnos que est&aacute;n al d&iacute;a con sus metas</label><br>
+                        <p class="subtitle">Aca se indican los usuarios que no tienen ninguna meta atrasada</p>
+                        <p class="data"> <i class=" icon-level-down-1"></i> <%= @users_without_not_completed_goals %> </p>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class=" icon-flickr"></i> Detalle</label> <br/>
+                        <table class="table table-bordered">
+                          <tr>
+                            <th>Nombre Alumno</th>
+                            <th width="">Estado</th>
+                            <th width="">Porcentaje</th>
+                            <th width="">Completados</th>
+                            <th width="">Pendientes</th>
+                            <th width="">No Completados</th>
+                          </tr>
+                          <%@users.each do |user| %>
+                            <tr>
+                                <td>
+                                    <% if current_user.admin? %>
+                                        <%= link_to admin_edit_user_path(:id => user.id) do%>
+                                          <%="#{user.first_name} #{user.last_name}"%>
+                                        <% end %>
+                                    <% else %>
+                                        <%="#{user.first_name} #{user.last_name}"%>
+                                    <% end %>
+                                </td>
+                                  <% if @status_by_user[user.id] == 'OK' %>
+                                      <td><i class="icon-circle goal-fulfilled"></i> OK</td>
+                                  <% else  @status_by_user[user.id] == 'Atrasado'  %>
+                                      <td><i class="icon-circle goal-not-fullfiled"></i> No Cumplida</td>
+                                  <% end %>
+                                <td><%="#{@completion_porcentage_by_user[user.id]}" %></td>
+                                <td><%="#{@completed_goals_by_user[user.id]}" %></td>
+                                <td><%="#{@pending_goals_by_user[user.id]}" %></td>
+                                <td><%="#{@not_completed_goals_by_user[user.id]}" %></td>
+                            </tr>
+                          <% end %>
+                          </table>
+                      </div>
+                    </li>
+                  </ul>
+                </div><!-- end col-md-6 -->
+
+              </div><!-- end row -->
+
+            </div>
+          </div><!-- End row -->
+        </div><!-- End col-lg-9-->
+      </div><!-- end step-->
+    </div><!-- end middle-wizard -->
+  </div><!-- end Survey container -->
+  </div>
+</section><!-- end section main container -->

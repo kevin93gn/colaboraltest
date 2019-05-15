@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  coaching_id: 1
+  coachee_id: 1
+  point_1: 1.5
+  version: 1
+
+two:
+  coaching_id: 1
+  coachee_id: 1
+  point_1: 1.5
+  version: 1

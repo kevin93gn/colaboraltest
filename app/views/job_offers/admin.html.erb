@@ -1,0 +1,78 @@
+<section id="wizard_bg">
+  <div class="container" id="admin_users" >
+    <div id="survey_container">
+      <div id="middle-wizard">
+        <div class="step">
+          <div class="row">
+
+              <% if @user.nil? %>
+                <h3 class="col-md-9"><i class="icon-suitcase"></i> Ofertas Laborales : <b><%=@coaching.name%></b></h3>
+                  <div class="col-md-3">
+                  <%= link_to new_job_offer_path(:coaching_id => @coaching.id),  :class => 'button_medium pull-right' do%>
+                      <i class="icon-plus"></i> Nueva Oferta Laboral
+                  <%end%>
+                </div>
+              <% else %>
+                <h3 class="col-md-9"><i class="icon-suitcase"></i> Ofertas Laborales : <b><%= @user.full_name%></b></h3>
+                <div class="col-md-3">
+                  <%= link_to new_job_offer_path(:coaching_id => @coaching.id, :user_id => @user.id),  :class => 'button_medium pull-right' do%>
+                      <i class="icon-plus"></i> Nueva Oferta Laboral
+                  <%end%>
+                </div>
+              <% end %>
+
+            <div class="row">
+              <div class="col-md-12">
+                <% if !@job_offers.nil? and @job_offers.any? %>
+                    <table class="table table-bordered">
+                      <tr>
+                        <th>Nombre</th>
+                        <th>Url</th>
+                        <th>Usuario</th>
+                        <th>Agregado el</th>
+                        <th>Eliminar</th>
+                      </tr>
+                      <% @job_offers.each do |jo| %>
+                          <tr>
+                            <td>
+                              <%= link_to edit_job_offer_path(:coaching_id => @coaching.id, :id => jo.id) do%>
+                                  <%= jo.name%>
+                              <%end%>
+                            </td>
+                            <td>
+                              <%= link_to jo.url, jo.url, :target => '_blank' %>
+                            </td>
+                            <th>
+                              <% if jo.user.nil? %>
+                                   Todos
+                              <% else %>
+                                <%=jo.user.full_name %>
+                              <% end %>
+                            </th>
+                            <td>
+                              <%="#{jo.created_at.strftime("%d/%m/%Y")}"%>
+                            </td>
+                            <td>
+                              <%=link_to delete_job_offer_path(:coaching_id => @coaching.id, :id => jo.id), :onclick => "return confirm('¿Estás seguro que deseas eliminar este registro?');" do%>
+                                  <i class=" icon-cancel-alt-filled"></i>
+                              <%end%>
+                            </td>
+                          </tr>
+                      <%end%>
+                    </table>
+                <%else%>
+                    <p class="info">No hay ninguna oferta laboral creada :( </p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div><!-- end step-->
+      </div><!-- end middle-wizard -->
+      <% if @job_offers %>
+          <div id="bottom-wizard">
+            <%= will_paginate @job_offers, :params => { :method => :get } %>
+          </div><!-- end bottom-wizard -->
+      <% end %>
+    </div><!-- end Survey container -->
+  </div>
+</section><!-- end section main container -->

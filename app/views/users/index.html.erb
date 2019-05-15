@@ -1,0 +1,75 @@
+    <section id="wizard_bg">
+      <div class="container" id="admin_users" >
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <h3 class="col-md-8"><i class="icon-user"></i>Administraci&oacute;n Usuarios</h3>
+                <div class="col-md-4">
+                  <%= link_to admin_new_user_path,  :class => 'button_medium pull-right' do%>
+                    <i class="icon-user-add"></i> Agregar Usuario
+                  <%end%>
+                </div>
+              </div>
+                <% if @users %>
+                    <div class="row search pull-left">
+                      <%= form_tag user_list_search_path, :name => 'evaluation', :method => 'put' do %>
+                          <label>RUT</label>
+                          <input type="text" name="rut" placeholder="xxxxxxxx-x" style="margin-right: 20px;"/>
+                          <label> Nombre</label>
+                          <input type="text" name="name" value="<%=@name%>" style="margin-right: 20px;" placeholder="Nombre o Apellido"/>
+                          <label>  Instituci&oacute;n </label>
+                          <input type="text" name="institution" value="<%=@institution%>" style="margin-right: 20px;"/>
+                          <label> Sucursal </label>
+                          <input type="text" name="branch" value="<%=@branch%>" style="margin-right: 20px;"/>
+                          <input type="submit" class="button button_medium" value="Buscar">
+                      <% end %>
+                      <p class="error"><%=@message%></p>
+                    </div>
+                  <div class="row">
+                    <table class="table table-bordered">
+                        <tr>
+                          <th>RUT</th>
+                          <th>Email</th>
+                          <th>Nombre</th>
+                          <th>Instituci&oacute;n</th>
+                          <th>Sucursal</th>
+                          <th>Rol</th>
+                          <th></th>
+                        </tr>
+                        <% @users.each do |user| %>
+                            <tr>
+                                <td>
+                                    <%= link_to admin_edit_user_path(:id => user.id) do%>
+                                        <%= user.rut %>
+                                    <%end%>
+                                </td>
+                                <td><%=user.email%></td>
+                                <td><%=user.full_name%></td>
+                                <td><%=user.institution%></td>
+                                <td><%=user.branch%></td>
+                                <td><%=user.role%></td>
+                                <td>
+                                  <%=link_to communication_users_path(:user_id => user.id) do%>
+                                    <i class="icon-rocket-1"></i>
+                                  <%end%>
+                                    <%=link_to delete_user_path(:id => user.id), :onclick => "return confirm('¿Estás seguro que deseas eliminar este usuario?, se borrará toda su información en el sistema');" do%>
+                                        <i class=" icon-cancel-alt-filled"></i>
+                                    <%end%>
+                                  </td>
+                            </tr>
+                        <%end%>
+                    </table>
+                  </div>
+                <% end %>
+              </div>
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <% if @users %>
+             <div id="bottom-wizard">
+                <%= will_paginate @users, :params => { :method => :post } %>
+            </div><!-- end bottom-wizard -->
+          <% end %>
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->

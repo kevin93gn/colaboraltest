@@ -1,0 +1,170 @@
+# Logfile created on 2016-07-16 10:48:14 -0400 by logger.rb/54362
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Starting the New Relic agent in "production" environment.
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "production" section of your newrelic.yml.
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Reading configuration from config/newrelic.yml (/Users/xavi/it4/repos/indo-virtual)
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Environment: production
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : No known dispatcher detected.
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Application: Indo-Coaching
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 60 seconds
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Installing ActiveJob instrumentation
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Installing ActiveRecord 4+ instrumentation
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Installing middleware-based Excon instrumentation
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Installing Net instrumentation
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Installing Rails 3+ middleware instrumentation
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Installing Redis Instrumentation
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Installing Sidekiq instrumentation
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Installing Rails 4 Controller instrumentation
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Installing Rails 4 view instrumentation
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Installing Rails 4 Error instrumentation
+[2016-07-16 10:48:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Finished instrumentation
+[2016-07-16 10:48:37 -0400 Xaviers-MacBook-Pro.local (16590)] INFO : Starting Agent shutdown
+[2016-07-16 10:49:14 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 10:49:14 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 10:49:14 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 120 seconds
+[2016-07-16 10:51:15 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 10:51:15 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 10:51:15 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 180 seconds
+[2016-07-16 11:11:50 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 11:11:50 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 11:11:50 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 240 seconds
+[2016-07-16 11:15:50 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 11:15:50 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 11:15:50 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 300 seconds
+[2016-07-16 11:20:51 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 11:20:51 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 11:20:51 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 360 seconds
+[2016-07-16 11:26:51 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 11:26:51 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 11:26:51 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 420 seconds
+[2016-07-16 11:28:35 -0400 Xaviers-MacBook-Pro.local (16851)] INFO : Starting Agent shutdown
+[2016-07-16 11:33:52 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 11:33:52 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 11:33:52 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 480 seconds
+[2016-07-16 11:39:12 -0400 Xaviers-MacBook-Pro.local (17182)] INFO : Starting Agent shutdown
+[2016-07-16 11:41:52 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 11:41:52 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 11:41:52 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 540 seconds
+[2016-07-16 11:50:52 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 11:50:52 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 11:50:52 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 600 seconds
+[2016-07-16 12:00:52 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 12:00:52 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 12:00:52 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 600 seconds
+[2016-07-16 12:10:52 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 12:10:52 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 12:10:52 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 600 seconds
+[2016-07-16 12:20:52 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 12:20:52 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 12:20:52 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 600 seconds
+[2016-07-16 12:30:53 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 12:30:53 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 12:30:53 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 600 seconds
+[2016-07-16 12:40:53 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 12:40:53 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 12:40:53 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 600 seconds
+[2016-07-16 12:50:54 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 12:50:54 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 12:50:54 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 600 seconds
+[2016-07-16 13:00:54 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 13:00:54 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 13:00:54 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 600 seconds
+[2016-07-16 15:41:09 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 15:41:09 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 15:41:09 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 600 seconds
+[2016-07-16 15:51:09 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 15:51:09 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 15:51:09 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 600 seconds
+[2016-07-16 16:01:10 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 16:01:10 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 16:01:10 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 600 seconds
+[2016-07-16 16:11:10 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 16:11:10 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 16:11:10 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 600 seconds
+[2016-07-16 16:21:11 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 16:21:11 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 16:21:11 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 600 seconds
+[2016-07-16 16:49:16 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 16:49:16 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 16:49:16 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 600 seconds
+[2016-07-16 16:59:17 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 16:59:17 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 16:59:17 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 600 seconds
+[2016-07-16 17:09:17 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 17:09:17 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 17:09:17 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 600 seconds
+[2016-07-16 17:19:18 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-07-16 17:19:18 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: Failed to open TCP connection to collector.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-16 17:19:18 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Will re-attempt in 600 seconds
+[2016-07-16 20:34:32 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1056993/applications/7292557
+[2016-07-17 21:01:18 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-07-17 21:01:18 -0400 Xaviers-MacBook-Pro.local (16574)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-240.newrelic.com:443 after 0.002953 seconds: Failed to open TCP connection to collector-240.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-17 21:34:04 -0400 Xaviers-MacBook-Pro.local (16574)] INFO : Starting Agent shutdown
+[2016-07-17 21:34:08 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : Starting the New Relic agent in "production" environment.
+[2016-07-17 21:34:08 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "production" section of your newrelic.yml.
+[2016-07-17 21:34:08 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : Reading configuration from config/newrelic.yml (/Users/xavi/it4/repos/indo-virtual)
+[2016-07-17 21:34:08 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : Environment: production
+[2016-07-17 21:34:08 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : No known dispatcher detected.
+[2016-07-17 21:34:08 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : Application: Indo-Coaching
+[2016-07-17 21:34:09 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : Installing ActiveJob instrumentation
+[2016-07-17 21:34:09 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : Installing ActiveRecord 4+ instrumentation
+[2016-07-17 21:34:09 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : Installing middleware-based Excon instrumentation
+[2016-07-17 21:34:09 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : Installing Net instrumentation
+[2016-07-17 21:34:09 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-07-17 21:34:09 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-07-17 21:34:09 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : Installing Rails 3+ middleware instrumentation
+[2016-07-17 21:34:09 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : Installing Redis Instrumentation
+[2016-07-17 21:34:09 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : Installing Sidekiq instrumentation
+[2016-07-17 21:34:09 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : Installing Rails 4 Controller instrumentation
+[2016-07-17 21:34:09 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : Installing Rails 4 view instrumentation
+[2016-07-17 21:34:09 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : Installing Rails 4 Error instrumentation
+[2016-07-17 21:34:09 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : Finished instrumentation
+[2016-07-17 21:34:12 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1056993/applications/7292557
+[2016-07-18 21:54:34 -0400 Xaviers-MacBook-Pro.local (20831)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-07-18 21:54:34 -0400 Xaviers-MacBook-Pro.local (20831)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-240.newrelic.com:443 after 0.018106 seconds: Failed to open TCP connection to collector-240.newrelic.com:443 (getaddrinfo: nodename nor servname provided, or not known)
+[2016-07-19 02:27:23 -0400 Xaviers-MacBook-Pro.local (20831)] INFO : Starting Agent shutdown
+[2017-11-05 22:30:43 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : Starting the New Relic agent version 4.5.0.337 in "production" environment.
+[2017-11-05 22:30:43 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "production" section of your newrelic.yml.
+[2017-11-05 22:30:43 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : Reading configuration from config/newrelic.yml (/Users/xavi/Work/repos/colaboral-elearning)
+[2017-11-05 22:30:43 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : Environment: production
+[2017-11-05 22:30:43 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : No known dispatcher detected.
+[2017-11-05 22:30:43 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : Application: Colaboral
+[2017-11-05 22:30:43 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : Installing ActiveRecord 4 instrumentation
+[2017-11-05 22:30:43 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : Installing Redis Instrumentation
+[2017-11-05 22:30:43 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : Installing Sidekiq instrumentation
+[2017-11-05 22:30:43 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : Installing middleware-based Excon instrumentation
+[2017-11-05 22:30:43 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : Installing Rails 3+ middleware instrumentation
+[2017-11-05 22:30:43 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : Installing Net instrumentation
+[2017-11-05 22:30:43 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : Installing deferred Rack::Builder instrumentation
+[2017-11-05 22:30:43 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : Installing Rack::Builder middleware instrumentation
+[2017-11-05 22:30:43 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : Installing ActiveJob instrumentation
+[2017-11-05 22:30:43 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : Installing Rails 4 Controller instrumentation
+[2017-11-05 22:30:43 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : Installing Rails 4 view instrumentation
+[2017-11-05 22:30:43 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : Finished instrumentation
+[2017-11-05 22:30:47 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1056993/applications/44676954
+[2017-11-05 22:30:59 -0300 Xaviers-MacBook-Pro.local (9997)] INFO : Starting Agent shutdown
+[2017-11-05 22:31:10 -0300 Xaviers-MacBook-Pro.local (9980)] INFO : Starting Agent shutdown
+[2017-11-12 22:32:23 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : Starting the New Relic agent version 4.5.0.337 in "production" environment.
+[2017-11-12 22:32:23 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "production" section of your newrelic.yml.
+[2017-11-12 22:32:23 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : Reading configuration from config/newrelic.yml (/Users/xavi/Work/repos/colaboral-elearning)
+[2017-11-12 22:32:23 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : Environment: production
+[2017-11-12 22:32:23 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : No known dispatcher detected.
+[2017-11-12 22:32:23 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : Application: Colaboral
+[2017-11-12 22:32:23 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : Installing ActiveRecord 4 instrumentation
+[2017-11-12 22:32:23 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : Installing Redis Instrumentation
+[2017-11-12 22:32:23 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : Installing Sidekiq instrumentation
+[2017-11-12 22:32:23 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : Installing middleware-based Excon instrumentation
+[2017-11-12 22:32:23 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : Installing Rails 3+ middleware instrumentation
+[2017-11-12 22:32:23 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : Installing Net instrumentation
+[2017-11-12 22:32:23 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : Installing deferred Rack::Builder instrumentation
+[2017-11-12 22:32:23 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : Installing Rack::Builder middleware instrumentation
+[2017-11-12 22:32:23 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : Installing ActiveJob instrumentation
+[2017-11-12 22:32:23 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : Installing Rails 4 Controller instrumentation
+[2017-11-12 22:32:23 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : Installing Rails 4 view instrumentation
+[2017-11-12 22:32:23 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : Finished instrumentation
+[2017-11-12 22:32:24 -0300 Xaviers-MacBook-Pro.local (6220)] INFO : Starting Agent shutdown
+[2017-11-12 22:32:27 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1056993/applications/44676954
+[2017-11-12 22:32:44 -0300 Xaviers-MacBook-Pro.local (6204)] INFO : Starting Agent shutdown

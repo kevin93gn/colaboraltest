@@ -1,0 +1,99 @@
+
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+    <%= f.error_notification %>
+    <section id="wizard_bg">
+    <div class="container">
+        <div id="survey_container">
+            <div id="middle-wizard">
+              <div class="step">
+                <div class="row">
+                  <h3 class="col-md-10"><i class="icon-torso"></i> Perfil</h3>
+                  <p class="col-md-12"></p>
+                  <div class="col-md-6">
+                    <ul class="data-list">
+                      <li>
+                        <div class="form-group">
+                          <label><i class="icon-mail"></i> Email</label>
+                          <%= f.input :email, required: true, autofocus: true, :input_html => { :class => 'required form-control', :id => 'email'}, :label => false, :placeholder => 'Email', :disabled => true %>
+                          <input id="fake_user_name" name="fake_user[name]" style="position:absolute; top:-100px; display:none;" type="text" value="Safari Autofill Me">
+                        </div>
+                        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+                            <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+                        <% end %>
+                      </li>
+                      <li>
+                        <div class="form-group">
+                          <label><i class="icon-user-1"></i> Nombre</label>
+                          <%= f.input :first_name, autocomplete: 'off', :input_html => { :class => 'required form-control name'}, :label => false,  :placeholder => 'Nombre' %>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="form-group">
+                          <label><i class="icon-building"></i> Instituci&oacute;n</label>
+                          <%= f.input :institution, :autocomplete => :off , :input_html => { :class => 'required form-control'}, :label => false, :placeholder => 'Institución' %>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="form-group">
+                          <label><i class=" icon-phone"></i> Tel&eacute;fono</label>
+                          <%= f.input :phone, autocomplete: 'off', :input_html => { :class => 'required form-control name'}, :label => false,  :placeholder => 'Teléfono' %>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="form-group">
+                          <label><i class="icon-lock"></i>Nuevo Password (Dejar en blanco si no la cambiar&aacute;s)</label>
+                          <%= f.input :password, autocomplete: "off", required: false, :input_html => { :class => 'required form-control name'}, :label => false, :placeholder => 'Password'  %>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="form-group">
+                          <label><i class="icon-lock-open"></i>Password Original (Requerido para editar datos)*</label>
+                          <%= f.input :current_password, required: true,  :input_html => { :class => 'required form-control name'}, :label => false,  :placeholder => 'Password Original'  %>
+                      </li>
+                    </ul>
+                  </div><!-- end col-md-6 -->
+
+                  <div class="col-md-6">
+                    <ul class="data-list" style="margin:0; padding:0;">
+                      <li>
+                        <div class="form-group">
+                          <label><i class=" icon-vcard"></i> RUT</label>
+                          <%= f.input :rut, :autocomplete => :off , :input_html => { :class => 'required form-control'}, :label => false, :placeholder => 'RUT con puntos y guión' %>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="form-group">
+                          <label><i class="icon-users-1"></i> Apellido</label>
+                          <%= f.input :last_name, autocomplete: 'off', :input_html => { :class => 'required form-control', :id => 'last_name'}, :label => false,  :placeholder => 'Apellido' %>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="form-group">
+                          <label><i class="icon-coffee"></i> Profesi&oacute;n</label>
+                          <%= f.input :profession, :autocomplete => :off , :input_html => { :class => 'required form-control'}, :label => false, :placeholder => 'Profesión' %>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="form-group">
+                          <label><i class="icon-mobile-1"></i> Tel&eacute;fono M&oacute;vil</label>
+                          <%= f.input :mobile, autocomplete: 'off', :input_html => { :class => 'required form-control name'}, :label => false,  :placeholder => 'Teléfono' %>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="form-group">
+                          <label><i class="icon-ok-4"></i> Confirmar Nuevo Password</label>
+                          <%= f.input :password_confirmation, required: false, :input_html => { :class => 'required form-control name'}, :label => false,  :placeholder => 'Confirmar Password' %>
+                        </div>
+                      </li>
+                  </div><!-- end col-md-6 -->
+                </div><!-- end row -->
+              </div><!-- end step-->
+            </div><!-- end middle-wizard -->
+            <div id="bottom-wizard">
+              <div><%= f.button :submit, "Actualizar", :class => 'button_medium' %></div>
+
+            </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+    </div>
+</section><!-- end section main container -->
+<% end %>

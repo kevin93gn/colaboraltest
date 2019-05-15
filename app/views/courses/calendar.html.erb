@@ -1,0 +1,65 @@
+<section id="main_content">
+  <div class="container">
+
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to root_path do%>
+          <i class="icon-home"></i> Home
+        <% end %>
+      </li>
+      <li class="active">Calendario Actividades</li>
+
+    </ol>
+    <div class="row">
+      <h3 class="col-md-12"><i class="icon-calendar"></i> Calendario de Actividades</h3>
+      <br />
+    </div>
+
+    <div class="row">
+      <aside class="col-md-4">
+        <div class="box_style_1"  id="external-events">
+          <h4>Siguientes Actividades</h4>
+          <% for activity in @activities %>
+            <div class='external-event'>
+              <%=link_to activity_detail_path(:activity_id => activity.id, :course_id => activity.course_id) do %>
+                <%="#{activity.title} - #{activity.date.strftime("%d/%m/%Y")}" %>
+              <% end %>
+
+            </div>
+          <%end%>
+        </div>
+      </aside>
+
+      <div class="col-md-8">
+        <div id='calendar'></div>
+      </div>
+
+    </div><!-- End row -->
+
+  </div>
+</section>
+
+<script type="text/javascript">
+
+  $(document).ready(function() {
+
+
+    $('#calendar').fullCalendar({
+      lang: 'es',
+
+      header: {
+        left: 'prev,next',
+        center: 'title',
+        right: 'month,agendaWeek'
+      },
+      editable: false,
+      events: [
+        <% for activity in @activities %>
+          <% event = "{ title: '#{activity.title}', start: '#{activity.date}', url: '#{activity_detail_url(:activity_id => activity.id, :course_id => activity.course_id)}' }," %>
+          <%= event.html_safe %>
+        <% end %>
+      ]
+    });
+
+  });
+</script>®

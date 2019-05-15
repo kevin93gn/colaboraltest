@@ -1,0 +1,64 @@
+
+<%= simple_form_for(@grade, url: new_grade_path(:course_id => @evaluation.course_id ), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+    <%= f.error_notification %>
+    <section id="wizard_bg">
+      <div class="container">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <ol class="breadcrumb">
+                  <li>
+                    <%= link_to root_path do%>
+                        <i class="icon-home"></i> Home
+                    <% end %>
+                  </li>
+                  <li><%= link_to 'Notas Evaluaciones', course_evaluations_path%></li>
+                  <li class="active"><%= link_to @evaluation.name, course_evaluations_grades_path(:course_id => @evaluation.course_id, :course_evaluations_id => @evaluation.id)%></li>
+                </ol>
+              </div>
+              <div class="row">
+                <h3 class="col-md-10"><i class="icon-inbox"></i> Nueva Nota: <b><%=@evaluation.name%></b></h3>
+                <p class="col-md-12"></p>
+                <div class="col-md-6">
+                  <ul class="data-list">
+                    <li>
+                      <label><i class=" icon-graduation-cap"></i> Usuario</label>
+                      <div class="styled-select">
+                        <%= f.input :user_id,
+                                    collection: @users,
+                                    :label_method => :full_name,
+                                    :value_method => :id,
+                                    :input_html => {:id => 'user_id'},
+                                    :input_html => { :class => 'form-control'},
+                                    :label => false,
+                                    :include_blank => false%>
+                      </div>
+                    </li>
+
+                  </ul>
+                </div><!-- end col-md-6 -->
+
+                <div class="col-md-6">
+                  <ul class="data-list" style="margin:0; padding:0;">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-pencil"></i> Nota (1 a 7)</label>
+                        <%= f.input :grade, required: true, :input_html => { :class => 'required form-control', :id => 'name'}, :label => false, :placeholder => 'Nombre' %>
+                      </div>
+                    </li>
+
+                  </ul>
+
+                </div><!-- end col-md-6 -->
+              </div><!-- end row -->
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div><%= f.button :submit, "Crear", :class => 'button_medium' %></div>
+
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>

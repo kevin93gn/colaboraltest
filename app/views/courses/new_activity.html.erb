@@ -1,0 +1,72 @@
+
+<%= simple_form_for(@activity, url: new_activity_path, html: { method: :put,  autocomplete: 'off' }) do |f| %>
+  <%= f.error_notification %>
+  <section id="wizard_bg">
+    <div class="container">
+      <div id="survey_container">
+        <div id="middle-wizard">
+          <div class="step">
+
+      <ol class="breadcrumb">
+        <li>
+          <%= link_to root_path do%>
+            <i class="icon-home"></i> Home
+          <% end %>
+        </li>
+        <li class="active">
+          <%= link_to course_path(:id => @course.id) do%>
+            <%= @course.name %>
+          <% end %>
+        </li>
+        <li class="active">Nueva Actividad</li>
+
+      </ol>
+
+      <div class="row">
+        <div class="col-lg-9 col-md-8 col-sm-8">
+          <div class="row">
+            <h3><i class="icon-rocket-1"></i>Nueva Actividad</h3><br>
+          </div>
+          <div class="row">
+
+            <div class="row">
+              <p class="col-md-12"></p>
+              <div class="col-md-6">
+                <ul class="data-list">
+                  <li>
+                    <div class="form-group">
+                      <label><i class="icon-star-7"></i> Nombre</label><br>
+                      <%= f.input :title, required: true, :input_html => { :class => 'required form-control'}, :label => false, :placeholder => 'Nombre Actividad' %>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-group">
+                      <label><i class="icon-calendar-empty"></i> Fecha:</label>
+                      <%= f.input :date, as: :date, start_year: Date.today.year - 1,
+                                  end_year: Date.today.year + 2, discard_day: false,
+                                  order: [:day, :month, :year], label: false %>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-group">
+                      <label><i class="icon-flickr"></i> Detalle</label><br>
+                      <%= f.bootsy_area :text, editor_options: {font_styles: false, emphasis: true, color: false, image: false, lists: false } %>
+                    </div>
+                  </li>
+                </ul>
+              </div><!-- end col-md-6 -->
+
+            </div><!-- end row -->
+
+            <div><%= f.button :submit, "Agregar", :class => 'button_medium' %></div>
+
+          </div>
+        </div><!-- End row -->
+      </div><!-- End col-lg-9-->
+    </div><!-- End row -->
+          </div>
+    </div>
+    </div>
+    </div>
+  </section><!-- end section main container -->
+<% end %>

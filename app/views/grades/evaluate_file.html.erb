@@ -1,0 +1,53 @@
+<% correct_answers = 0 %>
+<%= simple_form_for(@grade, url: file_evaluation_path(:id => @grade.id, :course_evaluation_id => @evaluation.id, :course_id => @course.id), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+    <%= f.error_notification %>
+    <section id="wizard_bg">
+      <div class="container">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <h3 class="col-md-12"><i class="icon-check-1"></i>Evaluaci&oacute;n : <b> <%= "#{@course.name} / #{@user.first_name} #{@user.last_name}"%></b> </h3>
+                <div class="row">
+                  <div class="col-md-12">
+                    <h4>Ver archivo subido por usuario</h4>
+                    <a href="<%=@module_item_user.evaluation_file%>" target="_blank">
+                      <i class="icon-eye"></i> Ver Archivo
+                    </a>
+                    <br/>
+                    <br/>
+                  </div>
+                </div>
+                <div class="col-md-6">
+
+                  <ul class="data-list">
+                    <label><i class=" icon-pencil-5"></i> Nota</label>
+                    <div class="styled-select">
+                      <%= f.input :grade,
+                                  collection: %w[1 2 3 4 5 6 7],
+                                  :input_html => { :class => 'form-control'},
+                                  :label => false,
+                                  :required => true,
+                                  :selected => @grade.grade.to_i,
+                                  :include_blank => false %>
+                    </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <ul class="data-list">
+
+                  </ul>
+                </div>
+                <p class="col-md-12"></p>
+
+              </div><!-- end row -->
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div><%= f.button :submit, 'Guardar', :class => 'button_medium'%></div>
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>

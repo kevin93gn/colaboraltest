@@ -1,0 +1,102 @@
+<section id="main_content">
+  <div class="container" id="show_news">
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to root_path do%>
+            <i class="icon-home"></i> Home
+        <% end %>
+      </li>
+      <li class="">
+        <%= link_to coachings_path(:coaching_id => @coaching.id) do%>
+            <%= @coaching.name %>
+        <% end %>
+      <li class="active"> Noticias </li>
+    </ol>
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="col-md-9"><i class="icon-doc-6"></i> Noticias : <b><%= @coaching.name %></b>
+          <br />
+        </h2>
+        <% if !@news.nil? and @news.count > 0 %>
+            <div class="col-md-3">
+              <%= link_to coachings_path(:coaching_id => @coaching.id),  :class => 'button_medium pull-right' do%>
+                  <i class="icon-level-up"></i> Volver
+              <%end%>
+            </div>
+        <% @news.each.with_index do |news, index| %>
+            <% if index == 0 %>
+                <h3>
+                  <%= link_to show_coaching_news_path(:coaching_id => @coaching.id, :id => news.id) do%>
+                      <p class="news_title"><%=news.title%></p>
+                  <% end %>
+                </h3>
+                    </br>
+                <div class="row">
+                    <div class="col-md-2">
+                        <% if news.image.to_s.length != 0 %>
+                            <%= image_tag news.image, :size => '140'%>
+                        <% else %>
+                            <div class="circ-wrapper course_detail pull-left latest_news_no_image_title" ><h3>Colaboral</h3></div>
+                        <%end%>
+                    </div>
+                <div class="col-md-10"">
+                  <%=news.text.html_safe%>
+                </p>
+                </div>
+                <br />
+                <ul class="data-lessons">
+                  <li class="po-markup">
+                    <a class="po-link" href="javascript:void(0)" ><i class="icon-clock"></i> <%=news.created_at.strftime("%d/%m/%Y")%></a>
+                  </li>
+                  <li class="po-markup">
+                    <a class="po-link" href="javascript:void(0)" ><i class="icon-doc-6"></i> Noticias</a>
+                  </li>
+                  <li class="po-markup">
+                    <a class="po-link" href="javascript:void(0)" ><i class="icon-user-1"></i> <%=news.user.full_name%></a>
+                  </li>
+                </ul>
+                <hr class="add_bottom_30">
+            <% else %>
+                <div class="media old_news">
+                      <div class="media-body">
+                        <h4 class="media-heading">
+                          <%= link_to show_coaching_news_path(:coaching_id => @coaching.id, :id => news.id) do%>
+                              <p class="news_title"><%=news.title%></p>
+                          <% end %>
+                        </h4>
+                        <div class="row">
+                          <div class="col-md-1">
+                            <% if news.image.to_s.length != 0 %>
+                                <%= image_tag news.image, :size => '85'%>
+                            <% else %>
+                                <div class="circ-wrapper course_detail pull-left" ><h3>Colaboral</h3></div>
+                            <%end%>
+                            </div>
+                          <div class="col-md-10 old_news_detail">
+                            <%=news.text.html_safe%>
+                          </div>
+                        </div>
+                        <ul class="data-lessons">
+                          <li class="po-markup">
+                            <a class="po-link" href="javascript:void(0)" ><i class="icon-clock"></i> <%=news.created_at.strftime("%d/%m/%Y")%></a>
+                          </li>
+                          <li class="po-markup">
+                            <a class="po-link" href="javascript:void(0)" ><i class="icon-doc-6"></i> Noticias</a>
+                          </li>
+                          <li class="po-markup">
+                            <a class="po-link" href="javascript:void(0)" ><i class="icon-user-1"></i> <%=news.user.full_name%></a>
+                          </li>
+                        </ul>
+                        <hr class="add_bottom_30">
+                      </div>
+                    </div>
+
+            <% end %>
+        <% end %>
+        <%else%>
+            <p class="info">No hay ninguna noticia creada para este coaching</p>
+        <% end %>
+      </div><!-- End col-md-8  -->
+    </div><!-- End row -->
+  </div><!-- End container -->
+</section>

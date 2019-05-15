@@ -1,0 +1,49 @@
+<section id="wizard_bg">
+  <div class="container" id="admin_users" >
+    <div id="survey_container">
+      <div id="middle-wizard">
+        <div class="step">
+          <div class="row">
+            <h3 class="col-md-9"><i class="icon-star-7"></i>Actividades</h3>
+            <div class="col-md-3">
+              <%= link_to new_activity_path,  :class => 'button_medium pull-right' do%>
+                <i class="icon-plus"></i> Agregar Actividad
+              <%end%>
+            </div>
+            <% if @activities %>
+              <table class="table table-bordered">
+                <tr>
+                  <th>Titulo</th>
+                  <th>Fecha</th>
+                  <th>Eliminar</th>
+                </tr>
+                <% @activities.each do |activity| %>
+                  <tr>
+                    <td>
+                      <%= link_to edit_activity_path(:id => activity.id) do%>
+                        <%= activity.title %>
+                      <%end%>
+                    </td>
+                    <td>
+                      <%= activity.date.strftime("%d/%m/%Y") %>
+                    </td>
+                    <td>
+                      <%=link_to delete_activity_path(:id => activity.id), :onclick => "return confirm('¿Estás seguro que deseas eliminar este registro?');" do%>
+                        <i class=" icon-cancel-alt-filled"></i>
+                      <%end%>
+                    </td>
+                  </tr>
+                <%end%>
+              </table>
+            <% end %>
+          </div>
+        </div><!-- end step-->
+      </div><!-- end middle-wizard -->
+      <% if @activities %>
+        <div id="bottom-wizard">
+          <%= will_paginate @activities, :params => { :method => :get } %>
+        </div><!-- end bottom-wizard -->
+      <% end %>
+    </div><!-- end Survey container -->
+  </div>
+</section><!-- end section main container -->

@@ -1,0 +1,104 @@
+<section id="wizard_bg">
+  <div class="container" id="admin_users" >
+    <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <h3 class="col-md-9"><i class="icon-user-add"></i> Agregar Participantes : <b><%= @coaching.name%> </b></h3>
+                <div class="col-md-3">
+                  <%= link_to coachees_path(:coaching_id => @coaching.id),  :class => 'button_medium pull-right' do%>
+                      <i class="icon-level-up"></i> Volver
+                  <%end%>
+                </div>
+              </div>
+              <div class="row search pull-left">
+                <%= form_tag add_coachees_search_path(:coaching_id => @coaching.id), :name => 'evaluation', :method => 'put' do %>
+                    <label> Nombre</label>
+                    <input type="text" name="name" value="<%=@name%>" style="margin-right: 20px;" placeholder="Nombre o Apellido"/>
+                    <label>  Instituci&oacute;n </label>
+                    <input type="text" name="institution" value="<%=@institution%>" style="margin-right: 20px;"/>
+                    <label> Sucursal </label>
+                    <input type="text" name="branch" value="<%=@branch%>" style="margin-right: 20px;"/>
+                    <input type="submit" class="button button_medium" value="Buscar">
+                <% end %>
+                </div>
+              <%= form_tag update_coachees_path(:coaching_id => @coaching.id), :name => 'add_coachees' do %>
+
+            <div class="row">
+                <% if !@users.nil? and @users.any? %>
+                    <table class="table table-bordered">
+                      <tr>
+                        <th class="check_member"><input id="checkAll" type="checkbox"> </th>
+                        <th>RUT</th>
+                        <th>Nombre</th>
+                        <th>Instituci&oacute;n</th>
+                        <th>Sucursal</th>
+                      </tr>
+                      <% @users.each do |user| %>
+                          <tr>
+                            <td class="check_member">
+                              <%= check_box_tag 'user_ids[]', user.id, false %>
+                            </td>
+                            <td>
+                              <% if current_user.admin? %>
+                              <%= link_to admin_edit_user_path(:id => user.id) do%>
+                                  <%= user.rut %>
+                              <%end%>
+                              <% else %>
+                                  <%= user.rut %>
+                                <% end %>
+                            </td>
+                            <td><%=user.full_name%></td>
+                            <td><%=user.institution%></td>
+                            <td><%=user.branch%></td>
+                          </tr>
+                      <%end%>
+                    </table>
+                    <div class="row" style="margin-top:30px">
+                      <h4 class="col-md-4 pull-left"></i>Usuarios Agregados: <%=@added_users%></h4>
+                      <div class="col-md-8">
+                        <%= submit_tag 'Agregar Participantes Seleccionados', :class => 'button_medium pull-right', :onclick => 'return addCandidatesCheck()' %>
+                      </div>
+                    </div>
+                <% else %>
+                    <div class="row">
+                        <p class="info">No se encuentran usuarios para este Coaching</p>
+                    </div>
+                <% end %>
+
+              </div>
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <% if @users %>
+              <div id="bottom-wizard">
+                <%= will_paginate @users, :params => { :method => :put } %>
+              </div><!-- end bottom-wizard -->
+          <% end %>
+      <%end%>
+    </div><!-- end Survey container -->
+  </div>
+</section><!-- end section main container -->
+
+<script type="text/javascript" language="javascript">// <![CDATA[
+
+function addCandidatesCheck() {
+
+    var checkboxes = new Array();
+    checkboxes = document['add_members'].getElementsByTagName('input');
+
+    var checked = 0;
+    for (var i=0; i<checkboxes.length; i++)  {
+        if (checkboxes[i].type == 'checkbox' && checkboxes[i].checked )   {
+            checked = checked + 1;
+        }
+    }
+    if (checked == 0)
+    {
+        alert("Debes seleccionar al menos un usuario para agregar")  ;
+        return false;
+    }
+}
+$("#checkAll").change(function () {
+    $("input:checkbox").prop('checked', $(this).prop("checked"));
+});
+</script>

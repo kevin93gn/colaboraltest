@@ -1,0 +1,114 @@
+
+<%= simple_form_for(@course_evaluation, url: new_course_evaluation_path(:course_id => @course_evaluation.course_id ), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+    <%= f.error_notification %>
+    <section id="wizard_bg">
+      <div class="container">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <ol class="breadcrumb">
+                  <li>
+                    <%= link_to root_path do%>
+                        <i class="icon-home"></i> Home
+                    <% end %>
+                  </li>
+                  <li><%= link_to 'Cursos', courses_admin_list_path%></li>
+                  <li class="active">Evaluaciones Curso</li>
+                </ol>
+              </div>
+              <div class="row">
+                <h3 class="col-md-10"><i class="icon-inbox"></i> Nueva Evaluaci&oacute;n: <b><%=@course.name%></b></h3>
+                <p class="col-md-12"></p>
+                <div class="col-md-6">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-pencil"></i> Nombre Evaluaci&oacute;n</label>
+                        <%= f.input :name, required: true, :input_html => { :class => 'required form-control', :id => 'name'}, :label => false, :placeholder => 'Nombre' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-eye"></i> Visible</label>
+                        <%= f.input :visible,
+                                    :as => :radio_buttons,
+                                    :item_wrapper_class => 'inline',
+                                    :checked => false,
+                                    :label => false %>
+                      </div>
+                    </li>
+                    <li id="evaluation_file" style="display: none;">
+                      <div class="form-group">
+                        <label><i class=" icon-upload-cloud"></i> Archivo Evaluaci&oacute;n</label>
+                        <%= f.input :evaluation_file, as: :file, :label => false %>
+                      </div>
+                      <div class="form-group">
+                        <label><i class="icon-flickr-1"></i> Descripci&oacute;n</label>
+                        <%= f.bootsy_area :file_description, required: true,  :label => false, :placeholder => 'Descripción', :input_html => { :style => 'height:90px;', :class => 'required form-control'}, editor_options: {font_styles: false, emphasis: true, color: false, image: false, lists: false } %>
+                      </div>
+                    </li>
+
+                  </ul>
+                </div><!-- end col-md-6 -->
+                <div class="col-md-6">
+                  <ul class="data-list" style="margin:0; padding:0;">
+                    <li id="evaluation-kind" >
+                      <label><i class=" icon-menu"></i> Tipo</label>
+                      <div class="styled-select">
+                        <select id="kind" name="kind">
+                          <option value="manual">Notas subidas por profesor</option>
+                          <% if @module_items.any? %>
+                            <option value="upload">Archivo subido por el usuario</option>
+                            <option value="alternatives">Prueba de alternativas</option>
+                          <% end %>
+                        </select>
+                      </div>
+                    </li>
+                    <li id="module-item" style="display: none">
+                      <label><i class="icon-graduation-cap"></i> Tema (Obligatorio)</label>
+                      <div class="styled-select">
+                        <%= f.input :module_item_id,
+                                    collection: @module_items,
+                                    :label_method => :title,
+                                    :value_method => :id,
+                                    :input_html => {:id => 'module_item_id'},
+                                    :input_html => { :class => 'form-control'},
+                                    :label => false,
+                                    :include_blank => true%>
+                      </div>
+
+                    </li>
+
+
+                  </ul>
+                </div><!-- end col-md-6 -->
+              </div><!-- end row -->
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div><%= f.button :submit, "Crear", :class => 'button_medium' %></div>
+
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>
+
+<script>
+  $(document).ready(function(){
+    $(function() {
+      $('#kind').change(function(){
+        if($('#kind').val() == 'manual') {
+          $("#module-item").hide();
+          $("#evaluation_file").hide();
+        } else {
+          $("#module-item").show();
+          $("#evaluation_file").show();
+
+        }
+      });
+    });
+  });
+
+</script>

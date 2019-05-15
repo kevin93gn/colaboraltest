@@ -1,0 +1,572 @@
+
+li
+{
+    list-style: none;
+}
+
+.fc-view-month .fc-event-time{
+   /* display : none; */
+}
+
+.coaching_banner
+{
+    margin: 8px 0 20px;
+}
+
+.subtitled
+{
+    margin-bottom: 10px !important;
+    padding-bottom: 0 !important;
+}
+.subtitle{
+    color: #AAAAAA;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+.delete_button, a.delete_button {
+    border:none;
+    background:#ff6666;
+    color:#fff;
+    outline:none;
+
+    text-decoration:none;
+    transition: background .5s ease;
+    -moz-transition: background .5s ease;
+    -webkit-transition: background .5s ease;
+    -o-transition: background .5s ease;
+    display:inline-block;
+    cursor:pointer;
+    font-weight:700;
+    -webkit-font-smoothing: antialiased;
+}
+.delete_button:hover, a.delete_button:hover {background:#262c2d;}
+
+/*Login*/
+
+#login h2
+{
+margin-top: 0px;
+}
+#login .button_fullwidth
+{
+    margin-top: 15px;
+    margin-bottom: 10px;
+
+}
+
+#middle-wizard h3
+{
+    padding-bottom: 30px;
+}
+
+
+/*Coaching*/
+
+.ct-line, .ct-point {
+    stroke: #555 !important;
+    /* Make your points appear as squares */
+    stroke-linecap: square !important;
+}
+.ct-point
+{
+    stroke-width: 8px !important;
+}
+.ct-line
+{
+    stroke-width: 2px !important;
+}
+.ct-horizontal
+{
+ /*   margin-left: -25px !important;*/
+}
+
+h2.graph_title span
+{
+    font-size: 14px !important;
+}
+.view_more_link
+{
+    padding: 2px 1px 1px 3px;
+    background-color: #488DC6;
+    font-size: 11px;
+    color: white;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    margin-top: 15px;
+}
+#home_coaching  h2
+{
+    font-size: 18px;
+    margin: 18px 0 27px;
+}
+#home_coaching h4
+{
+    font-size: 15px !important;
+}
+#home_coaching  h2 span
+{
+    color: #AAAAAA;
+}
+#home_coaching .graph h2
+{
+    text-align: center;
+    font-size: 18px;
+}
+#home_coaching ul.news
+{
+    padding-left: 0 !important;
+}
+#home_coaching ul.news li
+{
+    padding: 4px 2px;
+}
+#home_coaching ul.news li p.news_title
+{
+  font-size: 18px;
+    font-weight: bold;
+}
+#home_coaching .news_preview
+{
+    margin: 10px 0;
+    height: 80px;
+    overflow: hidden;
+}
+#home_coaching .name
+{
+    font-size: 18px;
+    line-height: 2;
+}
+#home_coaching .title-link
+{
+    padding: 19px 7px 0 0 !important;
+    text-align: right;
+
+}
+#coaching-home-calendar
+{
+    margin-bottom: 30px;
+
+}
+#home_coaching .title-link a
+{
+    font-size: 14.5px;
+    color: #488dc6;
+}
+#home_coaching .title-link a:hover
+{
+    color: #08424E;
+}
+#home_coaching .graph #chart_coachee
+{
+    height: 230px;
+}
+
+.coaching_no_data p.info
+{
+    font-size: 19px !important;
+    padding: 0px 12px;
+}
+
+.goal-fulfilled
+{
+    color: #7CDC7C !important;
+}
+.goal-in-progress
+{
+    color: #FDFC9B !important;
+}
+.goal-not-fulfilled
+{
+    color: #ED5F74 !important;
+}
+
+#home_coaching .row-2
+{
+    border-bottom: 1px solid #eee;
+    margin: 0;
+}
+#home_coaching .row-2, #home_coaching .row-3
+
+{
+    padding-left: 20px !important;
+}
+#home_coaching .goals
+{
+    padding-right: 25px !important;
+}
+
+#home_coaching .col-1
+{
+    border-right: 1px solid #eee;
+    min-height: 240px;
+}
+#home_coaching .sessions
+{
+    padding-left:0 ;
+}
+#show_news .old_news
+{
+    margin-top: 0px !important;
+}
+
+.show_news_detail p
+{
+    font-size: 18px !important;
+}
+
+#show_news .old_news h4
+{
+    margin-bottom: 20px;
+}
+.latest_news_no_image_title
+{
+    width: 150px !important;
+    height: 125px !important;
+    padding-top: 20px;
+}
+
+#show_news .old_news .old_news_detail
+{
+    padding: 2px 15px 10px 30px !important;
+}
+.old_news .data-lessons
+{
+    margin-top: 5px;
+}
+.strip_single_course p
+{
+    font-size: 12px;
+    padding: 0 20px 5px 50px;
+}
+#import_users
+{
+    min-height: 250px;
+}
+#import_users p.subtitle
+{
+    margin-bottom: 30px;
+}
+#lost_password
+{
+    min-height: 250px;
+}
+#lost_password h3
+{
+    text-align: center;
+    margin-bottom: 35px;
+}
+.error
+{
+    float:left;
+    width: 100%;
+    display: block;
+    color:red;
+    margin-top: -10px;
+    margin-bottom: 18px;
+}
+
+#admin_users h3
+{
+    margin-bottom: 40px;
+}
+#contact_modal
+{
+    margin-top: 79px;
+}
+#contact_modal .modal-body
+{
+    font-size: 17px;
+    text-align: center;
+    line-height: 30px;
+}
+.course_info h4
+{
+    font-size: 16px !important;
+    height: 39px;
+}
+
+p.info
+{
+    font-size: 23px;
+    color: #aaa;
+    text-align: center;
+    margin: 60px 0 150px;
+}
+
+div.pdi p
+{
+    font-size: 19px;
+    color: #aaa;
+    text-align: center;
+    margin: 10px 0 30px;
+}
+
+div.pdi h2
+{
+    text-align: center;
+}
+
+textarea#course_description, textarea#user_info, textarea#module_item_data_description, #text_area_coaching
+{
+    height:143px
+}
+
+.new_session
+{
+    padding: 15px 8px !important;
+    display: block;
+    margin: 7px 0 35px;
+
+}
+
+
+.bootsy_text_area
+{
+    width: 600px;
+    height: 210px;
+    border-color: #ececec !important;
+}
+
+#mail_confirmation p
+{
+    float:left;
+    width: 100%;
+    line-height: 34px;
+}
+#module-item-file
+{
+    margin-top:34px;
+}
+#modules
+{
+    padding: 20px 0;
+}
+#modules table
+{
+    margin-top: 60px;
+}
+.no-data
+{
+    float: left;
+    width: 100%;
+    margin: 40px 0;
+    font-size: 20px;
+    color: #aaa;
+    text-align: center;
+}
+.step
+{
+    margin-top: 15px;
+}
+#coaching_activity_show .form-group
+{
+    font-size: 16px;
+}
+.btn-details
+{
+    padding-left: 95px !important;
+}
+.btn-details a
+{
+    display: block;
+    width:140px !important;
+}
+.disabled_button
+{
+    border: 2px solid #ddd !important;
+    color: #ddd;
+}
+.disabled_button:hover
+{
+    border: 2px solid #ddd !important;
+    color: #ddd;
+}
+
+#video_player h2
+{
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#alma_video_player
+{
+    margin-bottom: 40px;
+}
+
+#alma_photo img
+{
+    width: 300px !important;
+    margin: 0 25px;
+}
+.slick-prev:before, .slick-next:before { font-family: "lucida grande"; font-size: 40px; line-height: 1; color: #29444F; opacity: 0.75; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+.slick-prev:before { content: "‹"; }
+[dir="rtl"] .slick-prev:before { content: "›"; }
+
+[dir="rtl"] .slick-next { left: -10px; top: 70px; right: auto; }
+.slick-next:before { content: "›"; }
+[dir="rtl"] .slick-next:before { content: "‹"; }
+
+.completed_course_tag
+{
+    padding: 1px 5px;
+    margin-bottom: 2px;
+    background-color: #aaa;
+    font-size: 11px;
+    color: white;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.calendar_link_tag
+{
+    padding: 4px 6px 2px;
+    margin-top: 3px;
+    background-color: #407181;
+    font-size: 11px;
+    color: white;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+.calendar_link_tag a
+{
+    color:white;
+    font-size:13px;
+}
+.calendar_link_tag a:hover
+{
+    color:#AAA;
+}
+.external-event a
+{
+    color:white !important;
+}
+.external-event a:hover
+{
+    color:#777 !important;
+}
+#module-item-download-box
+{
+    margin-bottom: 10px;
+}
+#module-item-download-box a
+{
+    -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: antialiased;
+    font-size: 14px;
+    font-weight: bold;
+    padding-top: 10px;
+}
+#module-item-download-box p
+{
+font-size: 13px;
+padding: 10px 0 20px;
+}
+
+th.check_member
+{
+    width: 18px;
+    text-align: center;
+}
+
+
+.reports p.subtitle
+{
+    color: #999 !important;
+    font-size: 12px !important;
+    margin-bottom: 7px !important;
+
+}
+.reports p.data
+{
+    font-size: 16px !important;
+}
+
+.reports .form-group
+{
+    margin-bottom: 32px !important;
+}
+.reports .form-group label
+{
+    margin-bottom: 9px !important;
+}
+
+.simple_form_radio_buttons {
+    float: left;
+    height: auto;
+margin-bottom: 20px;
+}
+.simple_form_radio_buttons span {
+    height: auto;
+    width: 100%;
+    float: left;
+    margin-top: 5px;
+}
+.simple_form_radio_buttons span label {
+ padding-left: 20px;
+    font-size: 12px;
+    columns: #BBB;
+}
+/*Pagination*/
+
+.pagination {
+    background: white;
+    cursor: default;
+    /* self-clearing method: */ }
+.pagination a, .pagination span, .pagination em {
+    padding: 0.2em 0.5em;
+    display: block;
+    float: left;
+    margin-right: 1px; }
+.pagination .disabled {
+    color: #999999;
+    border: 1px solid #dddddd; }
+.pagination .current {
+    font-style: normal;
+    font-weight: bold;
+    background: #2e6ab1;
+    color: white;
+    border: 1px solid #2e6ab1; }
+.pagination a {
+    text-decoration: none;
+    color: #105cb6;
+    border: 1px solid #9aafe5; }
+.pagination a:hover, .pagination a:focus {
+    color: #000033;
+    border-color: #000033; }
+.pagination .page_info {
+    background: #2e6ab1;
+    color: white;
+    padding: 0.4em 0.6em;
+    width: 22em;
+    margin-bottom: 0.3em;
+    text-align: center; }
+.pagination .page_info b {
+    color: #000033;
+    background: #6aa6ed;
+    padding: 0.1em 0.25em; }
+.pagination:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden; }
+* html .pagination {
+    height: 1%; }
+*:first-child + html .pagination {
+    overflow: hidden; }
+
+.hidden {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+

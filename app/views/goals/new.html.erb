@@ -1,0 +1,80 @@
+    <%= simple_form_for(@goal, url: new_goal_path(:coaching_id => @goal.coaching_id, :user_id => (@coachee.nil? ? nil:@coachee.id)), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+    <%= f.error_notification %>
+    <section id="wizard_bg">
+      <div class="container">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <% if @coachee.nil? %>
+                    <h3 class="col-md-9"><i class="icon-puzzle-1"></i> Nuevo Compromiso Global</h3>
+
+                    <div class="col-md-3">
+                      <%= link_to goals_path(:coaching_id => @goal.coaching_id),  :class => 'button_medium pull-right' do%>
+                          <i class="icon-level-up"></i> Volver
+                      <%end%>
+                    </div>
+                <% else %>
+                    <h3 class="col-md-9"><i class="icon-puzzle-1"></i> Nuevo Compromiso : <b><%= @coachee.full_name %></b></h3>
+                    <div class="col-md-3">
+                      <%= link_to coachee_goals_path(:coaching_id => @goal.coaching_id, :coachee_id => @coachee.id),  :class => 'button_medium pull-right' do%>
+                          <i class="icon-level-up"></i> Volver
+                      <%end%>
+                    </div>
+                <% end %>
+                <p class="col-md-12"></p>
+                <div class="col-md-6">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-check-1"></i> Descripción</label>
+                        <%= f.input :name, required: true, :input_html => { :class => 'required form-control', :id => 'email'}, :label => false, :placeholder => 'Nombre' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-progress-2"></i> Porcentaje (N&uacutemero 0-100, sin signo %)</label>
+                        <%= f.input :percentage, :as => 'string' ,required: true, :input_html => { :class => 'required form-control', :id => 'email'}, :label => false, :placeholder => '%' %>
+                        <% unless flash[:percentage_error].nil?%>
+                            <span class="error"><%=flash[:percentage_error]%></span>
+                        <% end %>
+                      </div>
+                    </li>
+
+                  </ul>
+                </div><!-- end col-md-6 -->
+
+                <div class="col-md-6">
+                  <ul class="data-list" style="margin:0; padding:0;">
+                    <li>
+                      <div class="form-group" style="height: 73px;display: block">
+                        <label><i class="icon-calendar-empty"></i> Fecha Termino:</label>
+                        <%= f.input :end_date, as: :date, start_year: Date.today.year,
+                                    end_year: Date.today.year + 3, discard_day: false,
+                                    order: [:day, :month, :year], label: false %>
+                      </div>
+                    </li>
+                    <li>
+                      <label><i class="icon-menu-1"></i> M&oacute;ulo </label>
+                      <div class="styled-select">
+                        <%= f.input :subfactor,
+                                    collection: @subfactors,
+                                    :input_html => { :class => 'form-control'},
+                                    :label => false,
+                                    :include_blank => false%>
+                      </div>
+                    </li>
+                  </ul>
+
+                </div><!-- end col-md-6 -->
+              </div><!-- end row -->
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div><%= f.button :submit, "Crear", :class => 'button_medium' %></div>
+
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>

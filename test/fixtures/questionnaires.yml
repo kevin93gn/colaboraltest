@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  completed: false
+  visible: false
+  course_id: 1
+
+two:
+  completed: false
+  visible: false
+  course_id: 1

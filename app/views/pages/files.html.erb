@@ -1,0 +1,50 @@
+<section id="wizard_bg">
+  <div class="container" id="mail_confirmation" >
+    <div id="survey_container">
+      <div id="middle-wizard">
+        <div class="step">
+          <div class="row">
+            <h3 class="col-md-12"><i class="icon-download-6"></i>Descargar Archivos</h3>
+          </div>
+          <div class="row">
+            <table class="table table-bordered">
+              <tr>
+                <th width="200">Nombre</th>
+                <th width="400">Descripci&oacute;n</th>
+                <th width="40">Descargar</th>
+              </tr>
+                  <tr>
+                    <td>
+                      <%= link_to "/files/Descripción del programa_ALma.pdf", :target => '' do%>
+                          Descripcion del programa
+                      <%end%>
+                    </td>
+                    <td width="">
+                      Aqu&iacute; podr&aacute;s descargar un resumen del programa de certificaci&oacute;n en atenci&oacute;n ciudadana del Instituto de Prevision Social, que explica y detalla desde sus objetivos, metodolog&iacute;a y etapas.                    </td>
+                    <td>
+                      <%= link_to "/files/Descripción del programa_ALma.pdf", :target => '',  :class => ' pull-left' do%>
+                          <i class="icon-download-cloud"></i>
+                      <%end%>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <%= link_to "/files/Reglamento Alumnos.ppt", :target => '' do%>
+                          Reglamento de los alumnos
+                      <%end%>
+                    </td>
+                    <td width="">
+                      Aqu&iacute; podr&aacute;s descargar los reglamentos y requisitos para poder aprobar el proceso de certificaci&oacun en atención ciudadana del Instituto de Prevision Social                    </td>
+                    <td>
+                      <%= link_to "/files/Reglamento Alumnos.ppt", :target => '',  :class => ' pull-left' do%>
+                          <i class="icon-download-cloud"></i>
+                      <%end%>
+                    </td>
+                  </tr>
+            </table>
+            </div>
+        </div><!-- end step-->
+      </div><!-- end middle-wizard -->
+    </div><!-- end Survey container -->
+  </div>
+</section><!-- end section main container -->

@@ -1,0 +1,111 @@
+<section id="wizard_bg">
+  <div class="container" id="admin_users" >
+    <div id="survey_container">
+      <div id="middle-wizard">
+        <div class="step">
+          <div class="row">
+          <ol class="breadcrumb">
+            <li>
+              <%= link_to root_path do%>
+                  <i class="icon-home"></i> Home
+              <% end %>
+            </li>
+            <li><%= link_to 'Notas Evaluaciones', course_evaluations_path%></li>
+            <li class="active"><%=@evaluation.name%></li>
+          </ol>
+        </div>
+          <div class="row">
+            <h3 class="col-md-8"><i class=" icon-pencil"></i>Notas: <b><%=@evaluation.name%></b></h3>
+            <div class="col-md-4">
+
+
+              <%if @evaluation.kind == 'Manual'%>
+                <%= link_to new_grade_path(:course_id => @evaluation.course_id, :course_evaluation_id => @evaluation.id),  :class => 'button_medium pull-right' do%>
+                    <i class="icon-plus"></i> Agregar Nota
+                <%end%>
+                <%= link_to import_grades_path(:course_id => @evaluation.course_id, :id => @evaluation.id),  :class => 'button_medium pull-right' do%>
+                    <i class="icon-upload-cloud-1"></i> Carga Masiva
+                <%end%>
+              <%end%>
+
+            </div>
+          </div>
+            <div class="row">
+              <div class="col-md-12">
+                <% if !@grades.nil? and @grades.count > 0 %>
+                    <table class="table table-bordered">
+                      <tr>
+                        <th>Nombre</th>
+                        <% if @evaluation.user_upload_expected%>
+                          <th>Archivo Usuario</th>
+                        <% end %>
+                        <% if @evaluation.kind == 'Alternatives' or @evaluation.kind == 'Upload Test'%>
+                          <th>
+                            Evaluar
+                          </th>
+                        <% end %>
+                        <th>Nota</th>
+                        <th>Fecha</th>
+                        <th>Eliminar</th>
+                      </tr>
+                      <% @grades.each do |g| %>
+                          <% module_item_user = ModuleItemsUsers.where(:module_item_id => g.course_evaluation.module_item_id, :user_id => g.user_id).first%>
+                          <tr>
+                            <td>
+                              <% if @evaluation.kind == 'Alternatives' %>
+                                  <%= link_to alternative_evaluation_path(:course_id => g.course_id, :id => g.id, :course_evaluation_id => g.course_evaluation_id) do %>
+                                      <%= g.user.full_name%>
+                                  <% end %>
+                              <% elsif @evaluation.kind == 'Upload Test' %>
+                                  <%= link_to file_evaluation_path(:course_id => g.course_id, :id => g.id, :course_evaluation_id => g.course_evaluation_id) do %>
+                                      <%= g.user.full_name%>
+                                  <% end %>
+                              <% else %>
+                                <%= link_to edit_grade_path(:id => g.id, :course_id => @evaluation.course_id, :course_evaluation_id => @evaluation.id) do %>
+                                  <%= g.user.full_name%>
+                                <% end %>
+                              <% end %>
+                            </td>
+                            <% if @evaluation.kind == 'Upload Test' and module_item_user.evaluation_file.length > 0 %>
+                                <td>
+                                  <a href="<%=module_item_user.evaluation_file%>" target="_blank">
+                                    <i class="icon-upload-cloud"></i> Ver Archivo
+                                  </a>
+                                </td>
+                            <% end %>
+                            <% if @evaluation.kind == 'Alternatives' %>
+                              <td>
+                                <%= link_to alternative_evaluation_path(:course_id => g.course_id, :id => g.id, :course_evaluation_id => g.course_evaluation_id) do %>
+                                  Evaluar
+                                <% end %>
+                              </td>
+                            <% elsif @evaluation.kind == 'Upload Test' %>
+                                <td>
+                                <%= link_to file_evaluation_path(:course_id => g.course_id, :id => g.id, :course_evaluation_id => g.course_evaluation_id) do %>
+                                    <%= g.user.full_name%>
+                                <% end %>
+                                </td>
+                          <% end %>
+                            <td><%=g.grade%></td>
+                            <td>
+                              <%= g.created_at.strftime("%d/%m/%Y")%>
+                            </td>
+                            <td>
+                              <%=link_to delete_grade_path(:id => g.id, :course_id => @evaluation.course_id, :course_evaluation_id => @evaluation.id), :onclick => "return confirm('¿Estás seguro que deseas eliminar este registro?');" do%>
+                                  <i class=" icon-cancel-alt-filled"></i>
+                              <%end%>
+                            </td>
+                          </tr>
+                      <%end%>
+                    </table>
+                <%else%>
+                    <p class="info">En este momento no hay ninguna nota en esta evaluaci&oacute;n</p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div><!-- end step-->
+      </div><!-- end middle-wizard -->
+    </div><!-- end Survey container -->
+  </div>
+</section><!-- end section main container -->

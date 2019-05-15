@@ -1,0 +1,25 @@
+
+
+
+<section id="main_content">
+  <div class="container">
+
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to root_path do%>
+          <i class="icon-home"></i> Home
+        <% end %>
+      </li>
+      <li class="active">Mis Cursos</li>
+    </ol>
+
+    <div class="row">
+      <%= render 'questionnaire/filters' %>
+      <div class="col-lg-9 col-md-8 col-sm-8">
+        <div class="row">
+          <h3><i class="icon-mail"></i> Enviar Mensajes</h3>
+          <p class="info">Seleccionar un destinatario</p>
+        </div><!-- End row -->
+      </div><!-- End col-lg-9-->
+    </div><!-- End row -->
+  </div></section>

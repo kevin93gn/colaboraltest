@@ -1,0 +1,130 @@
+<section id="wizard_bg">
+  <div class="container reports">
+    <div id="survey_container">
+      <div id="middle-wizard">
+        <div class="step">
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to root_path do%>
+          <i class="icon-home"></i> Home
+        <% end %>
+      </li>
+      <li class="active"><%= @course.name %></li>
+    </ol>
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <h3><i class="icon-user-add"></i> Reporte Avance  : <b><%= @course.name %> </b> </h3>
+
+
+        <div class="row">
+          <p class="col-md-12"></p>
+          <div class="col-md-12">
+            <ul class="data-list">
+              <li>
+                <div class="form-group">
+                  <label><i class=" icon-user-2"></i> Nombre Usuario</label><br>
+                  <p class="data"> <i class=" icon-level-down-1"></i>  <%= "#{@user.first_name} #{@user.last_name}" %> </p>
+                </div>
+              </li>
+              <li>
+                <div class="form-group">
+                  <label><i class="icon-bat2"></i>Porcentaje Completado</label><br>
+                  <div class="col-md-8" style="padding-left: 0px !important;">
+                    <span> <i class=" icon-level-down-1"></i> El alumno ha completado <strong><%=@complete_items%></strong> de <strong><%=@item_count%></strong> temas</span><span id="end"><i class="icon-ok-circled2"></i></span>
+                    <div class="progress">
+                      <div class="progress-bar progress-bar-info" role="progressbar" data-percentage="<%=@course_completion%>"></div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div><!-- end col-md-6 -->
+
+        </div><!-- end row -->
+        <br/>
+        <h4> <i class="icon-flickr"></i> Detalle </h4>
+        <% unless @course.course_modules.nil? %>
+
+          <% @course.course_modules.order(:position => :asc).each do |course_module| %>
+
+            <h5>M&oacute;dulo : <b><%=course_module.name%></b></h5>
+            <table class="table table-bordered">
+              <tr>
+                <th width="40"></th>
+                <th>Tema</th>
+                <th width="170">Estado</th>
+                <th width="140">Fecha</th>
+              </tr>
+
+            <% course_module.module_items.order(:position => :asc).each do |item| %>
+                <% module_item_user = ModuleItemsUsers.where(:user_id => current_user.id, :module_item_id => item.id).first %>
+                <tr>
+                  <td>
+                    <% if module_item_user and module_item_user.status %>
+                      <i class="icon-ok"></i>
+                    <% else %>
+                      <i class="icon-cancel"></i>
+                    <% end %>
+                  </td>
+                  <td> <%=item.title %> </td>
+                  <td>
+                    <% if module_item_user and module_item_user.status %>
+                      Completado
+                    <% else %>
+                      Pendiente
+                    <% end %>
+                  </td>
+
+                  <td>
+                    <% unless module_item_user.nil? %>
+                      <%= module_item_user.updated_at.strftime("%d/%m/%Y") %>
+                    <% else %>
+                      -
+                    <% end %>
+                  </td>
+                </tr>
+            <%end%>
+            </table>
+
+          <%end%>
+        <%end%>
+
+      </div><!-- End col-md-8  -->
+
+    </div><!-- End row -->
+  </div><!-- End container -->
+
+      </div><!-- end bottom-wizard -->
+    </div><!-- end Survey container -->
+</section><!-- end section main container -->
+
+<script type="text/javascript">
+  /* <![CDATA[ */
+
+  setTimeout(function(){
+
+    $('.progress .progress-bar').each(function() {
+      var me = $(this);
+      var perc = me.attr("data-percentage");
+
+      var current_perc = 0;
+
+      var progress = setInterval(function() {
+        if (current_perc>=perc) {
+          clearInterval(progress);
+        } else {
+          current_perc +=1;
+          me.css('width', (current_perc)+'%');
+        }
+
+        me.text((current_perc)+'%');
+
+      }, 50);
+
+    });
+
+  },500);
+  /* ]]> */
+</script>

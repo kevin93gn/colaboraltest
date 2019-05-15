@@ -1,0 +1,209 @@
+
+<%= simple_form_for(@user, url: registration_path(@user), html: { method: :post,  autocomplete: 'off' }) do |f| %>
+    <%= f.error_notification %>
+    <section id="wizard_bg">
+      <div class="container">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <h3 class="col-md-12 subtitled"><i class="icon-login"></i> Registrarse</h3>
+                <p class="subtitle">Registrate para poder acceder a todos nuestros cursos</p>
+                <h4><i class="icon-person"></i> Datos Personales</h4>
+                <p class="col-md-12"></p>
+                <div class="col-md-6">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-mail"></i> Email</label>
+                        <%= f.input :email, required: true, autofocus: true, :input_html => { :class => 'required form-control', :id => 'email'}, :label => false, :placeholder => 'Nombre' %>
+                        <%=f.hidden_field :external_user, :value => true %>
+                        <%=f.hidden_field :role, :value => 'usuario'%>
+
+                        <input id="fake_user_name" name="fake_user[name]" style="position:absolute; top:-100px; display:none;" type="text" value="Safari Autofill Me">
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-user-1"></i> Nombre</label>
+                        <%= f.input :first_name, autocomplete: 'off', :input_html => { :class => 'required form-control name'}, :label => false,  :placeholder => 'Nombre' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class=" icon-phone"></i> Tel&eacute;fono</label>
+                        <%= f.input :phone, autocomplete: 'off', :input_html => { :class => 'required form-control name'}, :label => false,  :placeholder => 'Teléfono' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-lock"></i> Password</label>
+                        <%= f.input :password, autocomplete: "off", required: false, :input_html => { :class => 'required form-control name'}, :label => false, :placeholder => 'Password'  %>
+                      </div>
+                    </li>
+
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-ok-4"></i> Confirmar Password</label>
+                        <%= f.input :password_confirmation, required: false, :input_html => { :class => 'required form-control name'}, :label => false,  :placeholder => 'Confirmar Password' %>
+                      </div>
+                    </li>
+                  </ul>
+                </div><!-- end col-md-6 -->
+                <div class="col-md-6">
+                  <ul class="data-list" style="margin:0; padding:0;">
+                    <li>
+                      <div class="form-group">
+                        <label><i class=" icon-vcard"></i> RUT</label>
+                        <%= f.input :rut, :autocomplete => :off , :input_html => { :class => 'required form-control'}, :label => false, :placeholder => 'RUT con puntos y guión' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-users-1"></i> Apellido</label>
+                        <%= f.input :last_name, autocomplete: 'off', :input_html => { :class => 'required form-control', :id => 'last_name'}, :label => false,  :placeholder => 'Apellido' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-mobile-1"></i> Tel&eacute;fono M&oacute;vil</label>
+                        <%= f.input :mobile, autocomplete: 'off', :input_html => { :class => 'required form-control name'}, :label => false,  :placeholder => 'Teléfono' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-coffee"></i> Cargo</label>
+                        <%= f.input :profession, :autocomplete => :off , :input_html => { :class => 'required form-control'}, :label => false, :placeholder => 'Profesión', :required => true%>
+                      </div>
+                    </li>
+
+
+                </div><!-- end col-md-6 -->
+              </div><!-- end row -->
+
+              <div class="row">
+                <h4><i class="icon-industrial-building"></i> Datos Empresa</h4>
+                <p class="col-md-12"></p>
+                <div class="col-md-6">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-industrial-building"></i> Nombre Empresa</label>
+                        <%= f.input :company_name, autocomplete: 'off', :input_html => { :class => 'required form-control name'}, :label => false,  :placeholder => 'Nombre Empresa' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-mail-alt"></i> Email Empresa</label>
+                        <%= f.input :company_email, required: true, autofocus: true, :input_html => { :class => 'required form-control', :id => 'email'}, :label => false, :placeholder => 'Email Empresa' %>
+                        <%=f.hidden_field :role, :value => 'usuario'%>
+                        <input id="fake_user_name" name="fake_user[name]" style="position:absolute; top:-100px; display:none;" type="text" value="Safari Autofill Me">
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-map-1"></i> Regi&oacute;n</label>
+                        <%= f.input :company_region,
+                                    :collection => ['Región Metropolitana de Santiago',
+                                                    'Tarapacá',
+                                                    'Antofagasta',
+                                                    'Atacama',
+                                                    'Coquimbo',
+                                                    'Valparaíso',
+                                                    'Región del Libertador Gral. Bernardo O’Higgins',
+                                                    'Región del Maule',
+                                                    'Región del Biobío',
+                                                    'Región de la Araucanía',
+                                                    'Región de Los Ríos',
+                                                    'Región de Los Lagos',
+                                                    'Región Aisén del Gral. Carlos Ibáñez del Campo',
+                                                    'Región de Magallanes y de la Antártica Chilena',
+                                                    'Región Metropolitana de Santiago'],
+                                    :input_html => { :class => 'form-control', :id => ''},
+                                    :label => false,
+                                    :include_blank => false%>
+                      </div>
+                    </li>
+
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-flickr-circled"></i> Tipo Empresa</label>
+                        <%=f.input :company_type,
+                                   :as => :radio_buttons,
+                                   :collection => ['Pública', 'Privada'],
+                                   :item_wrapper_class => 'inline',
+                                   :input_html => {:class => 'company_type'},
+                                   :checked => 'Pública',
+                                   :label => false
+                        %>
+                      </div>
+                    </li>
+                  </ul>
+                </div><!-- end col-md-6 -->
+                <div class="col-md-6">
+                  <ul class="data-list" style="margin:0; padding:0;">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-credit-card"></i> RUT Empresa</label>
+                        <%= f.input :company_rut, :autocomplete => :off , :input_html => { :class => 'required form-control'}, :label => false, :placeholder => 'RUT Empresa con puntos y guión' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-phone-1"></i> Tel&eacute;fono de Contacto</label>
+                        <%= f.input :company_phone, autocomplete: 'off', :input_html => { :class => 'required form-control', :id => 'last_name'}, :label => false,  :placeholder => 'Teléfono de Contacto' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-location"></i> Direcci&oacute;n (Comuna, Calle y Numeraci&oacute;n)</label>
+                        <%= f.input :company_address, :autocomplete => :off , :input_html => { :class => 'required form-control'}, :label => false, :placeholder => 'Comuna, Calle, Número', :required => true%>
+                      </div>
+                    </li>
+                    <li id="public-activity">
+                      <label><i class=" icon-graduation-cap"></i> Rubro o actividad principal</label>
+                      <div class="styled-select">
+                        <%= f.input :company_activity,
+                                    :collection => ['Salud', 'Educación', 'Municipio', 'Otros organismos del Estado'],
+                                    :input_html => { :class => 'form-control', :id => ''},
+                                    :label => false,
+                                    :include_blank => false%>
+                      </div>
+                    </li>
+                    <li id="private-activity" class="hidden">
+                      <label><i class="icon-truck"></i> Rubro o actividad principal</label>
+                      <div class="styled-select">
+                        <%= f.input :company_activity,
+                                    :collection => ['Agropecuario Silvícola', 'Pesca extractiva', 'Minería', 'Industria Manufacturera', 'Electricidad, Gas y Agua', 'Construcción', 'Comercio, restaurantes y hoteles', 'Transporte y comunicaciones', 'Servicios financieros y empresariales', 'Servicios sociales, personales y comunales', 'Vivienda'],
+                                    :input_html => { :class => 'form-control', :id => ''},
+                                    :label => false,
+                                    :include_blank => false%>
+                      </div>
+                    </li>
+                </ul>
+                </div><!-- end col-md-6 -->
+              </div><!-- end row -->
+
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div><%= f.button :submit, "Registrarse", :class => 'button_medium' %></div>
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>
+
+<script>
+    $(".company_type").on("click", function() {
+        var type = $(this).attr("value")
+        if (type == 'Pública'){
+            $('#public-activity').removeClass("hidden");
+            $('#private-activity').addClass("hidden");
+        };
+        if(type=="Privada"){
+            $('#private-activity').removeClass("hidden");
+            $('#public-activity').addClass("hidden");
+            }
+    });
+</script>

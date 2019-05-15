@@ -1,0 +1,75 @@
+
+<%= simple_form_for(@questionnaire, url: course_evaluation_questionnaire_update_path(:questionnaire_id => @questionnaire.id), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+    <%= f.error_notification %>
+    <section id="wizard_bg">
+      <div class="container">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <ol class="breadcrumb">
+                  <li>
+                    <%= link_to root_path do%>
+                        <i class="icon-home"></i> Home
+                    <% end %>
+                  </li>
+                  <li><%= link_to 'Cursos', courses_admin_list_path%></li>
+                  <li><%= link_to @evaluation.name , course_evaluations_path(:course_id => @course.id)%></li>
+                  <li class="active">Prueba de alternativas</li>
+                </ol>
+              </div>
+              <div class="row">
+                <h3 class="col-md-8"><i class="icon-flickr"></i>Cuestionario Evaluaci&oacute;n : <b><%= @evaluation.name %></b></h3>
+                <%= link_to course_evaluation_new_question_path(:questionnaire_id => @questionnaire.id),  :class => 'button_medium pull-right' do%>
+                    <i class="icon-plus"></i> Agregar Pregunta
+                <%end%></h3>
+                <p class="col-md-12"></p>
+                <div class="col-md-12">
+                  <ul class="data-list">
+                    <li>
+                      <h3>Preguntas </h3>
+                    </li>
+                    <% for question in @questionnaire.course_evaluation_questions.order('position ASC')%>
+                        <li>
+                          <h4>
+                            <%= link_to course_evaluation_edit_question_path(:course_id => @course.id, :evaluation_id => @questionnaire.evaluation_id, :question_id => question.id) do%>
+                                <label style="width: 100%;" class="pull-left"><b><%= "#{question.position}"%>. <%=question.text.html_safe%></b></label>
+                            <% end %>
+                          </h4>
+                          <% for question_alternative in question.course_evaluation_question_alternatives.order('position ASC') %>
+                              <p> <%="#{question_alternative.position}. #{question_alternative.text}"%> <i class="<%=(question_alternative.position == question.correct_answer) ? 'icon-check-1':'' %>"></i></p>
+                          <% end%>
+                        </li>
+                    <% end %>
+                    <br />
+                    <br />
+                    <% if @questionnaire.course_evaluation_questions.count > 0 %>
+                        <li>
+                          <div class="form-group">
+                            <label><i class="icon-eye-4"></i> ¿Cuestionario Visible?</label></br>
+                            <span style="font-size: 12px;">Favor revisar las preguntas antes de hacer visible el calendario, ya que las nuevas preguntas que se puedan agregar no se verán reflejadas en las pruebas de los alumnos que ya realizaron el test</span>
+                            <%=f.input :visible,
+                                       :as => :radio_buttons,
+                                       :item_wrapper_class => 'inline',
+                                       :label => false
+                            %>
+                          </div>
+                        </li>
+                    <% else %>
+                        <p class="info">
+                          Para empezar crea una pregunta <i class="icon-up-hand-1"></i>
+                        </p>
+                    <% end%>
+                </div><!-- end col-md-12 -->
+
+              </div><!-- end row -->
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div><%= f.button :submit, "Guardar", :class => 'button_medium' %></div>
+
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>

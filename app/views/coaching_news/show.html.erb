@@ -1,0 +1,57 @@
+<section id="main_content">
+  <div class="container">
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to root_path do%>
+            <i class="icon-home"></i> Home
+        <% end %>
+      </li>
+      <li class="">
+        <%= link_to coachings_path(:coaching_id => @coaching.id) do%>
+            <%= @coaching.name %>
+        <% end %>
+      <li class="active"> Noticias </li>
+    </ol>
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="col-md-9 show_news_title"><i class="icon-doc-6"></i> <%=@news.title%>: <b><%= @coaching.name %></b></h2>
+            <div class="col-md-3">
+              <%= link_to coachings_path(:coaching_id => @coaching.id),  :class => 'button_medium pull-right' do%>
+                  <i class="icon-level-up"></i> Volver
+              <%end%>
+            </div>
+        <br />
+        <br />
+
+        <div class="row">
+          <div class="col-md-2">
+              <% if @news.image.to_s.length != 0 %>
+                  <%= image_tag @news.image, :size => '150'%>
+              <% else %>
+                  <div class="circ-wrapper course_detail pull-left latest_news_no_image_title" ><h3>Colaboral</h3></div>
+              <%end%>
+        </div>
+          <div class="col-md-10 show_news_detail">
+                <%=@news.text.html_safe%>
+                <br/>
+            </div>
+
+        </div>
+        <br />
+            <ul class="data-lessons">
+          <li class="po-markup">
+            <a class="po-link" href="javascript:void(0)" ><i class="icon-clock"></i> <%=@news.created_at.strftime("%d/%m/%Y")%></a>
+          </li>
+          <li class="po-markup">
+            <a class="po-link" href="javascript:void(0)" ><i class="icon-doc-6"></i> Noticias</a>
+          </li>
+          <li class="po-markup">
+            <a class="po-link" href="javascript:void(0)" ><i class="icon-user-1"></i> <%=@news.user.full_name%></a>
+          </li>
+        </ul>
+        <hr class="add_bottom_30">
+        </div>
+      </div><!-- End col-md-8  -->
+    </div><!-- End row -->
+  </div><!-- End container -->
+</section>

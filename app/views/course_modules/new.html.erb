@@ -1,0 +1,39 @@
+<%= simple_form_for(@course_module, url: new_module_path(:course_id => @course_module.course_id), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+  <%= f.error_notification %>
+  <section id="wizard_bg">
+    <div class="container">
+      <div id="survey_container">
+        <div id="middle-wizard">
+          <div class="step">
+            <div class="row">
+              <h3 class="col-md-10"><i class=" icon-book-open"></i> Nuevo M&oacute;dulo</h3>
+              <p class="col-md-12"></p>
+              <div class="col-md-6">
+                <ul class="data-list">
+                  <li>
+                    <div class="form-group">
+                      <label><i class="icon-folder-empty"></i> Nombre</label>
+                      <%= f.input :name, required: true, :input_html => { :class => 'required form-control'}, :label => false, :placeholder => 'Nombre' %>
+                      <%= f.hidden_field :course_id, :value => @course_module.course_id%>
+
+                    </div>
+                  </li>
+                </ul>
+              </div><!-- end col-md-6 -->
+
+              <div class="col-md-6">
+                <ul class="data-list" style="margin:0; padding:0;">
+                </ul>
+
+              </div><!-- end col-md-6 -->
+            </div><!-- end row -->
+          </div><!-- end step-->
+        </div><!-- end middle-wizard -->
+        <div id="bottom-wizard">
+          <div><%= f.button :submit, "Crear", :class => 'button_medium' %></div>
+
+        </div><!-- end bottom-wizard -->
+      </div><!-- end Survey container -->
+    </div>
+  </section><!-- end section main container -->
+<% end %>

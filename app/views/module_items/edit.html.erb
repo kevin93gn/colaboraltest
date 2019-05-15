@@ -1,0 +1,155 @@
+<%= simple_form_for(@item, url: item_edit_path(:course_id => @item.course_id, :course_module_id => @item.course_module_id), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+  <%= f.error_notification %>
+  <section id="wizard_bg">
+    <div class="container">
+      <div id="survey_container">
+        <div id="middle-wizard">
+          <div class="step">
+            <div class="row">
+              <div class="row">
+                <ol class="breadcrumb">
+                  <li>
+                    <%= link_to root_path do%>
+                      <i class="icon-home"></i> Home
+                    <% end %>
+                  </li>
+                  <li><%= link_to @item.course.name, course_edit_path(:id => @item.course_id)%></li>
+                  <li><%= link_to @item.course_module.name, module_edit_path(:course_id => @item.course_id, :id => @item.course_module_id)%></li>
+
+                  <li class="active"><%=@item.title%></li>
+                </ol>
+              </div>
+              <h3 class="col-md-10"><i class=" icon-menu-1"></i> Editar Tema</h3>
+              <p class="col-md-12"></p>
+              <div class="col-md-6">
+                <ul class="data-list">
+                  <li>
+                    <div class="form-group">
+                      <label><i class="icon-user-1"></i> Nombre</label>
+                      <%= f.input :title, required: true, :input_html => { :class => 'required form-control', :id => 'email'}, :label => false, :placeholder => 'Nombre' %>
+                    </div>
+                  </li>
+
+                  <li>
+                    <div class="form-group">
+                      <label><i class="icon-flickr-1"></i> Descripci&oacute;n</label>
+                      <%= f.input :text, :as => 'text', :input_html => { :class => 'required form-control', :id => 'course_description', :style => 'height:177px;'}, :label => false,  :placeholder => 'Descripción' %>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-group">
+                      <label><i class="icon-clipboard-1"></i> Nombre Archivo</label>
+                      <%= f.input :data_title, required: false,  disabled: true, :input_html => { :class => 'required form-control'}, :label => false, :placeholder => 'Nombre Archivo' %>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-group">
+                      <label><i class="icon-flickr-1"></i> Descripci&oacute;n Archivo</label>
+                      <%= f.input :data_description, :as => 'text', disabled: true, :input_html => { :class => 'form-control'}, :label => false,  :placeholder => 'Descripción' %>
+                    </div>
+                  </li>
+                </ul>
+              </div><!-- end col-md-6 -->
+
+              <div class="col-md-6">
+                <ul class="data-list" style="margin:0; padding:0;">
+                  <li>
+                    <div class="form-group">
+                      <label><i class="icon-clock"></i> Duraci&oacute;n en Minutos</label>
+                      <%= f.input :time_in_mins, required: false, :input_html => { :class => 'required form-control'}, :label => false, :placeholder => 'Duración en Mins.' %>
+                    </div>
+                  </li>
+                  <li style="height:230px;">
+
+                  <div class="form-group">
+                      <label><i class=" icon-picture-1"></i>Tipo Media</label>
+                      <%=f.input :media_type,
+                                 :collection => [['youtube', 'Youtube'], ['powtoon', 'Powtoon'], ['slideshare', 'SlideShare'], ['flash', 'Flash'], ['dropbox', 'Video Dropbox'], ['vimeo', 'Video Vimeo'], ['prezi', 'Prezi']] ,
+                                 :label_method => :last,
+                                 :value_method => :first,
+                                 :as => :radio_buttons,
+                                 :item_wrapper_class => 'inline',
+                                 :label => false
+                      %>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-group" id="module-item-media-url" style="display: <%=(@item.media_type != 'flash' ? 'block':'block')%>;">
+                      <label><i class="icon-videocam"></i>C&oacute;digo Referencia Media</label>
+                      <%= f.input :media_url, as: 'string', required: true, :input_html => { :class => 'required form-control', :id => 'video_code'}, :label => false, :placeholder => 'Código de Ref.' %>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-group" id="module-item-presentation" style="display: <%=(@item.media_type == 'flash' ? 'block':'none')%>;">
+                      <label><i class="icon-youtube-3"></i> Adjuntar Archivo Flash
+                      </label>
+                      <%= f.input :presentation, as: :file, :label => false, :input_html => {onchange: ';'}%>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-group" id="module-item-file">
+                      <label><i class="icon-clipboard-1"></i>Cargar Nuevo Archivo</label>
+                      <%= f.input :data, as: :file, :label => false, :input_html => {onchange: 'enableDataFields()'}%>
+                    </div>
+                  </li>
+                  <% if !@item.data.nil? and @item.data.to_s.length != 0 %>
+                    <li>
+                      <div class="form-group" id="module-item-file">
+                        <label><i class="icon-clipboard-1"></i>Eliminar Archivo Cargado</label> <br>
+                        <%= link_to "Eliminar Archivo #{@item.data_title ?  @item.data_title : ''}", delete_file_item_path(:id => @item.id) %>
+                      </div>
+                    </li>
+                  <%end%>
+                </ul>
+
+              </div><!-- end col-md-6 -->
+            </div><!-- end row -->
+          </div><!-- end step-->
+        </div><!-- end middle-wizard -->
+        <div id="bottom-wizard">
+          <div><%= f.button :submit, "Actualizar", :class => 'button_medium' %></div>
+
+        </div><!-- end bottom-wizard -->
+      </div><!-- end Survey container -->
+    </div>
+  </section><!-- end section main container -->
+<% end %>
+
+<script>
+
+  $(document).ready(function(){
+    $('input[type="radio"]').click(function(){
+      if($(this).attr("value")=="youtube"){
+        $("#module-item-media-url").show();
+        $("#module-item-presentation").hide();
+      }
+      if($(this).attr("value")=="dropbox"){
+        $("#module-item-media-url").show();
+        $("#module-item-presentation").hide();
+      }
+      if($(this).attr("value")=="vimeo"){
+        $("#module-item-media-url").show();
+        $("#module-item-presentation").hide();
+      }
+      if($(this).attr("value")=="prezi"){
+        $("#module-item-media-url").show();
+        $("#module-item-presentation").hide();
+      }
+      if($(this).attr("value")=="powtoon"){
+        $("#module-item-media-url").show();
+        $("#module-item-presentation").hide();
+      }
+      if($(this).attr("value")=="slideshare"){
+        $("#module-item-media-url").show();
+        $("#module-item-presentation").hide();
+      }
+      if($(this).attr("value")=="flash"){
+        $("#module-item-presentation").show();
+      }
+    });
+  });
+  function enableDataFields() {
+    $("#module_item_data_title").prop('disabled', false);
+    $("#module_item_data_description").prop('disabled', false);
+  }
+</script>

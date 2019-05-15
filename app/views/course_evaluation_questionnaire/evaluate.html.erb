@@ -1,0 +1,48 @@
+<% i = 0 %>
+<%= form_tag deliver_course_evaluation_path(:id => @evaluation.id, :module_item_id => @module_item.id), :name => 'evaluation' do %>
+    <section id="wizard_bg">
+      <div class="container">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <h3 class="col-md-12"><i class="icon-pencil-1"></i> Evaluaci&oacute;n : <b><%= @course.name %></b></h3>
+                <div class="col-md-6">
+                  <input type="hidden" name="job_offer_id" value="<%=@job_offer_id%>">
+                  <ul class="data-list">
+                    <% if !@error.nil? %>
+                      <p style="color:red; font-size: 16px">
+                        <%=@error%>
+                      </p>
+                      <br/>
+                    <% end %>
+                    <% for question_answer in @questions.order('id ASC') %>
+                        <% question = CourseEvaluationQuestion.find(question_answer.course_evaluation_question_id) %>
+                        <li style="float:left; width: 800px">
+                          <label style="width: 100%;" class="pull-left"><b><%= "#{question.position}"%>. <%=question.text.html_safe%></b></label>
+                          <div class="simple_form_radio_buttons pull-left" style="width: 100%;">
+                            <br/>
+                            <input type="hidden" name="answer[<%=i%>]" value="None">
+                            <% for alternative in question.course_evaluation_question_alternatives %>
+                                <input type="radio" name="answer[<%=i%>]" value="<%=alternative.position%>"> <%= "#{alternative.position}. #{alternative.text}" %>
+                                <br>
+                            <%end%>
+                            <div>
+                        </li>
+                        <%i+=1%>
+                    <%end%>
+                  </ul>
+                </div><!-- end col-md-6 -->
+
+              </div><!-- end row -->
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div>
+              <input type="submit" class="button_medium" value="Evaluar" onclick="return confirm('¿Estás seguro que quieres enviar esta evaluación?');">
+            </div>
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>

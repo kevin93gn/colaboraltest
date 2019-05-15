@@ -1,0 +1,82 @@
+<section id="wizard_bg">
+  <div class="container" id="admin_users" >
+    <div id="survey_container">
+      <%= form_tag remove_subscription_path(:id => @course_id), :name => 'remove_members' do %>
+        <div id="middle-wizard">
+        <div class="step">
+          <div class="row">
+            <h3 class="col-md-8"><i class="icon-user"></i>Usuarios Curso</h3>
+            <div class="col-md-4">
+              <%= link_to create_subscriptions_path,  :class => 'button_medium pull-right' do%>
+                <i class="icon-user-add"></i> Agregar Usuarios
+              <%end%>
+            </div>
+            <% if @users %>
+
+              <table class="table table-bordered">
+                <tr>
+                  <th class="check_member"><i class="icon-check-1"></i> </th>
+                  <th>RUT</th>
+                  <th>Nombre</th>
+                  <th>Instituci&oacute;n</th>
+                  <th>Sucursal</th>
+                  <th>Rol</th>
+                </tr>
+                <% @users.each do |user| %>
+                  <tr>
+                    <td class="check_member">
+                      <%= check_box_tag 'user_ids[]', user.id, false %>
+                    </td>
+                    <td>
+                      <%= link_to admin_edit_user_path(:id => user.id) do%>
+                        <%= user.rut %>
+                      <%end%>
+                    </td>
+                    <td><%=user.full_name%></td>
+                    <td><%=user.institution%></td>
+                    <td><%=user.branch%></td>
+                    <td><%=user.role%></td>
+                  </tr>
+                <%end%>
+              </table>
+              <div class="row" style="margin-top:30px">
+                <h4 class="col-md-4 pull-left"></i>Usuarios Agregados: <%=@users.count%></h4>
+                <div class="col-md-8">
+                  <%= submit_tag 'Quitar Usuarios Seleccionados', :class => 'button_medium pull-right', :onclick => 'return removeCandidatesCheck()' %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div><!-- end step-->
+      </div><!-- end middle-wizard -->
+          <% if @users %>
+            <div id="bottom-wizard">
+              <%= will_paginate @users, :params => { :method => :get } %>
+            </div><!-- end bottom-wizard -->
+          <% end %>
+      <%end%>
+    </div><!-- end Survey container -->
+  </div>
+</section><!-- end section main container -->
+
+<script type="text/javascript" language="javascript">// <![CDATA[
+
+function addCandidatesCheck() {
+
+  var checkboxes = new Array();
+  checkboxes = document['remove_members'].getElementsByTagName('input');
+
+  var checked = 0;
+  for (var i=0; i<checkboxes.length; i++)  {
+    if (checkboxes[i].type == 'checkbox' && checkboxes[i].checked )   {
+      checked = checked + 1;
+    }
+  }
+  if (checked == 0)
+  {
+    alert("Debes seleccionar al menos un usuario para eliminar")  ;
+    return false;
+  }
+}
+
+</script>

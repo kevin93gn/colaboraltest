@@ -1,0 +1,91 @@
+<% correct_answers = 0 %>
+<%= simple_form_for(@grade, url: alternative_evaluation_path(:id => @grade.id, :course_evaluation_id => @evaluation.id, :course_id => @course.id), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+    <%= f.error_notification %>
+    <section id="wizard_bg">
+      <div class="container">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <h3 class="col-md-12"><i class="icon-check-1"></i>Evaluaci&oacute;n : <b> <%= "#{@course.name} / #{@user.first_name} #{@user.last_name}"%></b> </h3>
+                <div class="col-md-6">
+                  <ul class="data-list">
+                    <label><i class=" icon-pencil-5"></i> Nota</label>
+                    <div class="styled-select">
+                      <%= f.input :grade,
+                                  collection: %w[1 2 3 4 5 6 7],
+                                  :input_html => { :class => 'form-control'},
+                                  :label => false,
+                                  :required => true,
+                                  :selected => @grade.grade.to_i,
+                                  :include_blank => false %>
+                    </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <ul class="data-list">
+
+                  </ul>
+                </div>
+                <p class="col-md-12"></p>
+                <div class="col-md-12">
+                  <ul class="data-list">
+                    <li>
+                      <h4>Detalle</h4></br>
+                    </li>
+                    <li>
+                      <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                          <th>Pregunta</th>
+                          <th width="85" align="center">Correcta?</th>
+                          <th width="">Alternativa Marcada</th>
+                          <th width="">Alternativa Correcta</th>
+                        </tr>
+                        </thead>
+                        <thead>
+                        <% for question in @questionnaire.course_evaluation_questions.order('id ASC') %>
+                            <% user_answer = CourseEvaluationAnswer.where(:course_user_evaluation_id => @user_evaluation.id, :course_evaluation_question_id => question.id).first
+                               correct = false
+                               if user_answer.answer == question.correct_answer
+                                 correct = true
+                                 correct_answers += 1
+                               end
+                            %>
+                            <tr>
+                              <td>
+                                <%= link_to edit_question_path(:question_id => question.id) do%>
+                                    <%="#{question.position}."%> <%=question.text.html_safe%>
+                                <% end %>
+                              </td>
+                              <td align="center">
+                                <i class="<%=(correct) ? 'icon-ok':'icon-cancel' %>"></i>
+                              </td>
+                              <td><%=user_answer.answer%></td>
+                              <td><%=question.correct_answer%></td>
+                            </tr>
+                        <% end %>
+                        <tr>
+                          <th>Resultado</th>
+                          <td colspan="3" align="center"><%="#{correct_answers} / #{@user_evaluation.course_evaluation_answers.count}"%></td>
+                        </tr>
+                        </thead>
+                      </table>
+
+                    </li>
+                  </ul>
+
+                  <br />
+                </div><!-- end col-md-12 -->
+
+              </div><!-- end row -->
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div><%= f.button :submit, 'Guardar', :class => 'button_medium'%></div>
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>

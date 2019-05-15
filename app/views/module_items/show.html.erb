@@ -1,0 +1,135 @@
+<section id="main_content">
+  <div class="container">
+
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to root_path do%>
+            <i class="icon-home"></i> Home
+        <% end %>
+      </li>
+      <li><%= link_to @course.name, course_path(:id => @course.id)%></li>
+      <li class="active"><%=@item.title%> <i class="<%= ((@module_item_user and @module_item_user.status) ? 'icon-ok-circled-1':'')%>"></i> </li>
+    </ol>
+
+    <div class="row">
+      <div class="col-md-8">
+        <% if @item.media_type == 'flash' %>
+          <embed src="<%=@item.presentation.to_s%>" width="640" frameborder="0" style="border:0;" class="video_course"></embed>
+        <% elsif @item.media_type == 'powtoon'%>
+          <iframe width="640" src="http://www.powtoon.com/embed/<%=@item.media_url%>/" frameborder="0" style="border:0;" class="video_course">> </iframe>
+        <% elsif @item.media_type == 'youtube'%>
+          <iframe src="http://www.youtube.com/embed/<%=@item.media_url%>" style="border:0;" class="video_course" frameborder="0" allowfullscreen></iframe>
+        <% elsif @item.media_type == 'vimeo'%>
+            <iframe src="https://player.vimeo.com/video/<%=@item.media_url%>" width="100%" height="485" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+        <% elsif @item.media_type == 'prezi'%>
+            <iframe id="iframe_container" frameborder="0" webkitallowfullscreen="" mozallowfullscreen="" allowfullscreen="" width="100%" height="485" src="https://prezi.com/embed/<%=@item.media_url%>/?bgcolor=ffffff&amp;lock_to_path=0&amp;autoplay=0&amp;autohide_ctrls=0&amp;landing_data=bHVZZmNaNDBIWnNjdEVENDRhZDFNZGNIUE1WeEV5OG9mcjk1ZjNLZjc3dk1zeFRvRyttQk15M3VHZHpoMGRYZTUzRT0&amp;landing_sign=XVzQXf5Xle87jMdMHyVFkL_pO4tqhcr4hvptHXF--4o"></iframe>
+        <% elsif @item.media_type == 'slideshare' %>
+            <iframe src="//www.slideshare.net/slideshow/embed_code/key/<%=@item.media_url%>" width="100%" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> </div>
+        <% elsif @item.media_type == 'dropbox' %>
+            <video width="100%" controls="controls" style="">
+              <source src="<%=@item.media_url%>" type="video/mp4" />
+            </video>
+        <% end %>
+        <h3><%=@item.title%></h3>
+        <p><%=@item.text%></p>
+        <hr>
+        <div class="clearfix text-center">
+          <% unless @prev_item.nil? %>
+              <%= link_to module_item_path(:course_id => @prev_item.course_id, :item_id => @prev_item.id), :class => 'pull-left button_medium_outline' do %>
+                <i class="icon-left-open"></i>Tema Anterior
+              <% end %>
+          <% else %>
+            <button class="pull-left button_medium_outline disabled_button" disabled="disabled"><i class="icon-left-open"></i>Tema Anterior</button>
+          <% end %>
+          <%= link_to module_item_user_change_status_path(:module_item_id => @item.id), :class => 'button_medium_outline' do %>
+            <%= ((@module_item_user and @module_item_user.status) ? 'Marcar como no completado':'Marcar como completado') %> <i class="<%=((@module_item_user and @module_item_user.status) ? 'icon-cancel-circled':'icon-ok-circled2') %>"></i>
+          <%end%>
+          <% unless @next_item.nil? %>
+              <%= link_to module_item_path(:course_id => @next_item.course_id, :item_id => @next_item.id), :class => 'pull-right button_medium_outline' do %>
+                Siguiente Tema<i class="icon-right-open"></i>
+              <% end %>
+          <% else %>
+            <button class="pull-right button_medium_outline disabled_button" disabled="disabled">Siguiente Tema<i class="icon-right-open"></i></button>
+          <% end %>
+        </div>
+      </div><!-- End col-md-8  -->
+
+      <aside class="col-md-4">
+
+        <div class="box_style_1">
+
+          <% if !@item.data.nil? and @item.data.to_s.length != 0 %>
+            <h4>ARCHIVO ADJUNTO</h4>
+            <div id="module-item-download-box">
+              <%= link_to @item.data.to_s, target: '_blank' do%>
+                <i class="icon-attach-5"></i> Descargar <%= @item.data_title ?  @item.data_title : 'Archivo' %>
+              <% end %>
+              <p><%=@item.data_description%></p>
+            </div>
+          <%end%>
+
+          <% if !@evaluation.nil? and @evaluation.visible and ((!@questionnaire.nil? and @questionnaire.visible) or @evaluation.kind = 'Upload Test') %>
+              <h4><i class="icon-pencil"></i> EVALUACI&Oacute;N TEMA</h4>
+              <% if @evaluation.evaluation_file.length > 0 %>
+                  <a href="<%=@evaluation.evaluation_file%>" target="_blank">
+                    <i class="icon-download-cloud"></i> Descargar Archivo Evaluaci&oacute;n
+                  </a>
+              <% end %>
+              <p><%=@evaluation.file_description.html_safe%></p>
+              <% if @evaluation.kind == 'Alternatives' and !@module_item_user.sent %>
+                  <p><b>Debes realizar la evaluaci&oacute;n del tema, has click
+                    <%= link_to course_user_evaluation_path(:course_id => @course.id, :module_item_id => @item.id) do%>
+                        aqu&iacute;
+                    <%end%></b>
+                  </p>
+                  <br/>
+              <% elsif @evaluation.kind == 'Alternatives' and @module_item_user.sent %>
+                  <h4> <i class="icon-check-1"></i> ¡EVALUACI&Oacute;N ENVIADA!</h4>
+                  <br/>
+              <%end%>
+              <% if @evaluation.user_upload_expected and !@module_item_user.sent%>
+                  <br/>
+                  <h5>DEBES SUBIR ARCHIVO DE EVALUACI&Oacute;N</h5>
+                  <%= simple_form_for(@module_item_user, url: module_item_user_upload_file_path(:module_item_id => @item.id), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+                    <div id="module-item-download-box">
+                      <%= f.input :evaluation_file, as: :file, :label => false, :input_html => {onchange: 'enableDataFields()'}%>
+                    </div>
+                    <div><%= f.button :submit, 'Subir Archivo', :class => 'button_medium pull-right' %></div>
+                    <br/>
+                    <br/>
+              <% end %>
+              <% end %>
+              <% if @evaluation.user_upload_expected and @module_item_user.sent %>
+                  <br/>
+                  <h4> <i class="icon-check-1"></i> ¡PRUEBA ENVIADA!</h4>
+                  <% if @module_item_user.evaluation_file.length > 0 %>
+                      <a href="<%=@module_item_user.evaluation_file%>" target="_blank">
+                        <i class="icon-eye"></i> Ver Archivo
+                      </a>
+                  <% end %>
+                <br/ >
+              <% end %>
+          <% end %>
+
+          <h4>Links</h4>
+          <ul class="list_1">
+            <li>
+                 <%= link_to forum_path(:course_id => @course.id, :item_id => @item.id) do %>
+                    <i class="icon-chat"></i> Opina en el Foro
+                <%end%>
+            </li>
+            <li>
+              <a data-toggle="modal" href="#contact_modal"><i class="icon-mail"></i> Contactar al Tutor</a>
+            </li>
+
+          </ul>
+
+        </div>
+
+      </aside> <!-- End col-md-4 -->
+
+    </div><!-- End row -->
+  </div><!-- End container -->
+</section>
+
+<%=render 'layouts/contact_modal'%>

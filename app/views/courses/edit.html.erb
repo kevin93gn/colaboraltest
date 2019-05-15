@@ -1,0 +1,190 @@
+<%= simple_form_for(@course, url: course_edit_path, html: { method: :put,  autocomplete: 'off' }) do |f| %>
+  <%= f.error_notification %>
+  <section id="wizard_bg">
+    <div class="container">
+      <div id="survey_container">
+        <div id="middle-wizard">
+          <div class="step">
+            <div class="row">
+              <h3 class="col-md-9"><i class="icon-book-open"></i> Editar Curso</h3>
+              <div class="col-md-3">
+                <%= link_to courses_admin_list_path,  :class => 'button_medium pull-right' do%>
+                    <i class="icon-level-up"></i> Volver
+                <%end%>
+              </div>
+              <p class="col-md-12"></p>
+              <div class="col-md-6">
+                <ul class="data-list">
+                  <li>
+                    <div class="form-group">
+                      <label><i class="icon-user-1"></i> Nombre</label>
+                      <%= f.input :name, required: true, :input_html => { :class => 'required form-control', :id => 'email'}, :label => false, :placeholder => 'Nombre' %>
+                      <%=f.hidden_field :id, :value => @course.id%>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-group">
+                      <label><i class="icon-calendar-empty"></i> Fecha Inicio:</label>
+                      <%= f.input :start, as: :date, start_year: Date.today.year,
+                                  end_year: Date.today.year + 2, discard_day: false,
+                                  order: [:day, :month, :year], label: false %>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-group">
+                      <label><i class=" icon-flickr-1"></i> Descripci&oacute;n</label>
+                      <%= f.input :description, :as => 'text', :input_html => { :class => 'required form-control'}, :label => false,  :placeholder => 'Descripción' %>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-group">
+                      <label><i class="icon-eye-4"></i> ¿Curso Visible?</label>
+                      <%=f.input :publish,
+                                 :as => :radio_buttons,
+                                 :item_wrapper_class => 'inline',
+                                 :label => false
+                      %>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-group">
+                      <label><i class="icon-picture"></i> Imagen</label>
+                      <div class="row" style="margin-top:10px">
+                        <div class="col-md-8">
+                          <%= f.input :image, as: :file, :label => false %>
+                        </div>
+                        <div class="col-md-3">
+                          <% if @course.image.to_s.length != 0 %>
+                            <%= image_tag @course.image, size: '110' %>
+                          <% else %>
+                            <%= image_tag 'default-course.png', size: '110' %>
+                          <%end%>
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div><!-- end col-md-6 -->
+
+              <div class="col-md-6">
+                <ul class="data-list" style="margin:0; padding:0;">
+
+                  <li>
+                    <label><i class=" icon-graduation-cap"></i> Profesor</label>
+                    <div class="styled-select">
+                      <%= f.input :teacher_id,
+                                  :collection => @teachers,
+                                  :label_method => :first_name,
+                                  :value_method => :id,
+                                  :input_html => { :class => 'form-control', :id => 'teacher_id'},
+                                  :label => false,
+                                  :include_blank => false%>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-group">
+                      <label><i class="icon-calendar-empty"></i> Fecha Termino:</label>
+                      <%= f.input :end, as: :date, start_year: Date.today.year,
+                                  end_year: Date.today.year + 3, discard_day: false,
+                                  order: [:day, :month, :year], label: false %>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-group">
+                      <label><i class="icon-flash"></i> Creado Por</label>
+                      <input type="text" class ="required form-control" value="<%=@creator_name%>" disabled>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-group">
+                      <label><i class="icon-clock"></i> Duraci&oacute;n en Hrs</label>
+                      <%= f.input :hours, required: true, :input_html => { :class => 'required form-control', :id => 'email'}, :label => false, :placeholder => 'Duración en horas' %>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-group">
+                      <label><i class="icon-users-1"></i>Subscribir todos los usuarios internos</label>
+                      <%=f.input :all_subscribed,
+                                 :as => :radio_buttons,
+                                 :item_wrapper_class => 'inline',
+                                 :label => false
+                      %>
+                    </div>
+                  </li>
+                  <li>
+                    <div class="form-group">
+                      <label><i class=" icon-link-ext"></i>Subscribir todos los usuarios externos o públicos</label>
+                      <%=f.input :external_users_subscribed,
+                                 :as => :radio_buttons,
+                                 :item_wrapper_class => 'inline',
+                                 :label => false
+                      %>
+                    </div>
+                  </li>
+                </ul>
+
+              </div><!-- end col-md-6 -->
+            </div><!-- end row -->
+            <div class="row" id="modules">
+              <h4 class="col-md-8"><i class="icon-folder-empty"></i> M&oacute;dulos</h4>
+              <div class="col-md-4">
+                <%= link_to new_module_path(:course_id => @course.id),  :class => 'button_medium pull-right' do%>
+                  <i class="icon-plus"></i> Agregar M&oacute;dulo
+                <%end%>
+              </div>
+              <% if @course.course_modules.count > 0 %>
+                <table class="table table-bordered">
+                  <tr>
+                    <th>Posici&oacute;n</th>
+                    <th>Nombre</th>
+                    <th>Cantidad Temas</th>
+                    <th>Ordenar</th>
+                    <th>Eliminar</th>
+                  </tr>
+                  <%  @course.course_modules.order(:position => :asc).each do |course_module| %>
+                    <tr>
+                      <td><%=course_module.position%></td>
+                      <td><%=link_to course_module.name, module_edit_path(:course_id => @course.id, :id => course_module.id)%></td>
+                      <td><%=course_module.module_items.count%></td>
+                      <td>
+                        <%if course_module.position != 1 %>
+                          <%=link_to module_position_up_path(:course_id => @course.id, :id => course_module.id) do%>
+                            <i class="icon-up-open"></i>
+                          <%end%>
+                        <% else %>
+                          <i class="icon-up-open" style="color:#ddd"></i>
+                        <%end%>
+                        <% if !course_module.last?%>
+                          <%=link_to module_position_down_path(:course_id => @course.id, :id => course_module.id) do%>
+                            <i class="icon-down-open"></i>
+                          <%end%>
+                        <% else %>
+                          <i class="icon-down-open" style="color:#ddd"></i>
+                        <% end %>
+                      </td>
+                      <td>
+                        <%=link_to module_delete_path(:course_id => @course.id, :id => course_module.id), :onclick => "return confirm('¿Estás seguro que deseas eliminar este registro?');" do %>
+                          <i class=" icon-cancel-alt-filled"></i>
+                        <%end%>
+                      </td>
+                    </tr>
+                <% end %>
+                </table>
+            <% else %>
+                <p class="no-data">Este Curso no contiene m&oacute;dulos, presiona el link
+                  <%= link_to new_module_path(:course_id => @course.id) do%>
+                    Agregar M&oacute;dulo
+                  <%end%>
+                  para crear uno</p>
+              <% end %>
+            </div>
+          </div><!-- end step-->
+        </div><!-- end middle-wizard -->
+        <div id="bottom-wizard">
+          <div><%= f.button :submit, "Actualizar", :class => 'button_medium' %></div>
+
+        </div><!-- end bottom-wizard -->
+      </div><!-- end Survey container -->
+    </div>
+  </section><!-- end section main container -->
+<% end %>

@@ -1,0 +1,100 @@
+<section id="wizard_bg">
+  <div class="container" id="admin_users" >
+    <div id="survey_container">
+      <div id="middle-wizard">
+        <div class="step">
+          <div class="row">
+            <h3 class="col-md-8"><i class="icon-puzzle"></i>Administraci&oacute;n Coaching</h3>
+            <div class="col-md-4">
+              <%= link_to new_coaching_path,  :class => 'button_medium pull-right' do%>
+                  <i class="icon-plus"></i> Agregar Coaching
+              <%end%>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+            <% if !@coachings.nil? and @coachings.count > 0 %>
+                <table class="table table-bordered">
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Publicado?</th>
+                    <th>Participantes</th>
+                    <th>Sesiones</th>
+                    <th>Plan</th>
+                    <th>Activitidades</th>
+                    <th>Ofertas</th>
+                    <th>Otros</th>
+                    <% if current_user.admin? %>
+                      <th>Eliminar</th>
+                    <% end %>
+
+                  </tr>
+                  <% @coachings.each do |coaching| %>
+                      <tr>
+                        <td>
+                          <%= link_to edit_coaching_path(:id => coaching.id) do%>
+                              <%=coaching.name%>
+                          <%end%>
+                        </td>
+                        <td><%=coaching.publish ? 'Si':'No'%></td>
+                        <td>
+                          <%=link_to coachees_path(:coaching_id => coaching.id) do%>
+                              <i class=" icon-users-1"></i> Usuarios
+                          <%end%>
+                        </td>
+                        <td>
+                          <%=link_to sessions_path(:coaching_id => coaching.id), :title => 'Sesiones' do%>
+                              <i class="icon-calendar-7"></i>
+                          <%end%>
+                        </td>
+                        <td>
+                          <%=link_to goals_path(:coaching_id => coaching.id), :title => 'Metas' do%>
+                              <i class="icon-check-1"></i>
+                          <%end%>
+                        </td>
+                        <td>
+                          <%=link_to coaching_activities_path(:coaching_id => coaching.id), :title => 'Actividades' do%>
+                              <i class="icon-flash-2"></i>
+                          <%end%>
+                        </td>
+                        <td>
+                          <%=link_to job_offers_admin_path(:coaching_id => coaching.id), :title => 'Ofertas Laborales' do%>
+                              <i class="icon-suitcase"></i>
+                          <%end%>
+                        </td>
+                        <td>
+                          <%=link_to goals_report_path(:coaching_id => coaching.id), :title => 'Reportes' do%>
+                              <i class="icon-chart-bar"></i>
+                          <%end%>
+                          <%=link_to news_path(:coaching_id => coaching.id), :title => 'Noticias' do%>
+                              <i class="icon-doc-6"></i>
+                          <%end%>
+                          <%=link_to communication_coaching_path(:coaching_id => coaching.id) , :title => 'Mensajes'  do%>
+                              <i class="icon-rocket-1"></i>
+                          <%end%>
+                        </td>
+                        <% if current_user.admin? %>
+                            <td>
+                              <%=link_to delete_coaching_path(:id => coaching.id), :onclick => "return confirm('¿Estás seguro que deseas eliminar este registro?');" do%>
+                                  <i class=" icon-cancel-alt-filled"></i>
+                              <%end%>
+                            </td>
+                        <% end %>
+                      </tr>
+                  <%end%>
+                </table>
+                <%else%>
+                    <p class="info">En este momento no hay ningun Coaching creado en el sistema</p>
+              <% end %>
+            </div>
+            </div>
+          </div>
+        </div><!-- end step-->
+      </div><!-- end middle-wizard -->
+      <% if @coachings %>
+          <div id="bottom-wizard">
+            <%= will_paginate @coachings, :params => { :method => :get } %>
+          </div><!-- end bottom-wizard -->
+      <% end %>
+    </div><!-- end Survey container -->
+  </div>
+</section><!-- end section main container -->

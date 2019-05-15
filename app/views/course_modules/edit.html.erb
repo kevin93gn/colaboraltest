@@ -1,0 +1,141 @@
+    <%= simple_form_for(@course_module, url: module_edit_path(:course_id => @course_module.course_id), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+  <%= f.error_notification %>
+  <section id="wizard_bg">
+    <div class="container">
+
+      <div id="survey_container">
+        <div id="middle-wizard">
+          <div class="step">
+            <div class="row">
+              <ol class="breadcrumb">
+                <li>
+                  <%= link_to root_path do%>
+                    <i class="icon-home"></i> Home
+                  <% end %>
+                </li>
+                <li><%= link_to @course_module.course.name, course_edit_path(:id => @course_module.course_id)%></li>
+                <li class="active"><%=@course_module.name%></li>
+              </ol>
+            </div>
+            <div class="row">
+              <h3 class="col-md-10"><i class="icon-folder-empty"></i> Editar M&oacute;dulo</h3>
+              <p class="col-md-12"></p>
+              <div class="col-md-6">
+                <ul class="data-list">
+                  <li>
+                    <div class="form-group">
+                      <label><i class="icon-folder-empty"></i> Nombre</label>
+                      <%= f.input :name, required: true, :input_html => { :class => 'required form-control'}, :label => false, :placeholder => 'Nombre' %>
+                      <%=f.hidden_field :id, :value => @course_module.id%>
+                    </div>
+                  </li>
+                </ul>
+              </div><!-- end col-md-6 -->
+
+              <div class="col-md-6">
+                <ul class="data-list" style="margin:0; padding:0;">
+                </ul>
+
+              </div><!-- end col-md-6 -->
+            </div><!-- end row -->
+            <div class="row" id="modules">
+              <h4 class="col-md-9"><i class="icon-article-1"></i> Temas</h4>
+              <div class="col-md-3">
+                <%= link_to new_item_path(:course_id => @course_module.course_id, :course_module_id => @course_module.id),  :class => 'button_medium pull-right' do%>
+                  <i class="icon-plus"></i> Agregar Tema
+                <%end%>
+              </div>
+              <% if @course_module.module_items.count > 0 %>
+                <table class="table table-bordered">
+                  <tr>
+                    <th>Posici&oacute;n</th>
+                    <th>Nombre</th>
+                    <th width="65">Tipo</th>
+                    <th>Link</th>
+                    <th width="100">Ordenar</th>
+                    <th width="100">Eliminar</th>
+                  </tr>
+                  <% @course_module.module_items.order('Position asc').each do |item| %>
+                    <tr>
+                      <td><%=item.position%></td>
+                      <td><%=link_to item.title, item_edit_path(:id => item.id, :course_id => @course_module.course_id, :course_module_id => @course_module.id)%></td>
+                      <td align="center">
+                        <% if item.media_type == 'powtoon'%>
+                          <i class="icon-path"></i>
+                        <% elsif item.media_type == 'youtube'%>
+                          <i class=" icon-youtube"></i>
+                        <% elsif item.media_type == 'flash'%>
+                          <i class="icon-youtube-3"></i>
+                        <% elsif item.media_type == 'slideshare'%>
+                            <i class="icon-slideshare"></i>
+                        <% elsif item.media_type == 'dropbox'%>
+                            <i class="icon-dropbox"></i>
+                        <% elsif item.media_type == 'vimeo'%>
+                            <i class="icon-vimeo"></i>
+                        <% elsif item.media_type == 'prezi'%>
+                            <i class="icon-chart-pie"></i>
+                        <% end %>
+                      </td>
+                      <td>
+                        <% if item.media_type == 'powtoon'%>
+                          <a href="http://www.powtoon.com/show/<%=item.media_url%>" target="_blank">http://www.powtoon.com/show/<%=item.media_url%></a>
+                        <% elsif item.media_type == 'youtube'%>
+                          <a href="https://www.youtube.com/watch?v=<%=item.media_url%>" target="_blank">https://www.youtube.com/watch?v=<%=item.media_url%></a>
+                        <% elsif item.media_type == 'vimeo'%>
+                            <a href="https://vimeo.com/<%=item.media_url%>" target="_blank">https://vimeo.com/<%=item.media_url%></a>
+                        <% elsif item.media_type == 'prezi'%>
+                            <a href="https://prezi.com/<%=item.media_url%>" target="_blank">https://prezi.com/<%=item.media_url%></a>
+                        <% elsif item.media_type == 'slideshare'%>
+                            <a href="https://www.slideshare.com" target="_blank">Slideshare</a>
+                        <% elsif item.media_type == 'dropbox'%>
+                            <a href="<%=item.media_url%>" target="_blank">Link video Dropbox</a>
+                        <% elsif item.media_type == 'flash' and (!item.media_url.nil? and item.media_url.length != 0)%>
+                            <a href="<%=item.media_url%>" target="_blank">Archivo Flash <%=item.title%> </a>
+                        <% elsif item.media_type == 'flash'%>
+                          <%= link_to item.presentation.to_s, target: "_blank" do%>
+                            Archivo Flash <%=item.title%>
+                          <% end %>
+                        <% end %>
+                      </td>
+                      <td>
+                        <%if item.position != 1 %>
+                          <%=link_to item_position_up_path(:course_id => item.course_id, :course_module_id => item.course_module_id, :id => item.id) do%>
+                            <i class="icon-up-open"></i>
+                          <%end%>
+                        <% else %>
+                          <i class="icon-up-open" style="color:#ddd"></i>
+                        <%end%>
+                        <% if !item.last?%>
+                          <%=link_to item_position_down_path(:course_id => item.course_id, :course_module_id => item.course_module_id, :id => item.id) do%>
+                            <i class="icon-down-open"></i>
+                          <%end%>
+                        <% else %>
+                          <i class="icon-down-open" style="color:#ddd"></i>
+                        <% end %>
+                      </td>
+                      <td>
+                        <%=link_to item_delete_path(:course_id => item.course_id, :course_module_id => item.course_module_id, :id => item.id), :onclick => "return confirm('¿Estás seguro que deseas eliminar este registro?');" do%>
+                          <i class=" icon-cancel-alt-filled"></i>
+                        <%end%>
+                      </td>
+                    </tr>
+                  <% end %>
+                </table>
+
+              <% else %>
+                <p class="no-data">Este Curso no contiene Temas, presiona el link
+                  <%= link_to new_item_path(:course_id => @course_module.course_id, :course_module_id => @course_module.id) do%>
+                    Agregar Tema
+                  <%end%>
+                  para crear uno</p>
+              <% end %>
+            </div>
+          </div><!-- end step-->
+        </div><!-- end middle-wizard -->
+        <div id="bottom-wizard">
+          <div><%= f.button :submit, "Actualizar", :class => 'button_medium ' %></div>
+        </div><!-- end bottom-wizard -->
+      </div><!-- end Survey container -->
+    </div>
+  </section><!-- end section main container -->
+<% end %>

@@ -1,0 +1,125 @@
+<section id="wizard_bg">
+  <div class="container reports">
+    <div id="survey_container">
+      <div id="middle-wizard">
+        <div class="step">
+          <ol class="breadcrumb">
+            <li>
+              <%= link_to root_path do%>
+                <i class="icon-home"></i> Home
+              <% end %>
+            </li>
+            <li class="active">
+              <%= link_to course_path(:id => @course.id) do%>
+                <%= @course.name %>
+              <% end %>
+            </li>
+            <li class="active"> Reportes</li>
+
+          </ol>
+
+          <div class="row">
+            <div class="col-lg-9 col-md-8 col-sm-8">
+              <h3 class="col-md-9"><i class="icon-chart-bar"></i> Reporte Avance Curso : <b><%= @course.name %> </b> </h3>
+
+              <div class="col-md-3">
+                <%=link_to course_report_path(:id => @course.id, :page => @page, format: 'xlsx'), :class => 'button_medium pull-right' do%>
+                    <i class="icon-table"></i> Exportar
+                <%end%>
+              </div>
+              <div class="row">
+                <p class="col-md-12"></p>
+                <div class="col-md-12">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class=" icon-lock-open-alt"></i> ¿Curso Abierto?</label><br>
+                        <p class="subtitle">Los cursos abiertos calculan su total de alumnos en base a los que al menos han realizado un tema, los cursos cerrados en base a los alumnos inscritos al curso</p>
+                        <p class="data"> <i class=" icon-level-down-1"></i> <%= (@course.all_subscribed) ? 'Si':'No' %> </p>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-users"></i> Cantidad de usuarios</label><br>
+                        <p class="data"> <i class=" icon-level-down-1"></i> <%= @user_count %> </p>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-flag-checkered"></i> Cantidad de alumnos que completaron el curso</label><br>
+                        <p class="data"> <i class=" icon-level-down-1"></i> <%= @users_who_completed_the_course %> </p>
+
+                      </div>
+                    </li>
+                    <% unless @course.all_subscribed %>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-user-delete"></i> Cantidad de alumnos que no han iniciado el curso (No han completado ningún tema)</label><br>
+                        <p class="data"> <i class=" icon-level-down-1"></i> <%= @users_who_havent_initiated_the_course %> </p>
+                      </div>
+                    </li>
+                    <% end %>
+                    <li>
+                      <div class="form-group">
+                        <label><i class=" icon-chart-pie"></i> Cantidad de alumnos que completaron el curso parcialmente por porcentaje</label> <br/>
+                        <p class="data"><i class=" icon-level-down-1"></i> <b> M&aacute;s de 30% : </b> <%= @completed_30_percent %> </p>
+                        <p class="data"><i class=" icon-level-down-1"></i> <b> M&aacute;s de 50% : </b> <%= @completed_50_percent %> </p>
+                        <p class="data"><i class=" icon-level-down-1"></i> <b> M&aacute;s de 70% : </b> <%= @completed_70_percent %> </p>
+                      </div>
+                    </li>
+                    <% if @users.any? %>
+                      <li>
+                        <div class="form-group">
+                          <label><i class=" icon-flickr"></i> Detalle</label> <br/>
+                          <table class="table table-bordered">
+                            <tr>
+                              <th>Nombre Alumno</th>
+                              <th width="165">Estado Curso</th>
+                              <th width="135">Temas Completados</th>
+                              <th>Cantidad de temas vistos</th>
+                              <th>Cantidad Visitas</th>
+                            </tr>
+                            <%@users.each do |user| %>
+                              <tr>
+                                <td>
+                                  <%= link_to admin_edit_user_path(:id => user.id) do%>
+                                    <%="#{user.first_name} #{user.last_name}"%></td>
+                                  <% end %>
+                                </td>
+                                <td>
+                                  <% if @item_completion_by_user[user.id] == 0 %>
+                                    <i class="icon-cancel"></i> No iniciado
+                                  <% elsif @item_completion_by_user[user.id] == @course_item_count %>
+                                    <i class="icon-check-1"></i> Finalizado
+                                  <% else %>
+                                    <i class="icon-back-in-time"></i> En curso
+                                  <% end %>
+                                </td>
+                                <td><%="#{@item_completion_by_user[user.id]} / #{@course_item_count}" %></td>
+                                <td><%="#{@items_viewed_by_user[user.id]}" %></td>
+                                <td><%="#{@item_visits_by_user[user.id]}" %></td>
+                              </tr>
+                            <% end %>
+                            </table>
+                        </div>
+
+                      </li>
+                    <% end %>
+                  </ul>
+                </div><!-- end col-md-6 -->
+
+              </div><!-- end row -->
+
+            </div>
+          </div><!-- End row -->
+        </div><!-- End col-lg-9-->
+      </div><!-- end step-->
+    </div><!-- end middle-wizard -->
+    <% if @users %>
+        <div id="bottom-wizard">
+          <%= will_paginate @users, :params => { :method => :post } %>
+        </div><!-- end bottom-wizard -->
+    <% end %>
+  </div><!-- end Survey container -->
+  </div>
+</section><!-- end section main container -->

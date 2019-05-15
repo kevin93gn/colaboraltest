@@ -1,0 +1,66 @@
+<section id="wizard_bg">
+  <div class="container">
+    <div id="survey_container">
+      <div id="middle-wizard">
+        <div class="step">
+
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to root_path do%>
+          <i class="icon-home"></i> Home
+        <% end %>
+      </li>
+      <li class="active">
+        <%= link_to course_path(:id => @course.id) do%>
+          <%= @course.name %>
+        <% end %>
+      </li>
+      <li class="active">Detalle Actividad</li>
+
+    </ol>
+
+    <div class="row">
+      <div class="col-lg-9 col-md-8 col-sm-8">
+          <h3><i class="icon-star-7"></i> Detalle Actividad</h3>
+
+          <div class="row">
+            <p class="col-md-12"></p>
+            <div class="col-md-12">
+              <ul class="data-list">
+                <li>
+                  <div class="form-group">
+                    <label><i class="icon-star-7"></i> Nombre</label><br>
+                    <%=@activity.title%>
+                  </div>
+                </li>
+                <li>
+                  <div class="form-group">
+                    <label><i class="icon-book-open"></i> Nombre Curso</label><br>
+                    <%=@activity.course.name%>
+                  </div>
+                </li>
+                <li>
+                  <div class="form-group">
+                    <label><i class="icon-calendar-empty"></i> Fecha</label> <br/>
+                    <%=@activity.date.strftime("%d/%m/%Y")%>
+                  </div>
+                </li>
+                <li>
+                  <div class="form-group">
+                    <label><i class="icon-flickr"></i> Detalle</label><br>
+                    <%=@activity.text.html_safe%>
+                  </div>
+                </li>
+              </ul>
+            </div><!-- end col-md-6 -->
+
+          </div><!-- end row -->
+
+        </div>
+      </div><!-- End row -->
+    </div><!-- End col-lg-9-->
+      </div><!-- end step-->
+    </div><!-- end middle-wizard -->
+  </div><!-- end Survey container -->
+  </div>
+</section><!-- end section main container -->

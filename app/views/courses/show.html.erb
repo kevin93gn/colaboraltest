@@ -1,0 +1,202 @@
+<section id="main_content">
+  <div class="container">
+
+      <ol class="breadcrumb">
+        <li>
+          <%= link_to root_path do%>
+              <i class="icon-home"></i> Home
+          <% end %>
+        </li>
+        <li class="active"><%= @course.name %></li>
+      </ol>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="col-md-9">
+          <h2><i class="icon-book-open"></i><%=@course.name%></h2>
+        </div>
+        <div class="col-md-3">
+          <% if @course.activities.count > 0 %>
+            <div class="calendar_link_tag pull-right">
+              <i class="calendar"></i>
+                <%= link_to course_calendar_path(:course_id => @course.id) do %>
+                  <i class="icon-calendar"></i> Calendario
+                <% end %>
+            </div>
+          <% end %>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <span>Has completado <strong><%=@complete_items%></strong> de <strong><%=@item_count%></strong> temas</span><span id="end"><i class="icon-ok-circled2"></i></span>
+            <div class="progress">
+              <div class="progress-bar progress-bar-info" role="progressbar" data-percentage="<%=@course_completion%>"></div>
+            </div>
+          </div>
+        </div><!-- End progress bar -->
+        <hr>
+        <% unless @course.course_modules.nil? %>
+            <% @course.course_modules.order(:position => :asc).each do |course_module| %>
+                <h3 class="chapter_course"><%=course_module.name%></h3>
+                <% course_module.module_items.order(:position => :asc).each do |item| %>
+                    <div class="strip_single_course">
+                        <% module_item_user = ModuleItemsUsers.where(:user_id => current_user.id, :module_item_id => item.id).first %>
+                        <h4 class="<%= ((module_item_user and module_item_user.status) ? 'completed':'start') %>">
+                            <%= link_to item.title, module_item_path(:course_id => course_module.course_id, :item_id => item.id) %>
+                            <% if module_item_user and module_item_user.status %>
+                            <div class="completed_course_tag pull-right">
+                              Completado
+                            </div>
+                            <%end%>
+                        </h4>
+                        <ul>
+                            <li><i class="icon-video"></i> Multimedia</li>
+                            <% if !item.course_evaluation.nil? and (item.course_evaluation.user_upload_expected or item.course_evaluation.kind == 'Alternatives') %>
+                              <% questionnaire = CourseEvaluationQuestionnaire.where(:evaluation_id => item.course_evaluation.id).first %>
+                              <% if item.course_evaluation.visible and (module_item_user.nil? or (!module_item_user.nil? and !module_item_user.sent)) and ((!questionnaire.nil? and questionnaire.visible) or (item.course_evaluation.kind == 'Upload Test'))  %>
+                                <li><i class="icon-warning-empty"></i> <b style="color:red;">Evaluaci&oacute;n Pendiente</b></li>
+                              <% elsif (!module_item_user.nil? and module_item_user.sent)%>
+                                <li><i class="icon-check"></i> Evaluaci&oacute;n Enviada</li>
+                              <%end%>
+                            <%end%>
+                            <% if !item.data.nil? and item.data.to_s.length != 0 %>
+                              <li class="pull-right"><i class="icon-attach-5"></i></li>
+                            <%end%>
+                        </ul>
+                    </div><!-- end strip single course -->
+                <%end%>
+            <%end%>
+        <%end%>
+
+      </div><!-- End col-md-8  -->
+
+      <aside class="col-md-4">
+        <div class="box_style_1">
+          <!--<h4>M&oacutedulos <span class="pull-right"><%=@course.course_modules.count%></span></h4>-->
+          <% if (!@course.all_subscribed) and (!@course.questionnaire.nil? and @course.questionnaire.visible?) and (@user_evaluation.nil? or !@user_evaluation.sent) %>
+            <h4>
+              <%= link_to evaluation_path(:course_id => @course.id) do %>
+                <i class=" icon-pencil"></i> ¡Evaluaci&oacuten Pendiente!
+              <% end %>
+            </h4>
+            <p>Debes realizar la evaluaci&oacute;n del curso, has click en el link anterior o
+              <%= link_to evaluation_path(:course_id => @course.id) do%>
+                aqu&iacute;
+              <%end%>
+            </p>
+            <br />
+        <% end %>
+          <h4>Temas <span class="pull-right"><%=@course.module_items.count%></span></h4>
+          <% if @course.hours %>
+               <h4>Horas <span class="pull-right"><%=@course.hours%></span></h4>
+          <% end %>
+          <h4>Tutor</h4>
+          <div class="media">
+            <div class="pull-right">
+              <% if @teacher.avatar_url.to_s.length != 0 %>
+                <%= image_tag @teacher.avatar_url, :class => 'img-circle', :size => '68' %>
+              <% else %>
+                <%= image_tag 'default-course.png', :class => 'img-circle', :size => '68' %>
+              <%end%>
+            </div>
+            <div class="media-body">
+              <h5 class="media-heading"><a href="#"><%="#{@teacher.first_name} #{@teacher.last_name}"%></a></h5>
+              <p><%=@teacher.info%></p>
+            </div>
+          </div>
+          <hr>
+          <% if @course.start %>
+            <h4>Inicio <span class="pull-right"><%=@course.start.strftime('%d/%m/%Y')%></span></h4>
+          <% end %>
+          <% if @course.end %>
+            <h4>T&eacute;rmino <span class="pull-right"><%=@course.end.strftime('%d/%m/%Y')%></span></h4>
+          <% end %>
+          <% if @grades.any? %>
+              <h4>
+                Notas (<%= @grades.count %>)
+                <div class="calendar_link_tag pull-right" style="margin:0">
+                  <i class="calendar"></i>
+                  <%= link_to grades_path(:course_id => @course.id) do %>
+                      <i class="icon-pencil"></i> Ver
+                  <% end %>
+                </div>
+              </h4>
+          <% end %>
+          <% if @course.activities.count > 0 %>
+            <h4>
+              Actividades
+              <div class="calendar_link_tag pull-right" style="margin:0">
+                <i class="calendar"></i>
+                <%= link_to course_calendar_path(:course_id => @course.id) do %>
+                  <i class="icon-calendar"></i> Ver
+                <% end %>
+              </div>
+            </h4>
+            <% if @activities.count > 0 %>
+              <%@activities.each do |activity| %>
+                <div class='external-event'>
+                  <%=link_to activity_detail_path(:activity_id => activity.id, :course_id => activity.course_id) do %>
+                    <%="#{activity.title} - #{activity.date.strftime('%d/%m/%Y')}" %>
+                  <% end %>
+                </div>
+              <%end%>
+              <br/>
+            <% end %>
+          <% end %>
+          <h4>Descripci&oacute;n</h4>
+          <div class="media">
+            <p>
+                <%= @course.description %>
+            </p>
+          </div>
+        </div>
+        <div class="box_style_1">
+          <h4>Leyenda</h4>
+          <ul class="legend_course">
+            <li id="tostart">Sin Iniciar</li>
+            <li id="completed">Completado</li>
+          </ul>
+        </div>
+        <div class="box_style_1">
+          <h4>Links</h4>
+          <ul class="list_1">
+            <li>
+              <a data-toggle="modal" href="#contact_modal"><i class="icon-mail"></i> Contactar al Tutor</a>
+            </li>
+          </ul>
+        </div>
+      </aside> <!-- End col-md-4 -->
+
+    </div><!-- End row -->
+  </div><!-- End container -->
+</section>
+
+<%= render 'layouts/contact_modal' %>
+
+<script type="text/javascript">
+  /* <![CDATA[ */
+
+  setTimeout(function(){
+
+    $('.progress .progress-bar').each(function() {
+      var me = $(this);
+      var perc = me.attr("data-percentage");
+
+      var current_perc = 0;
+
+      var progress = setInterval(function() {
+        if (current_perc>=perc) {
+          clearInterval(progress);
+        } else {
+          current_perc +=1;
+          me.css('width', (current_perc)+'%');
+        }
+
+        me.text((current_perc)+'%');
+
+      }, 50);
+
+    });
+
+  },500);
+  /* ]]> */
+</script>

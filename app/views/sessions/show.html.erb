@@ -1,0 +1,64 @@
+<section id="wizard_bg">
+  <div class="container">
+    <div id="survey_container">
+      <div id="middle-wizard">
+        <div class="step">
+
+          <ol class="breadcrumb">
+            <li>
+              <%= link_to root_path do%>
+                  <i class="icon-home"></i> Home
+              <% end %>
+            </li>
+            <li class="">
+              <%= link_to coachings_path(:coaching_id => @coaching.id) do%>
+                  <%= @coaching.name %>
+              <% end %>
+            <li class="active"> Sesi&oacute;n  </li>
+          </ol>
+
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <h3 class="col-md-9"><i class="icon-calendar-7"></i> Sesi&oacute;n : <b><%=@session.coaching.name%></b></h3>
+              <div class="col-md-3">
+                <% if @session.file.to_s.length != 0 %>
+                  <%= link_to @session.file.to_s, :target => '_blank', :target => '_blank',  :class => 'button_medium pull-right' do%>
+                        <i class="icon-download-cloud"></i> Descargar
+                  <%end%>
+                <% end %>
+              </div>
+              <div class="row">
+                <p class="col-md-12"></p>
+                <div class="col-md-12">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-calendar-7"></i> Nombre</label><br>
+                        <%=@session.name%>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-calendar-empty"></i> Fecha</label> <br/>
+                        <%=@session.date.strftime("%d/%m/%Y")%>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-flickr"></i> Detalle</label><br>
+                        <%=@session.description.html_safe%>
+                      </div>
+                    </li>
+                  </ul>
+                </div><!-- end col-md-6 -->
+
+              </div><!-- end row -->
+
+            </div>
+          </div><!-- End row -->
+        </div><!-- End col-lg-9-->
+      </div><!-- end step-->
+    </div><!-- end middle-wizard -->
+  </div><!-- end Survey container -->
+  </div>
+</section><!-- end section main container -->

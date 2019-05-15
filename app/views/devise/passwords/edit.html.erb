@@ -1,0 +1,35 @@
+<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+    <%= f.error_notification %>
+
+    <section id="wizard_bg">
+      <div class="container" id="lost_password">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <h3 class="col-md-12"><i class="icon-user"></i> Cambiar Password</h3>
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-lock"></i> Password</label>
+                        <%= f.input :reset_password_token, as: :hidden %>
+                        <%= f.full_error :reset_password_token %>
+                        <%= f.input :password, required: true, autofocus: true, :input_html => { :class => 'required form-control'}, :label => false, :placeholder => 'Nuevo Password' %>
+                        <%= f.input :password_confirmation, required: true, :input_html => { :class => 'required form-control'}, :label => false, :placeholder => 'Confirmar Password' %>
+                      </div>
+                    </li>
+                </div><!-- end row -->
+                <div class="col-md-3"></div>
+              </div>
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div><%= f.button :submit, 'Cambiar Password', :class => 'button_medium' %></div>
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>
+

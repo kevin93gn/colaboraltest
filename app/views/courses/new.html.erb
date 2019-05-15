@@ -1,0 +1,110 @@
+
+<%= simple_form_for(@course, url: new_course_path, html: { method: :put,  autocomplete: 'off' }) do |f| %>
+    <%= f.error_notification %>
+    <section id="wizard_bg">
+      <div class="container">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <h3 class="col-md-10"><i class="icon-book-1"></i> Nuevo Curso</h3>
+                <p class="col-md-12"></p>
+                <div class="col-md-6">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-user-1"></i> Nombre</label>
+                        <%= f.input :name, required: true, :input_html => { :class => 'required form-control', :id => 'name'}, :label => false, :placeholder => 'Nombre' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-calendar-empty"></i> Fecha Inicio:</label>
+                        <%= f.input :start, as: :date, start_year: Date.today.year,
+                                    end_year: Date.today.year + 2, discard_day: false,
+                                    order: [:day, :month, :year], label: false %>
+                        </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-flickr-1"></i> Descripci&oacute;n</label>
+                        <%= f.input :description, :as => 'text', :input_html => { :class => 'required form-control'}, :label => false,  :placeholder => 'Descripción' %>
+                      </div>
+                    </li>
+
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-picture"></i> Imagen</label>
+                        <%= f.input :image, as: :file, :label => false %>
+                      </div>
+                    </li>
+                  </ul>
+                </div><!-- end col-md-6 -->
+
+                <div class="col-md-6">
+                  <ul class="data-list" style="margin:0; padding:0;">
+
+                    <li>
+                      <label><i class=" icon-graduation-cap"></i> Profesor</label>
+                      <div class="styled-select">
+                        <%= f.input :teacher_id,
+                                    collection: @teachers,
+                                    :label_method => :first_name,
+                                    :value_method => :id,
+                                    :input_html => {:id => 'teacher_id'},
+                                    :input_html => { :class => 'form-control'},
+                                    :label => false,
+                                    :include_blank => false%>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-calendar-empty"></i> Fecha Termino:</label>
+                        <%= f.input :end, as: :date, start_year: Date.today.year,
+                                    end_year: Date.today.year + 3, discard_day: false,
+                                    order: [:day, :month, :year], label: false %>
+                      </div>
+                    </li>
+
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-clock"></i> Duraci&oacute;n en Hrs</label>
+                        <%= f.input :hours, required: false, :input_html => { :class => 'required form-control', :id => 'email'}, :label => false, :placeholder => 'Duración en horas' %>
+                      </div>
+                      <div class="form-group">
+                        <label><i class="icon-users-1"></i>Subscribir a todos los usuarios</label>
+                        <%=f.input :all_subscribed,
+                                   :collection => [[true, 'Si'], [false, 'No']],
+                                   :label_method => :last,
+                                   :value_method => :first,
+                                   :as => :radio_buttons,
+                                   :item_wrapper_class => 'inline',
+                                   :checked => false,
+                                   :label => false
+                        %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class=" icon-link-ext"></i>Subscribir todos los usuarios externos o públicos</label>
+                        <%=f.input :external_users_subscribed,
+                                   :as => :radio_buttons,
+                                   :item_wrapper_class => 'inline',
+                                   :label => false
+                        %>
+                      </div>
+                    </li>
+                  </ul>
+
+                </div><!-- end col-md-6 -->
+              </div><!-- end row -->
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div><%= f.button :submit, "Crear", :class => 'button_medium' %></div>
+
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>

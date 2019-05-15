@@ -1,0 +1,47 @@
+/*============================================================================================*/
+/* COLOR SCHEME  */
+/*============================================================================================*/
+/* HEADER*/
+header {background-color:white;border-bottom: 1px solid #BDDA83;}
+ul#top_nav li {border-left: 1px solid #217090;}
+ul#top_nav li a{color:#313131;}
+nav {background-color:#313131;}
+
+#main-features {background:#005b7f url(bg_sub-header_2.png) repeat 0 0;color:#b4d3e0;}
+.feature i{border:2px solid #fff;color:#1abc9c;}
+.divider_top{background:url(top_divider.png) repeat-x center bottom;}
+.divider_top_black{background:url(top_divider_blue.png) repeat-x center bottom;}
+#sub-header{color:#fff;background:#0076a3 url(bg_sub-header.png) repeat 0 0;}
+
+/* MENU + MEGAMENU*/
+.sb-icon-search, .sb-search.sb-search-open .sb-icon-search,
+.no-js .sb-search .sb-icon-search {background: #bdda83;}
+.sf-menu .sf-mega {background: #bdda83;}
+ul.sf-menu li a:hover{color:white; background-color:#bdda83  }
+.sf-menu ul li {background: #bdda83;}
+.sf-menu ul li a {background: #bdda83;}
+.sf-menu ul li a:hover {background-color: #82b934;color:white;}
+.sf-menu li:hover,
+.sf-menu li.sfHover {background: #bdda83;color:#fff;}
+.sf-menu .sf-mega ul.mega_submenu li a{color:#fff;}
+.sf-mega h5{border-bottom:1px solid #336578;}
+.sf-menu .sf-mega ul.mega_submenu li{border-bottom: 1px dotted #336578;}
+
+/* FOOTER */
+footer hr{border-color:#2b2b2b;}
+input.form-control#email_newsletter {background-color:#0076a3;color: #fff;}
+input.form-control#email_newsletter::-moz-placeholder { color: #fff; opacity:0.5;}
+input.form-control#email_newsletter::-webkit-input-placeholder {color: #fff; opacity:0.5;}
+footer {background:#434343 url(logo_footer.png) no-repeat center 60px;color:#fff;}
+footer#footer2 {background-color:#434343; background-image: none; height:150px; color:#fff; padding-top: 40px}
+
+#nav-footer ul li a{color:white;}
+#nav-footer ul li a:hover{color:#bdda83;}
+ul#follow_us  li a{border: 2px solid #434343;}
+#copy_right{background-color:#434343;color:white;}
+.phone{color: white}
+
+/* COMMON*/
+#directions { background-color:#005b7f; }
+ #login_bg{background-color: #e9e8e8}
+ #wizard_bg{background-color: #e9e8e8}

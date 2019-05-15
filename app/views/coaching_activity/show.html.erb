@@ -1,0 +1,57 @@
+<section id="wizard_bg">
+  <div class="container" id="coaching_activity_show">
+    <div id="survey_container">
+      <div id="middle-wizard">
+        <div class="step">
+
+          <ol class="breadcrumb">
+            <li>
+              <%= link_to root_path do%>
+                  <i class="icon-home"></i> Home
+              <% end %>
+            </li>
+            <li class="">
+              <%= link_to coachings_path(:coaching_id => @coaching.id) do%>
+                  <%= @coaching.name %>
+              <% end %>
+            <li class="active"> Actividad  </li>
+          </ol>
+
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <h3 class="col-md-9"><i class="icon-flash-2"></i> Actividad : <b><%=@activity.coaching.name%></b></h3>
+              <div class="row">
+                <p class="col-md-12"></p>
+                <div class="col-md-12">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-calendar-7"></i> Nombre</label><br>
+                        <%=@activity.name%>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-calendar-empty"></i> Fecha</label> <br/>
+                        <%=@activity.date.strftime("%d/%m/%Y - %H:%m")%>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-flickr"></i> Detalle</label><br>
+                        <%=@activity.text.html_safe%>
+                      </div>
+                    </li>
+                  </ul>
+                </div><!-- end col-md-6 -->
+
+              </div><!-- end row -->
+
+            </div>
+          </div><!-- End row -->
+        </div><!-- End col-lg-9-->
+      </div><!-- end step-->
+    </div><!-- end middle-wizard -->
+  </div><!-- end Survey container -->
+  </div>
+</section><!-- end section main container -->

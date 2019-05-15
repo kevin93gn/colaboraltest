@@ -1,0 +1,43 @@
+
+<%= simple_form_for(@news, url: new_news_path(:coaching_id => @news.coaching_id), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+    <%= f.error_notification %>
+    <section id="wizard_bg">
+      <div class="container">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <h3 class="col-md-10"><i class="icon-doc-6"></i> Nueva Noticia : <b><%=@coaching.name%></b></h3>
+                <p class="col-md-12"></p>
+                <div class="col-md-6">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-tumbler"></i> T&iacutetulo</label>
+                        <%= f.input :title, required: true, :input_html => { :class => 'required form-control', :id => 'email'}, :label => false, :placeholder => 'Nombre' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-picture"></i> Imagen</label>
+                        <%= f.input :image, as: :file, :label => false %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-doc-6"></i> Texto</label>
+                        <%= f.bootsy_area :text, :as => 'text', :input_html => { :class => 'required form-control text-area', :style => 'height: 80px;'}, editor_options: {font_styles: false, emphasis: true, color: false, image: false, lists: false }, :label => false,  :placeholder => 'Descripción' %>
+                      </div>
+                    </li>
+                  </ul>
+                </div><!-- end col-md-6 -->
+                </div>
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div><%= f.button :submit, "Crear", :class => 'button_medium' %></div>
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>

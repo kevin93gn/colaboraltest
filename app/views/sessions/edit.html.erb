@@ -1,0 +1,90 @@
+
+<%= simple_form_for(@session, url: edit_session_path(:coaching_id => @session.coaching_id), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+    <%= f.error_notification %>
+    <section id="wizard_bg">
+      <div class="container">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+
+                <h3 class="col-md-9"><i class="icon-calendar-1"></i> Editar Sesi&oacute;n</h3>
+                <div class="col-md-3">
+                  <%= link_to delete_session_path(:coaching_id => @session.coaching_id, :id => @session.id), :class => 'button_medium pull-right delete_button' , :onclick => "return confirm('¿Estás seguro que deseas eliminar este registro?');" do%>
+                      <i class=" icon-cancel-alt-filled"></i> Eliminar
+                  <%end%>
+                </div>
+                <p class="col-md-12"></p>
+                <div class="col-md-6">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-check-1"></i> Nombre</label>
+                        <%= f.input :name, required: true, :input_html => { :class => 'required form-control', :id => 'email'}, :label => false, :placeholder => 'Nombre' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-upload-cloud"></i> Archivo Apoyo</label>
+                        <div class="row" style="margin-top:10px">
+                            <div class="col-md-8">
+                              <%= f.input :file, as: :file, :label => false %>
+                            </div>
+                            <div class="col-md-3">
+                              <% if @session.file.to_s.length != 0 %>
+                                  <%= link_to @session.file.to_s, :target => '_blank',  :class => 'button_medium pull-right' do%>
+                                      <i class="icon-download-cloud"></i> VER
+                                  <%end%>
+                              <% else %>
+                              <%end%>
+                            </div>
+                        </div>
+                      </div>
+                    </li>
+
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-flickr-1"></i> Descripci&oacute;n</label>
+                        <%= f.bootsy_area :description, :as => 'text', :input_html => { :class => 'required form-control text-area', :style => 'width:100px !important; height: 80px;'}, editor_options: {font_styles: false, emphasis: true, color: false, image: false, lists: false }, :label => false,  :placeholder => 'Descripción' %>
+                      </div>
+                    </li>
+                  </ul>
+                </div><!-- end col-md-6 -->
+
+                <div class="col-md-6">
+                  <ul class="data-list" style="margin:0; padding:0;">
+                    <li>
+                      <label><i class=" icon-graduation-cap"></i> Coachee</label>
+                      <div class="styled-select">
+                        <%= f.input :user_id,
+                                    collection: @coachees,
+                                    :label_method => :full_name,
+                                    :value_method => :id,
+                                    :input_html => {:id => 'coachee_id'},
+                                    :input_html => { :class => 'form-control'},
+                                    :label => false,
+                                    :include_blank => false%>
+                      </div>
+                    </li>
+
+                    <li>
+                      <div class="form-group" style="display:block; height: 75px">
+                        <label><i class="icon-calendar-empty"></i> Fecha:</label>
+                        <%= f.input :date, as: :date, start_year: Date.today.year,
+                                    end_year: Date.today.year + 3, discard_day: false,
+                                    order: [:day, :month, :year], label: false %>
+                      </div>
+                    </li>
+                  </ul>
+                </div><!-- end col-md-6 -->
+              </div><!-- end row -->
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div><%= f.button :submit, "Editar", :class => 'button_medium' %></div>
+
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>

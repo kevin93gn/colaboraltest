@@ -1,0 +1,16 @@
+<aside class="col-lg-3 col-md-4 col-sm-4">
+  <div class="box_style_1">
+    <h4><i class="icon-book-open"></i>Mis Cursos</h4>
+    <ul class="submenu-col">
+      <li><%= link_to 'Todos los cursos',  	all_courses_path, :id => "#{'active' if current_page?(all_courses_path)}"%></li>
+      <li><%= link_to 'Activos',  	courses_path, :id => "#{'active' if current_page?(courses_path) or current_page?(root_path)}"%></li>
+      <li><%= link_to 'Terminados',  	finished_courses_path, :id => "#{'active' if current_page?(finished_courses_path)}"%></li>
+    </ul>
+
+    <hr>
+
+    <h5>Sobre Colaboral</h5>
+    <p>Nuestros cursos se dictan totalmente a distancia, los que han sido diseñados metodológicamente para permitir un aprendizaje activo y gradual de la materia tratada, Se solicita contestar preguntas en el foro y realizar ejercicios. Las consultas se realizan vía el propio sistema e-learning y/o email.</p>
+  </div>
+</aside>
+

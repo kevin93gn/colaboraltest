@@ -1,0 +1,40 @@
+<% i = 0 %>
+<%= form_tag deliver_evaluation_path(:id => @evaluation.id), :name => 'evaluation' do %>
+    <section id="wizard_bg">
+      <div class="container">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <h3 class="col-md-12"><i class="icon-pencil-1"></i> Evaluaci&oacute;n : <b><%= @course.name %></b></h3>
+                <div class="col-md-6">
+                  <input type="hidden" name="job_offer_id" value="<%=@job_offer_id%>">
+                  <ul class="data-list">
+                    <% for question_answer in @questions.order('id ASC') %>
+                        <% question = Question.find(question_answer.question_id) %>
+                        <li style="float:left; width: 600px">
+                          <div class="simple_form_radio_buttons">
+                            <label><b><%= "#{question.position}. #{question.text}" %></b></label>
+                            <br/>
+                            <input type="hidden" name="answer[<%=i%>]" value="None">
+                            <% for alternative in question.question_alternatives %>
+                                <input type="radio" name="answer[<%=i%>]" value="<%=alternative.position%>"> <%= "#{alternative.position}. #{alternative.text}" %>
+                                <br>
+                            <%end%>
+                            <div>
+                        </li>
+                        <%i+=1%>
+                    <%end%>
+                  </ul>
+                </div><!-- end col-md-6 -->
+
+              </div><!-- end row -->
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div><input type="submit" class="button_medium" value="Guardar"></div>
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>

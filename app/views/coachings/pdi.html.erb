@@ -1,0 +1,39 @@
+
+<%= simple_form_for(@coachee, url: coaching_pdi_path(:id => @coachee.coaching_id, :user_id => @coachee.id), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+    <%= f.error_notification %>
+    <section id="wizard_bg">
+      <div class="container">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <h3 class="col-md-9"><i class="icon-doc-text-inv"></i> PDI : <%=@coachee.user.full_name%></h3>
+                <div class="col-md-3">
+                  <%= link_to coachees_path(:coaching_id => @coachee.coaching_id),  :class => 'button_medium pull-right' do%>
+                      <i class="icon-level-up"></i> Volver
+                  <%end%>
+                </div>
+                <p class="col-md-12"></p>
+
+                <div class="col-md-9">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-keyboard"></i> PDI</label>
+                        <%= f.bootsy_area :pdi, :as => 'pdi', :input_html => { :class => 'required form-control text-area'}, :label => false, editor_options: {font_styles: false, emphasis: true, color: false, image: false, lists: false }, :placeholder => 'Texto' %>
+                      </div>
+                    </li>
+                  </ul>
+                </div><!-- end col-md-6 -->
+
+              </div><!-- end row -->
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div><%= f.button :submit, "Editar", :class => 'button_medium' %></div>
+
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>

@@ -1,0 +1,132 @@
+<section id="wizard_bg">
+  <div class="container" id="admin_users" >
+    <div id="survey_container">
+      <%= form_tag remove_coachee_path(:coaching_id => @coaching.id), :name => 'remove_members' do %>
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <h3 class="col-md-8"><i class="icon-users-1"></i>Participantes Coaching : <b><%= @coaching.name %> </b></h3>
+                <div class="col-md-4">
+                  <%= link_to add_coachees_path(:coaching_id => @coaching.id),  :class => 'button_medium pull-right' do%>
+                      <i class="icon-user-add"></i> Agregar Particpantes
+                  <%end%>
+                </div>
+                <% if !@users.nil? and @users.count > 0 %>
+                    <table class="table table-bordered">
+                      <tr>
+                        <th class="check_member"><i class="icon-check-1"></i> </th>
+                        <th>RUT</th>
+                        <th>Nombre</th>
+                        <th>Seguimiento Plan</th>
+                        <th>Ofertas</th>
+                        <th>PDI</th>
+                        <th>Gr&aacute;fico</th>
+                        <% if current_user.admin? %>
+                          <th>Mensaje</th>
+                        <% end %>
+                      </tr>
+                      <% @users.each do |user| %>
+                          <% coachee = Coachee.where(:coaching_id => @coaching.id, :user_id => user.id).first%>
+                          <tr>
+                            <td class="check_member">
+                              <%= check_box_tag 'user_ids[]', user.id, false %>
+                            </td>
+                            <td>
+                              <% if current_user.admin? %>
+                                  <%= link_to admin_edit_user_path(:id => user.id), :title => 'Datos Usuario' do%>
+                                      <%= user.rut %>
+                                  <%end%>
+                              <% else %>
+                                  <%= user.rut %>
+                            <% end %>
+                            </td>
+                            <td><%=user.full_name%></td>
+                            <td>
+                              <% percentage = Goal.where("coaching_id = #{@coaching.id} AND (is_global = true OR user_id = #{user.id})").sum(:percentage) %>
+                              <%=link_to coachee_goals_path(:coaching_id => @coaching.id, :coachee_id => user.id), :title => 'Metas' do%>
+                                  <i class="icon-check-1"></i> Compromisos
+                              <%end%>
+                              <% if percentage <= 100 %>
+                               (Asignado <%= percentage %>%)
+                              <% else %>
+                                  <span style="color:red">(<i class="icon-warning"></i> Asignado <%= percentage %>%)</span>
+                            <% end %>
+                            </td>
+                            <td>
+                              <%=link_to job_offers_admin_path(:coaching_id => @coaching.id, :user_id => user.id), :title => 'Ofertas Laborales' do%>
+                                  <i class="icon-suitcase"></i>
+                              <%end%>
+                            </td>
+                            <td>
+                              <%=link_to coaching_pdi_path(:id => @coaching.id, :coachee_id => user.id), :title => 'Metas' do%>
+                                  <i class="icon-doc-text-inv"></i> <%= (coachee.pdi.nil? or coachee.pdi == '') ? 'Agregar':'Editar' %>
+                              <%end%>
+                            </td>
+                            <td>
+                              <%=link_to coaching_graph_path(:coaching_id => @coaching.id, :coachee_id => user.id), :title => 'Gráfico' do%>
+                                  <i class="icon-chart-line"></i>
+                              <%end%>
+                            </td>
+                            <% if current_user.admin? %>
+                                <td>
+                                  <%=link_to communication_users_path(:user_id => user.id) do%>
+                                      <i class="icon-rocket-1"></i>
+                                  <%end%>
+                                </td>
+                            <% end %>
+                          </tr>
+                      <%end%>
+                    </table>
+                    <div class="row" style="margin-top:30px">
+                      <h4 class="col-md-4 pull-left"></i>Usuarios Agregados: <%=@users.count%></h4>
+                      <div class="col-md-8">
+                        <%= submit_tag 'Quitar Usuarios Seleccionados', :class => 'button_medium pull-right', :onclick => 'return removeCandidatesCheck()' %>
+                      </div>
+                    </div>
+                    </div>
+                    </div><!-- end step-->
+                    </div><!-- end middle-wizard -->
+                <%else%>
+              </div>
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div class="row">
+            <p class="info">No hay coachees agregados a este coaching, presiona <i class="icon-up-hand"></i> <b>Agregar Coaches</b> <br/>para asignar los usuarios a este coaching</p>
+          </div>
+            <% end %>
+                <% if @users %>
+              <div id="bottom-wizard">
+                <%= will_paginate @users, :params => { :method => :get } %>
+              </div><!-- end bottom-wizard -->
+          <% end %>
+
+      <%end%>
+    </div><!-- end Survey container -->
+
+  </div>
+
+</section><!-- end section main container -->
+
+<script type="text/javascript" language="javascript">// <![CDATA[
+
+function addCandidatesCheck() {
+
+    var checkboxes = new Array();
+    checkboxes = document['remove_members'].getElementsByTagName('input');
+
+    var checked = 0;
+    for (var i=0; i<checkboxes.length; i++)  {
+        if (checkboxes[i].type == 'checkbox' && checkboxes[i].checked )   {
+            checked = checked + 1;
+        }
+    }
+    if (checked == 0)
+    {
+        alert("Debes seleccionar al menos un usuario para eliminar")  ;
+        return false;
+    }
+}
+
+</script>
+
+

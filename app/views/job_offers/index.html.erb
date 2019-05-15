@@ -1,0 +1,57 @@
+<section id="main_content">
+  <div class="container" id="show_news">
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to root_path do%>
+            <i class="icon-home"></i> Home
+        <% end %>
+      </li>
+      <li class="">
+        <%= link_to coachings_path(:coaching_id => @coaching.id) do%>
+            <%= @coaching.name %>
+        <% end %>
+      <li class="active"> Ofertas Laborales Recomendadas </li>
+    </ol>
+    <div class="row">
+      <div class="col-md-12">
+        <h2 class="col-md-9"><i class="icon-suitcase"></i> Ofertas Laborales Recomendadas : <b><%= @coaching.name %></b>
+          <br />
+        </h2>
+      </div><!-- End col-md-8  -->
+    </div><!-- End row -->
+    <div class="row">
+      <div class="col-md-12">
+        <% if !@job_offers.nil? and @job_offers.any? %>
+            <table class="table table-bordered">
+              <tr>
+                <th>Nombre</th>
+                <th>Link</th>
+                <th>Agregado el</th>
+              </tr>
+              <% @job_offers.each do |jo| %>
+                  <tr>
+                    <td>
+                        <%= jo.name%>
+                    </td>
+                    <td>
+                      <%= link_to jo.url, jo.url, :target => '_blank' %>
+                    </td>
+                    <td>
+                      <%="#{jo.created_at.strftime("%d/%m/%Y")}"%>
+                    </td>
+                  </tr>
+              <%end%>
+            </table>
+            <% if @job_offers %>
+                <div id="bottom-wizard">
+                  <%= will_paginate @job_offers, :params => { :method => :get } %>
+                </div><!-- end bottom-wizard -->
+            <% end %>
+        <%else%>
+            <p class="info">No hay ninguna oferta laboral creada para este coaching</p>
+        <% end %>
+      </div>
+    </div>
+
+  </div><!-- End container -->
+</section>

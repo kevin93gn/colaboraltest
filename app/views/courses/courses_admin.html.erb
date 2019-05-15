@@ -1,0 +1,94 @@
+<section id="wizard_bg">
+  <div class="container" id="admin_users" >
+    <div id="survey_container">
+      <div id="middle-wizard">
+        <div class="step">
+          <div class="row">
+            <h3 class="col-md-9"><i class="icon-book-open"></i>Administraci&oacute;n Cursos</h3>
+            <div class="col-md-3">
+              <%= link_to new_course_path,  :class => 'button_medium pull-right' do%>
+                  <i class="icon-plus"></i> Agregar Curso
+              <%end%>
+            </div>
+            <% if @courses %>
+
+                <table class="table table-bordered">
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Publicado?</th>
+                    <th>M&oacute;dulos</th>
+                    <th>Alumnos</th>
+                    <th>Evaluaciones</th>
+                    <th>Cuestionario</th>
+                    <th>Actividades</th>
+                    <th>Reportes</th>
+                    <th>Mensajes</th>
+                    <th></th>
+                  </tr>
+                  <% @courses.each do |course| %>
+                      <tr>
+                        <td>
+                            <%= link_to course_edit_path(:id => course.id) do%>
+                                <%=course.name%>
+                            <%end%>
+                        </td>
+                        <td><%=course.publish ? 'Si':'No'%></td>
+                        <td><%=course.course_modules.count%></td>
+                        <td>
+                          <%=link_to members_path(:id => course.id) do%>
+                            <i class=" icon-users-1"></i> Usuarios
+                          <%end%>
+                        </td>
+                        <td>
+                          <%=link_to course_evaluations_path(:course_id => course.id), :title => 'Evaluaciones Curso' do%>
+                              <i class="icon-inbox"></i>
+                          <%end%>
+                        </td>
+                        <td>
+                          <%=link_to new_questionnaire_path(:course_id => course.id), :title => 'Questionarios' do%>
+                            <i class="icon-note-1"></i>
+                          <%end%>
+                          <%=link_to select_user_for_evaluation_path(:course_id => course.id), :title => 'Evaluar alumnos' do%>
+                            <i class="icon-check-1"></i>
+                          <%end%>
+                        </td>
+                        <td>
+                          <%=link_to activities_path(:course_id => course.id), :title => 'actividades' do%>
+                            <i class="icon-star-7"></i>
+                          <%end%>
+                        </td>
+
+                        <td>
+                          <%=link_to course_report_path(:course_id => course.id), :title => 'Reporte Curso' do%>
+                            <i class="icon-chart-bar"></i>
+                          <%end%>
+
+                          <%=link_to select_user_advance_report_path(:course_id => course.id), :title => 'Avance de usuario' do%>
+                            <i class="icon-user-add"></i>
+                          <%end%>
+                        </td>
+                        <td>
+                          <%=link_to communication_courses_path(:course_id => course.id) do%>
+                            <i class="icon-rocket-1"></i>
+                          <%end%>
+                        </td>
+                        <td>
+                          <%=link_to course_delete_path(:id => course.id), :onclick => "return confirm('¿Estás seguro que deseas eliminar este registro?');" do%>
+                            <i class=" icon-cancel-alt-filled"></i>
+                          <%end%>
+                        </td>
+                      </tr>
+                  <%end%>
+                </table>
+            <% end %>
+          </div>
+        </div><!-- end step-->
+      </div><!-- end middle-wizard -->
+      <% if @courses %>
+          <div id="bottom-wizard">
+            <%= will_paginate @courses, :params => { :method => :get } %>
+          </div><!-- end bottom-wizard -->
+      <% end %>
+    </div><!-- end Survey container -->
+  </div>
+</section><!-- end section main container -->

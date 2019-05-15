@@ -1,0 +1,51 @@
+<section id="wizard_bg">
+  <div class="container" id="admin_users" >
+    <div id="survey_container">
+      <div id="middle-wizard">
+        <div class="step">
+          <div class="row">
+            <ol class="breadcrumb">
+              <li>
+                <%= link_to root_path do%>
+                    <i class="icon-home"></i> Home
+                <% end %>
+              </li>
+              <li><%= link_to @course.name, course_path(:id => @course.id )%></li>
+              <li class="active">Notas</li>
+            </ol>
+          </div>
+          <div class="row">
+            <h3 class="col-md-12"><i class=" icon-pencil"></i>Notas: <b><%=@course.name%></b></h3>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <% if !@grades.nil? and @grades.any? %>
+                  <table class="table table-bordered">
+                    <tr>
+                      <th>Nombre Evaluaci&oacute;n</th>
+                      <th>Nota</th>
+                      <th>Fecha</th>
+                    </tr>
+                    <% @grades.each do |g| %>
+                        <% if g.course_evaluation.grades_visible %>
+                          <tr>
+                            <td>
+                                <b><%= g.course_evaluation.name%></b>
+                            </td>
+                            <td><%=g.grade%></td>
+                            <td>
+                              <%= g.created_at.strftime("%d/%m/%Y")%>
+                            </td>
+                          </tr>
+                        <%end%>
+                    <%end%>
+                  </table>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div><!-- end step-->
+    </div><!-- end middle-wizard -->
+  </div><!-- end Survey container -->
+  </div>
+</section><!-- end section main container -->

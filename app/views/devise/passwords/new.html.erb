@@ -1,0 +1,32 @@
+
+<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+<%= f.error_notification %>
+<section id="wizard_bg">
+    <div class="container" id="lost_password">
+        <div id="survey_container">
+            <div id="middle-wizard">
+                <div class="step">
+                    <div class="row">
+                        <h3 class="col-md-12"><i class="icon-user"></i> Recordar Password</h3>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-6">
+                        <ul class="data-list">
+                            <li>
+                                <div class="form-group">
+                                    <label><i class="icon-mail"></i> Email</label>
+                                    <%= f.input :email, required: true, autofocus: true, :input_html => { :class => 'required form-control', :id => 'email'}, :label => false, :placeholder => 'Email' %>
+                                </div>
+                            </li>
+                        </div><!-- end row -->
+                        <div class="col-md-3"></div>
+                        </div>
+                    </div><!-- end step-->
+            </div><!-- end middle-wizard -->
+            <div id="bottom-wizard">
+                <div><%= f.button :submit, 'Enviarme instrucciones de reseteo de password', :class => 'button_medium' %></div>
+            </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+    </div>
+</section><!-- end section main container -->
+<% end %>
+

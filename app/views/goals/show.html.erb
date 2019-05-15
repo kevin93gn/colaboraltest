@@ -1,0 +1,173 @@
+<section id="main_content">
+  <div class="container">
+
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to root_path do%>
+            <i class="icon-home"></i> Home
+        <% end %>
+      </li>
+      <li class="">
+        <%= link_to coachings_path(:coaching_id => @coaching.id) do%>
+            <%= @coaching.name %>
+        <% end %>
+      <li class="active"> Plan </li>
+    </ol>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="col-md-12">
+          <h2 class="graph_title col-md-7">
+            <i class="icon-check-1"></i>Plan : <b><%=@coaching.name%>
+            <!--<span><a data-toggle="modal" href="#example-modal">(Descripci&oacute;n)</a></span>-->
+          </b>
+          </h2>
+          <div class="col-md-5 pull-right">
+            <%= link_to new_goal_path(:coaching_id => @coaching.id),  :class => 'button_medium pull-right' do%>
+                <i class=" icon-check-2"></i> Nuevo Compromiso
+            <%end%>
+          </div>
+          <br />
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <span>Has completado <strong><%=@complete_items%></strong> de <strong><%=@coachee_goals.count%></strong> compromisos del plan</span><span id="end"><i class="icon-ok-circled2"></i></span>
+            <div class="progress">
+              <div class="progress-bar progress-bar-info" role="progressbar" data-percentage="<%=(@coaching_completion > 100) ? '100':@coaching_completion%>"></div>
+            </div>
+          </div>
+        </div><!-- End progress bar -->
+        <hr>
+        <% unless @coachee_goals.nil? %>
+            <% subfactor = @coachee_goals.first.goal.subfactor %>
+            <h3 class="chapter_course"><%= subfactor %></h3>
+            <% @coachee_goals.each do |coachee_goal| %>
+                <% if subfactor != coachee_goal.goal.subfactor %>
+                    <% subfactor = coachee_goal.goal.subfactor %>
+                    <h3 class="chapter_course"><%= subfactor %></h3>
+                <% end %>
+                <div class="strip_single_course">
+                  <h4 class="<%= ((coachee_goal.completed) ? 'completed':'start') %>">
+                    <% if coachee_goal.goal.is_global %>
+                        <%= coachee_goal.goal.name %>
+                    <% else %>
+                          <%= link_to edit_goal_path(:id => coachee_goal.goal.id, :coaching_id => @coaching.id) do%>
+                              <%=coachee_goal.goal.name%>
+                          <%end%>
+                          <%=link_to delete_goal_path(:id => coachee_goal.goal.id), :class => 'pull-right', :onclick => "return confirm('¿Estás seguro que deseas eliminar este registro?');" do%>
+                              <i class=" icon-cancel-alt-filled"></i>
+                          <%end%>
+                      <% end %>
+
+                  </h4>
+                  <p> <%= coachee_goal.goal.description %></p>
+                  <ul>
+                    <li><i class="icon-calendar"></i> <%=coachee_goal.goal.end_date.strftime("%d/%m/%Y")%></li>
+                    <% if coachee_goal.completed %>
+                        <li><i class="icon-circle goal-fulfilled"></i> Cumplida</li>
+                    <% elsif !coachee_goal.completed and coachee_goal.goal.end_date >= DateTime.now %>
+                        <li><i class="icon-circle goal-in-progress"></i> Pendiente</li>
+                    <% else %>
+                        <li><i class="icon-circle goal-not-fullfiled"></i> No Cumplida</li>
+                    <% end %>
+                    <% if !coachee_goal.goal.is_global %>
+                        <li>
+                        <%= link_to edit_goal_path(:id => coachee_goal.goal.id, :coaching_id => @coaching.id) do%>
+                            <i class=" icon-pencil"></i> Editable
+                          <%end%>
+                        </li>
+                    <% end %>
+                        <li><i class="icon-progress-2"></i> <%=coachee_goal.goal.percentage%>%</li>
+                  </ul>
+                </div><!-- end strip single course -->
+            <%end%>
+        <%end%>
+
+      </div><!-- End col-md-8  -->
+
+      <aside class="col-md-4">
+        <div class="box_style_1">
+          <h4>Compromisos Plan<span class="pull-right"><%=@coachee_goals.count%></span></h4>
+          <h4>Coach</h4>
+          <div class="media">
+            <div class="pull-right">
+              <% if @coach.avatar_url.to_s.length != 0 %>
+                  <%= image_tag @coach.avatar_url, :class => 'img-circle', :size => '68' %>
+              <% else %>
+                  <%= image_tag 'default-course.png', :class => 'img-circle', :size => '68' %>
+              <%end%>
+            </div>
+            <div class="media-body">
+              <h5 class="media-heading"><a href="#"><%="#{@coach.first_name} #{@coach.last_name}"%></a></h5>
+              <p><%=@coach.info%></p>
+            </div>
+          </div>
+          <hr>
+          <% if @coaching.start %>
+              <h4>Inicio <span class="pull-right"><%=@coaching.start.strftime("%d/%m/%Y")%></span></h4>
+          <% end %>
+          <% if @coaching.end %>
+              <h4>T&eacute;rmino <span class="pull-right"><%=@coaching.end.strftime("%d/%m/%Y")%></span></h4>
+          <% end %>
+          <% unless @pdi.nil? or @pdi == ''%>
+              <h4><i class="icon-doc-text-inv"></i> PDI</h4>
+              <div class="media">
+                <p>
+                  <%= @pdi.html_safe %>
+                </p>
+              </div>
+          <% end %>
+        </div>
+
+        <div class="box_style_1">
+          <h4>Leyenda</h4>
+          <ul class="legend_course">
+            <li id="completed">Completado</li>
+            <li id="tostart" style="color:#949494;"> Pendiente / No cumplido</li>
+          </ul>
+        </div>
+        <div class="box_style_1">
+          <h4>Links</h4>
+          <ul class="list_1">
+            <li>
+              <a data-toggle="modal" href="#contact_modal"><i class="icon-mail"></i> Contactar al Coach</a>
+            </li>
+          </ul>
+        </div>
+      </aside> <!-- End col-md-4 -->
+
+    </div><!-- End row -->
+  </div><!-- End container -->
+</section>
+
+<%= render 'goals/goals_info'%>
+<%= render 'layouts/contact_modal_coaching' %>
+
+<script type="text/javascript">
+    /* <![CDATA[ */
+
+    setTimeout(function(){
+
+        $('.progress .progress-bar').each(function() {
+            var me = $(this);
+            var perc = me.attr("data-percentage");
+
+            var current_perc = 0;
+
+            var progress = setInterval(function() {
+                if (current_perc>=perc) {
+                    clearInterval(progress);
+                } else {
+                    current_perc +=1;
+                    me.css('width', (current_perc)+'%');
+                }
+
+                me.text((current_perc)+'%');
+
+            }, 50);
+
+        });
+
+    },500);
+    /* ]]> */
+</script>

@@ -1,0 +1,9 @@
+development:
+  api_secret: 'ysqh21ozWT75wBele7drQfSIjZWkjViM3bHV8QWJAIHdtgbrUl3R8KpxY5Jueamt'
+  api_key: 'OIvDZAvgBCj55nrojJCrVc5RaZsbqGgHiBBTCAICiO7XAatcJ4qAb2HvRcLtUUwS'
+  access_token: '5d09b96fc3524189bb528430bc87e7a5'
+
+production:
+  api_secret: 'gPv7pX6JMjG8QRAWXuKexiWRucmqPrzqdCLOnSdsLlJa1yIgqmgSIvkzP55UfPqH'
+  api_key: '8EIVO22yXDUfJUdYUVqvnwQKI8lFxAl2WpsAoTBzCxe2aLoogzf8SqRH0biSVotw'
+  access_token: '7162b07a22d242a9b05da4b3b4b8136d'

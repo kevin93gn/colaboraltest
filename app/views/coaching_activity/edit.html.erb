@@ -1,0 +1,70 @@
+
+<%= simple_form_for(@activity, url: edit_coaching_activity_path(:coaching_id => @activity.coaching_id), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+    <%= f.error_notification %>
+    <section id="wizard_bg">
+      <div class="container">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <h3 class="col-md-9"><i class="icon-flash-2"></i> Editar Actividad</h3>
+                <div class="col-md-3">
+                  <%= link_to delete_coaching_activity_path(:coaching_id => @activity.coaching_id, :id => @activity.id), :class => 'button_medium pull-right delete_button' , :onclick => "return confirm('¿Estás seguro que deseas eliminar este registro?');" do%>
+                      <i class=" icon-cancel-alt-filled"></i> Eliminar
+                  <%end%>
+                </div>
+                <p class="col-md-12"></p>
+                <div class="col-md-6">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-check-1"></i> Nombre</label>
+                        <%= f.input :name, required: true, :input_html => { :class => 'required form-control', :id => 'email'}, :label => false, :placeholder => 'Nombre' %>
+                      </div>
+                    </li>
+                    <li>
+                      <label><i class="icon-male"></i> Coachee (No seleccionar nada para asignar a todos los coachees) </label>
+                      <div class="styled-select">
+                        <%= f.input :user_id,
+                                    collection: @users,
+                                    :label_method => :full_name,
+                                    :value_method => :id,
+                                    :input_html => {:id => 'user_id'},
+                                    :input_html => { :class => 'form-control'},
+                                    :label => false,
+                                    :include_blank => true%>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-flickr-1"></i> Descripci&oacute;n</label>
+                        <%= f.bootsy_area :text, :as => 'text', :input_html => { :class => 'required form-control text-area', :style => 'width:100px !important; height: 80px;'}, editor_options: {font_styles: false, emphasis: true, color: false, image: false, lists: false }, :label => false,  :placeholder => 'Descripción' %>
+                      </div>
+                    </li>
+                  </ul>
+                </div><!-- end col-md-6 -->
+
+                <div class="col-md-6">
+                  <ul class="data-list" style="margin:0; padding:0;">
+
+                    <li>
+                      <div class="form-group" style="display:block; height: 75px">
+                        <label><i class="icon-calendar-empty"></i> Fecha:</label>
+                        <%= f.input :date, as: :datetime, start_year: Date.today.year,
+                                    end_year: Date.today.year + 3, discard_day: false,
+                                    order: [:day, :month, :year], label: false %>
+                      </div>
+                    </li>
+                  </ul>
+                </div><!-- end col-md-6 -->
+              </div><!-- end row -->
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div><%= f.button :submit, "Editar", :class => 'button_medium' %></div>
+
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>

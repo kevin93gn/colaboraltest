@@ -1,0 +1,62 @@
+<%
+  questions = Array.new
+  i = 0
+  questions = ['A', 'B', 'C', 'D', 'E']
+%>
+<%= simple_form_for(@question, url: course_evaluation_new_question_path(:questionnaire_id => @questionnaire.id, :course_id => @course.id ), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+    <%= f.error_notification %>
+    <section id="wizard_bg">
+      <div class="container">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <h3 class="col-md-12"><i class="icon-book-1"></i> Agregar Pregunta</h3>
+                <div class="col-md-12">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-question"></i> Pregunta</label>
+                        <%= f.bootsy_area :text, required: true,  :label => false, :placeholder => 'Texto Pregunta', html: {styles: 'width:2000px!important;'}    ,editor_options: {font_styles: false, emphasis: true, color: false, image: false, lists: false } %>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <ul class="data-list">
+                    <% for question_alternative in @question_alternatives %>
+                        <%= f.simple_fields_for "question_alternatives[]", question_alternative do |f| %>
+                            <li>
+                              <label><i class="icon-flash-2"></i> Alternativa <%= questions[i]%></label>
+                              <%= f.input :text, required: true, :input_html => { :class => 'required form-control'}, :label => false, :placeholder => " Texto alternativa #{questions[i]}"%>
+                              <% i+=1 %>
+                        <% end %>
+                    <% end %>
+                  </ul>
+                </div><!-- end col-md-6 -->
+                <div class="col-md-6">
+                  <ul class="data-list">
+                    <label><i class="icon-check-1"></i> Pregunta Correcta</label>
+                    <div class="styled-select">
+                      <%= f.input :correct_answer,
+                                  collection: ['A', 'B', 'C', 'D', 'E'],
+                                  :input_html => {:id => 'correct_answer'},
+                                  :input_html => { :class => 'form-control'},
+                                  :label => false,
+                                  :required => true,
+                                  :include_blank => true %>
+                    </div>
+                    </li>
+                  </ul>
+                </div>
+
+              </div><!-- end row -->
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div><%= f.button :submit, "Agregar", :class => 'button_medium' %></div>
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>

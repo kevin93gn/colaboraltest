@@ -1,0 +1,56 @@
+
+<%= simple_form_for(@job_offer, url: edit_job_offer_path(:coaching_id => @job_offer.coaching_id), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+    <%= f.error_notification %>
+    <section id="wizard_bg">
+      <div class="container">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <h3 class="col-md-9"><i class="icon-suitcase"></i> Editar Oferta Laboral : <b><%=@coaching.name%></b></h3>
+                <div class="col-md-3">
+                  <% if @job_offer.user.nil? %>
+                    <%= link_to job_offers_admin_path(:coaching_id => @coaching.id),  :class => 'button_medium pull-right' do%>
+                        <i class="icon-level-up"></i> Volver
+                    <%end%>
+                  <% else %>
+                    <%= link_to job_offers_admin_path(:coaching_id => @coaching.id, :user_id => @job_offer.user.id ),  :class => 'button_medium pull-right' do%>
+                        <i class="icon-level-up"></i> Volver
+                    <%end%>
+                  <% end %>
+                </div>
+                <p class="col-md-12"></p>
+                <div class="col-md-6">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-suitcase"></i> Nombre</label>
+                        <%= f.input :name, required: true, :input_html => { :class => 'required form-control', :id => 'name'}, :label => false, :placeholder => 'Nombre' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class=" icon-link"></i> URL <span>(Ejemplo URL V&aacute;lida: http://google.com)</span></label>
+                        <%= f.input :url, required: true, :input_html => { :class => 'required form-control', :id => 'url'}, :label => false, :placeholder => 'Nombre' %>
+                      </div>
+                    </li>
+                    <% unless @job_offer.user.nil? %>
+                        <li>
+                          <div class="form-group">
+                            <label><i class=" icon-user"></i> Coachee</label><br/>
+                            <%= @job_offer.user.full_name %>
+                          </div>
+                        </li>
+                    <% end %>
+                  </ul>
+                </div><!-- end col-md-6 -->
+              </div>
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div><%= f.button :submit, "Editar", :class => 'button_medium' %></div>
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>

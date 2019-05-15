@@ -1,0 +1,13 @@
+<aside class="col-lg-3 col-md-4 col-sm-4">
+  <div class="box_style_1">
+    <h4><i class="icon-book-open"></i>Mis Cursos</h4>
+    <ul class="submenu-col">
+      <li><%= link_to 'Cuestionario',  	all_courses_path, :id => "#{'active' if current_page?(all_courses_path)}"%></li>
+      <li><%= link_to 'Preguntas',  	courses_path, :id => "#{'active' if current_page?(courses_path) or current_page?(root_path)}"%></li>
+    </ul>
+
+    <hr>
+
+  </div>
+</aside>
+

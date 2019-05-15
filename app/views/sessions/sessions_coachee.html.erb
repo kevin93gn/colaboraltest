@@ -1,0 +1,61 @@
+<section id="wizard_bg">
+  <div class="container" id="admin_users" >
+    <div id="survey_container">
+      <div id="middle-wizard">
+        <div class="step">
+          <div class="row">
+            <h3 class="col-md-9"><i class=" icon-calendar-empty"></i> Siguientes Sesiones : <b><%= @coaching.name %></b> </h3>
+            <div class="col-md-3">
+              <%= link_to coachings_path(:coaching_id => @coaching.id),  :class => 'button_medium pull-right' do%>
+                  <i class="icon-level-up"></i> Volver
+              <%end%>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <% if !@sessions.nil? and @sessions.count > 0%>
+                    <table class="table table-bordered">
+                      <tr>
+                        <th width="200">Nombre</th>
+                        <th>Fecha</th>
+                        <th>Descripci&oacute;n</th>
+                        <th width="130">Archivo Adjunto</th>
+                      </tr>
+                      <% @sessions.each do |session| %>
+                          <tr>
+                            <th>
+                              <%= link_to coaching_session_path(:coaching_id => @coaching.id, :id => session.id) do%>
+                                  <%=session.name%>
+                              <% end %>
+                            </th>
+                            <td>
+                              <%=session.date.strftime("%d/%m/%Y")%>
+                            </td>
+                            <td>
+                              <%=session.description.html_safe%>
+                            </td>
+                            <td>
+                              <% if session.file.to_s.length != 0 %>
+                                  <%= link_to session.file.to_s, :target => '_blank',  :class => '' do%>
+                                      <i class="icon-download-cloud"></i> Descargar
+                                  <%end%>
+                              <%end%>
+                            </td>
+                          </tr>
+                      <%end%>
+                    </table>
+                <%else%>
+                    <p class="info">En este momento no hay sesiones creadas para este Coaching</p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div><!-- end step-->
+      </div><!-- end middle-wizard -->
+      <% if @sessions %>
+          <div id="bottom-wizard">
+            <%= will_paginate @sessions, :params => { :method => :get } %>
+          </div><!-- end bottom-wizard -->
+      <% end %>
+    </div><!-- end Survey container -->
+  </div>
+</section><!-- end section main container -->

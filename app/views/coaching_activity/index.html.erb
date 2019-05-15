@@ -1,0 +1,72 @@
+<section id="main_content">
+  <div class="container">
+
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to root_path do%>
+            <i class="icon-home"></i> Home
+        <% end %>
+      </li>
+      <li>Coaching</li>
+      <li><%= @coaching.name %></li>
+      <li class="active">Actividades</li>
+
+    </ol>
+    <div class="row">
+      <h3 class="col-md-12 subtitled"><i class="icon-flash-2"></i>Actividades : <b><%= @coaching.name %></h3>
+    </div>
+    <br />
+
+
+    <div class="row">
+      <aside class="col-md-4">
+        <div class="new_session">
+            <%= link_to new_coaching_activity_path(:coaching_id => @coaching.id),  :class => 'button_medium pull-right col-md-12 ' do%>
+                <i class="icon-plus"></i> Agendar Nueva Actividad
+            <%end%>
+        </div>
+        <div class="box_style_1"  id="external-events">
+          <h4>Siguientes Actividades</h4>
+          <% if @next_activities.count != 0 %>
+              <% for activity in @next_activities %>
+                  <div class='external-event'>
+                    <%=link_to edit_coaching_activity_path(:id => activity.id) do %>
+                        <%="#{activity.name} - #{activity.date.strftime("%d/%m/%Y - %H:%M")}" %>
+                    <% end %>
+                  </div>
+              <%end%>
+          <% else %>
+                <p class="info">En este momento no hay actividades </p>
+          <% end %>
+        </div>
+      </aside>
+
+      <div class="col-md-8">
+        <div id='calendar'></div>
+      </div>
+
+    </div><!-- End row -->
+
+  </div>
+</section>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#calendar').fullCalendar({
+            lang: 'es',
+
+            header: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'month,agendaWeek'
+            },
+            editable: false,
+            events: [
+                <% for activity in @activities %>
+                <% event = "{ title: '#{activity.name}', start: '#{activity.date.strftime("%Y-%m-%d %H:%M")}', url: '#{edit_coaching_activity_url(:id => activity.id)}' }," %>
+                <%= event.html_safe %>
+                <% end %>
+            ]
+        });
+    });
+</script>

@@ -1,0 +1,41 @@
+
+
+<section id="wizard_bg">
+    <div class="container" id="mail_confirmation" >
+        <div id="survey_container">
+            <div id="middle-wizard">
+                <div class="step">
+                    <div class="row" id="alma_video_player">
+                        <h2 style="text-align: center"><i class=" icon-video"></i> Alma Cap&iacute;tulo 1</h2>
+                        <video width="880" controls="controls" style="padding-left:205px">
+                            <source src="https://dl.dropboxusercontent.com/u/60646/ALMA%20CAP1%20web.mp4" type="video/mp4" />
+                        </video>
+                    </div>
+                    <div class="row" id="alma_photo" >
+                        <div class="autoplay">
+                            <%= image_tag 'pic_1.jpg', :class => 'img-responsive' %>
+                            <%= image_tag 'pic_2.jpg', :class => 'img-responsive' %>
+                            <%= image_tag 'pic_3.jpg', :class => 'img-responsive' %>
+                            <%= image_tag 'pic_3.jpg', :class => 'img-responsive' %>
+                            <%= image_tag 'pic_3.jpg', :class => 'img-responsive' %>
+                        </div>
+                    </div>
+                </div><!-- end step-->
+            </div><!-- end middle-wizard -->
+        </div><!-- end Survey container -->
+    </div>
+</section><!-- end section main container -->
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('.autoplay').slick({
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                autoplay: true,
+                autoplaySpeed: 2000,
+            });
+        });
+</script>

@@ -1,0 +1,58 @@
+<section id="main_content">
+  <div class="container">
+
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to root_path do%>
+          <i class="icon-home"></i> Home
+        <% end %>
+      </li>
+      <li><%= link_to @course.name, course_path(:id => @course.id)%></li>
+      <li class="active"><%=@item.title%> <i class="<%= ((@module_item_user and @module_item_user.status) ? 'icon-ok-circled-1':'')%>"></i> </li>
+    </ol>
+
+    <div class="row">
+      <div class="col-md-8">
+        <h3><%=@item.title%></h3>
+        <hr>
+        <%=render 'disqus', :item => @item%>
+
+      </div><!-- End col-md-8  -->
+
+      <aside class="col-md-4">
+
+        <div class="box_style_1">
+          <h4>Links</h4>
+          <ul class="list_1">
+            <li>
+              <%= link_to module_item_path(:id => 1) do %>
+                  <i class="icon-left-open-big"></i> Volver
+              <%end%>
+            </li>
+            <li>
+                <a data-toggle="modal" href="#contact_modal"><i class="icon-mail"></i> Contactar al Tutor</a>
+            </li>
+          </ul>
+        </div>
+      </aside> <!-- End col-md-4 -->
+
+    </div><!-- End row -->
+  </div><!-- End container -->
+</section>
+
+<div class="modal" id="contact_modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Contactar Tutor</h4>
+      </div>
+      <div class="modal-body">
+        Puedes contactar al tutor en el siguiente email:<br/> <a href="mailto:<%=@teacher.email%>"><%=@teacher.email%></a>
+      </div>
+      <div class="modal-footer">
+        <a href="#" data-dismiss="modal" class="btn btn-primary">Cerrar</a>
+      </div>
+    </div>
+  </div>
+</div>

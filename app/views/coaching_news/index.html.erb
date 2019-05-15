@@ -1,0 +1,60 @@
+<section id="wizard_bg">
+  <div class="container" id="admin_users" >
+    <div id="survey_container">
+      <div id="middle-wizard">
+        <div class="step">
+          <div class="row">
+            <h3 class="col-md-9"><i class="icon-doc-6"></i> Noticias : <b><%=@coaching.name%></b></h3>
+            <div class="col-md-3">
+              <%= link_to new_news_path(:coaching_id => @coaching.id),  :class => 'button_medium pull-right' do%>
+                  <i class="icon-plus"></i> Nueva Noticia
+              <%end%>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <% if !@coaching_news.nil? and @coaching_news.any? %>
+                    <table class="table table-bordered">
+                      <tr>
+                        <th>T&iacute;tulo</th>
+                        <th>Fecha Publicaci&oacute;n</th>
+                        <th>Autor</th>
+                        <th>Eliminar</th>
+                      </tr>
+                      <% @coaching_news.each do |news| %>
+                          <tr>
+                            <td>
+                              <%= link_to edit_news_path(:coaching_id => @coaching.id, :id => news.id) do%>
+                                  <%=news.title%>
+                              <%end%>
+                            </td>
+                            <td>
+                              <%="#{news.created_at.strftime("%d/%m/%Y")}"%>
+                            </td>
+                            <td>
+                              <%="#{news.user.full_name}"%>
+                            </td>
+                            <td>
+                              <%=link_to delete_news_path(:coaching_id => @coaching.id, :id => news.id), :onclick => "return confirm('¿Estás seguro que deseas eliminar este registro?');" do%>
+                                  <i class=" icon-cancel-alt-filled"></i>
+                              <%end%>
+                            </td>
+                          </tr>
+                      <%end%>
+                    </table>
+                <%else%>
+                    <p class="info">No hay ninguna noticia creada para este coaching</p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div><!-- end step-->
+      </div><!-- end middle-wizard -->
+      <% if @coaching_news %>
+          <div id="bottom-wizard">
+            <%= will_paginate @coaching_news, :params => { :method => :get } %>
+          </div><!-- end bottom-wizard -->
+      <% end %>
+    </div><!-- end Survey container -->
+  </div>
+</section><!-- end section main container -->

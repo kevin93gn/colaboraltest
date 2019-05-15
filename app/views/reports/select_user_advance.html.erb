@@ -1,0 +1,60 @@
+<%= simple_form_for(@user, url: select_user_advance_report_path(:course_id => @course.id), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+  <%= f.error_notification %>
+<section id="wizard_bg">
+  <div class="container reports">
+    <div id="survey_container">
+      <div id="middle-wizard">
+        <div class="step">
+          <ol class="breadcrumb">
+            <li>
+              <%= link_to root_path do%>
+                <i class="icon-home"></i> Home
+              <% end %>
+            </li>
+            <li class="active">
+              <%= link_to course_path(:id => @course.id) do%>
+                <%= @course.name %>
+              <% end %>
+            </li>
+            <li class="active"> Reportes</li>
+
+          </ol>
+
+          <div class="row">
+            <div class="col-lg-9 col-md-8 col-sm-8">
+              <h3><i class="icon-chart-bar"></i> Reporte Avance Usuario : <b><%= @course.name %> </b> </h3>
+
+              <div class="row">
+                <p class="col-md-12"></p>
+                <div class="col-md-8">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class=" icon-user"></i> Seleccionar Usuario</label><br>
+                        <div class="styled-select">
+                          <%= f.input :id,
+                                      collection: @users,
+                                      :label_method => :first_name,
+                                      :value_method => :id,
+                                      :input_html => {:id => 'user_id'},
+                                      :input_html => { :class => 'form-control'},
+                                      :label => false,
+                                      :include_blank => false %>
+                        </div>
+                    </li>
+                  </ul>
+                </div><!-- end col-md-6 -->
+
+              </div><!-- end row -->
+
+            </div>
+          </div><!-- End row -->
+        </div><!-- End col-lg-9-->
+      </div><!-- end step-->
+    </div><!-- end middle-wizard -->
+    <div id="bottom-wizard">
+      <div><%= f.button :submit, "Consultar", :class => 'button_medium' %></div>
+    </div><!-- end bottom-wizard -->
+  </div><!-- end Survey container -->
+</section><!-- end section main container -->
+<% end %>

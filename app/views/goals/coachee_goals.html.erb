@@ -1,0 +1,110 @@
+<% require 'date' %>
+<% total_percentage = 0 %>
+
+<section id="wizard_bg">
+  <div class="container" id="admin_users" >
+    <div id="survey_container">
+      <%= form_tag update_coachee_goals_path(:coaching_id => @coaching.id, :coachee_id => @coachee.id), :name => 'coachee_goals' do %>
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <h3 class="col-md-8"><i class="icon-check-1"></i>Seguimiento Plan : <b><%= @coachee.full_name %>  </b></h3>
+                <div class="col-md-4">
+                  <%= link_to new_goal_path(:coaching_id => @coaching.id, :user_id => @coachee.id),  :class => 'button_medium pull-right' do%>
+                      <i class="icon-check-1"></i> Agregar Compromiso Particular
+                  <%end%>
+                </div>
+                <% if !@coachee_goals.nil? and @coachee_goals.any? %>
+                    <table class="table table-bordered">
+                      <tr>
+                        <th><Compromiso>  </Compromiso></th>
+                        <th width="90">Cumplida?</th>
+                        <th>Global?</th>
+                        <th>Fecha T&eacute;rmino</th>
+                        <th>Estado</th>
+                        <th>Porcentaje</th>
+                        <th>Eliminar </th>
+                      </tr>
+                      <% @coachee_goals.each do |coachee_goal| %>
+                          <tr>
+                            <td>
+                              <% if coachee_goal.goal.is_global %>
+                                <%=coachee_goal.goal.name%>
+                                <% else %>
+                                    <%= link_to edit_goal_path(:id => coachee_goal.goal.id, :user_id => @coachee.id) do%>
+                                        <%=coachee_goal.goal.name%>
+                                    <%end%>
+                                <% end %>
+                            </td>
+                            <td class="check_member" align="center">
+                              <%= check_box_tag 'goals_ids[]', coachee_goal.goal_id, coachee_goal.completed %>
+                            </td>
+                            <td><%= (coachee_goal.goal.is_global) ? 'Si':'No' %></td>
+                            <td><%=coachee_goal.goal.end_date%></td>
+                            <% if coachee_goal.completed %>
+                                <td><i class="icon-circle goal-fulfilled"></i> Cumplida</td>
+                            <% elsif !coachee_goal.completed and coachee_goal.goal.end_date >= DateTime.now %>
+                                <td><i class="icon-circle goal-in-progress"></i> Pendiente</td>
+                            <% else %>
+                                <td><i class="icon-circle goal-not-fullfiled"></i> No Cumplida</td>
+                            <% end %>
+                            <td><%=coachee_goal.goal.percentage%> %</td>
+                            <td>
+                              <% unless coachee_goal.goal.is_global %>
+                                <%=link_to delete_goal_path(:id => coachee_goal.goal.id, :user_id => @coachee.id), :onclick => "return confirm('¿Estás seguro que deseas eliminar este registro?');" do%>
+                                    <i class=" icon-cancel-alt-filled"></i>
+                                <%end%>
+                              <% end %>
+                            </td>
+                          </tr>
+                          <% total_percentage = coachee_goal.goal.percentage + total_percentage %>
+                    <%end%>
+                      <tr>
+                        <td colspan="4"><b>Porcentaje Total</b></td>
+                        <td colspan="3"><b> <%=total_percentage%> %</b></td>
+                      </tr>
+                    </table>
+                    <div class="row" style="margin-top:30px">
+                      <div class="col-md-12">
+                      <%= submit_tag 'Marcar Metas Como Completadas', :class => 'button_medium pull-right', :onclick => 'return removeCandidatesCheck()' %>
+                      </div>
+                    </div>
+                <% else %>
+                    </div>
+                    <div class="row">
+                      <p class="info">En este momento no hay ninguna Meta dentro del plan del Coaching, para agregar metas haz click <%=link_to "Aquí", goals_path(:coaching_id => @coaching.id) %></p>
+                    </div>
+                <% end %>
+              </div>
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+          </div><!-- end bottom-wizard -->
+      <%end%>
+    </div><!-- end Survey container -->
+  </div>
+</section><!-- end section main container -->
+
+
+
+<script type="text/javascript" language="javascript">// <![CDATA[
+
+function addCandidatesCheck() {
+
+    var checkboxes = new Array();
+    checkboxes = document['coachee_goals'].getElementsByTagName('input');
+
+    var checked = 0;
+    for (var i=0; i<checkboxes.length; i++)  {
+        if (checkboxes[i].type == 'checkbox' && checkboxes[i].checked )   {
+            checked = checked + 1;
+        }
+    }
+    if (checked == 0)
+    {
+        alert("Debes seleccionar al menos un usuario para eliminar")  ;
+        return false;
+    }
+}
+
+</script>

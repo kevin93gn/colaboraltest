@@ -1,0 +1,30 @@
+<aside class="col-lg-3 col-md-4 col-sm-4">
+  <div class="box_style_1">
+    <h4><i class=" icon-users-1"></i> Destinatario</h4>
+    <ul class="submenu-col">
+      <% if current_user.admin? %>
+        <li><%= link_to 'Todos los usuarios',  	communication_all_users_path, :id => "#{'active' if current_page?(communication_all_users_path)}"%></li>
+        <li><%= link_to 'Profesores',  	communication_teacher_path, :id => "#{'active' if current_page?(communication_teacher_path)}"%></li>
+      <% end %>
+      <% if current_user.admin? or current_user.coach?%>
+          <% if @coaching %>
+              <li><%= link_to 'Coaching',  	coaching_admin_path, :id => "#{'active' if current_page?(communication_courses_path(:course_id => @coaching.id))}"%></li>
+          <% else %>
+              <li><%= link_to 'Coachings',  	coaching_admin_path%></li>
+          <% end %>
+      <% end %>
+      <% if current_user.admin? or current_user.teacher?%>
+
+         <% if @course %>
+            <li><%= link_to 'Cursos',  	courses_admin_list_path, :id => "#{'active' if current_page?(communication_courses_path(:course_id => @course.id))}"%></li>
+          <% else %>
+            <li><%= link_to 'Cursos',  	courses_admin_list_path%></li>
+          <%end%>
+      <% end %>
+        <li><%= link_to 'Usuario',  	user_list_path, :id => "#{'active' if current_page?(communication_users_path(:user_id => current_user.id))}"%></li>
+
+    </ul>
+
+  </div>
+</aside>
+

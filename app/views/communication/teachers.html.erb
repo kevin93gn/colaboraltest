@@ -1,0 +1,58 @@
+
+<%= simple_form_for(@communication, url: communication_teacher_path, html: { method: :put,  autocomplete: 'off' }) do |f| %>
+<%= f.error_notification %>
+<section id="main_content">
+  <div class="container">
+
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to root_path do%>
+        <i class="icon-home"></i> Home
+        <% end %>
+      </li>
+      <li class="active">Mis Cursos</li>
+    </ol>
+
+    <div class="row">
+      <%= render 'communication/filters' %>
+      <div class="col-lg-9 col-md-8 col-sm-8">
+        <div class="row">
+        <h3><i class="icon-rocket-1"></i>Comunicaci&oacute;n con usuarios</h3><br>
+          </div>
+        <div class="row">
+
+                <div class="row">
+                  <p class="col-md-12"></p>
+                  <div class="col-md-6">
+                    <ul class="data-list">
+                      <li>
+                        <div class="form-group">
+                          <label><i class="icon-user-8"></i> Destinatarios</label><br>
+                          <p>Tutores (<%=@users.count%>)</p>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="form-group">
+                          <label><i class="icon-mail-6"></i> Asunto</label><br>
+                          <%= f.input :subject, required: true, :input_html => { :class => 'required form-control'}, :label => false, :placeholder => 'Nombre' %>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="form-group">
+                          <label><i class="icon-mail-6"></i> Contenido</label><br>
+                          <%= f.bootsy_area :content, editor_options: {font_styles: false, emphasis: true, color: false, image: false, lists: false } %>
+                        </div>
+                      </li>
+                    </ul>
+                  </div><!-- end col-md-6 -->
+
+                </div><!-- end row -->
+
+              <div><%= f.button :submit, "Enviar", :class => 'button_medium' %></div>
+        </div>
+      </div><!-- End row -->
+      </div><!-- End col-lg-9-->
+    </div><!-- End row -->
+  </div>
+  </section>
+<% end %>

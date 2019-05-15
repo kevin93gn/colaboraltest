@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  text: MyText
+  media_url: MyString
+  media_type: MyString
+  time_in_mins: 1
+  disqus_identifier: MyString
+
+two:
+  title: MyString
+  text: MyText
+  media_url: MyString
+  media_type: MyString
+  time_in_mins: 1
+  disqus_identifier: MyString

@@ -1,0 +1,72 @@
+<section id="main_content">
+  <div class="container">
+
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to root_path do%>
+            <i class="icon-home"></i> Home
+        <% end %>
+      </li>
+      <li>Coaching</li>
+      <li><%= @coaching.name %></li>
+      <li class="active">Sesiones</li>
+
+    </ol>
+    <div class="row">
+      <h3 class="col-md-12 subtitled"><i class="icon-calendar-1"></i>Sesiones : <b><%= @coaching.name %></h3>
+    </div>
+    <br />
+
+
+    <div class="row">
+      <aside class="col-md-4">
+        <div class="new_session">
+            <%= link_to new_session_path(:coaching_id => @coaching.id),  :class => 'button_medium pull-right col-md-12 ' do%>
+                <i class="icon-plus"></i> Agendar Nueva Sesi&oacute;n
+            <%end%>
+        </div>
+        <div class="box_style_1"  id="external-events">
+          <h4>Siguientes Sesiones</h4>
+          <% if @next_sessions.count != 0 %>
+              <% for session in @next_sessions %>
+                  <div class='external-event'>
+                    <%=link_to edit_session_path(:id => session.id) do %>
+                        <%="#{session.name} - #{session.date.strftime("%d/%m/%Y")}" %>
+                    <% end %>
+                  </div>
+              <%end%>
+          <% else %>
+                <p class="info">En este momento no hay sesiones </p>
+          <% end %>
+        </div>
+      </aside>
+
+      <div class="col-md-8">
+        <div id='calendar'></div>
+      </div>
+
+    </div><!-- End row -->
+
+  </div>
+</section>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#calendar').fullCalendar({
+            lang: 'es',
+
+            header: {
+                left: 'prev,next',
+                center: 'title',
+                right: 'month,agendaWeek'
+            },
+            editable: false,
+            events: [
+                <% for session in @sessions %>
+                <% event = "{ title: '#{session.name}', start: '#{session.date}', url: '#{edit_session_url(:id => session.id)}' }," %>
+                <%= event.html_safe %>
+                <% end %>
+            ]
+        });
+    });
+</script>
