@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171113001121) do
+ActiveRecord::Schema.define(version: 20190531132257) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -136,6 +136,23 @@ ActiveRecord::Schema.define(version: 20171113001121) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "enterprise"
+    t.string   "job"
+    t.string   "linkedin_url"
+    t.string   "consultant"
+    t.string   "category"
+    t.integer  "status"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "coaching_id"
+  end
+
+  add_index "contacts", ["coaching_id"], name: "index_contacts_on_coaching_id", using: :btree
 
   create_table "course_evaluation_answers", force: :cascade do |t|
     t.string   "answer"
@@ -262,6 +279,9 @@ ActiveRecord::Schema.define(version: 20171113001121) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.integer  "status"
+    t.string   "description"
+    t.string   "source"
   end
 
   create_table "module_items", force: :cascade do |t|

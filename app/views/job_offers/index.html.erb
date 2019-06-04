@@ -14,7 +14,7 @@
     </ol>
     <div class="row">
       <div class="col-md-12">
-        <h2 class="col-md-9"><i class="icon-suitcase"></i> Ofertas Laborales Recomendadas : <b><%= @coaching.name %></b>
+        <h2 class="col-md-9"><i class="icon-suitcase"></i> Ofertas Laborales Recomendadas Para Ti</b>
           <br />
         </h2>
       </div><!-- End col-md-8  -->
@@ -22,31 +22,69 @@
     <div class="row">
       <div class="col-md-12">
         <% if !@job_offers.nil? and @job_offers.any? %>
-            <table class="table table-bordered">
+            <table id="dttb" class="table table-bordered">
+              <thead>
               <tr>
                 <th>Nombre</th>
-                <th>Link</th>
+                <th>Fuente</th>
+                <th>Descripcion</th>
                 <th>Agregado el</th>
+                <th>Estatus</th>
+                <th>Acciones</th>
               </tr>
+              </thead>
+              <tbody>
               <% @job_offers.each do |jo| %>
-                  <tr>
-                    <td>
-                        <%= jo.name%>
-                    </td>
-                    <td>
-                      <%= link_to jo.url, jo.url, :target => '_blank' %>
-                    </td>
-                    <td>
-                      <%="#{jo.created_at.strftime("%d/%m/%Y")}"%>
-                    </td>
-                  </tr>
-              <%end%>
+                          <tr>
+                            <td>
+                              <%= link_to edit_job_offer_path(:coaching_id => @coaching.id, :id => jo.id) do%>
+                                  <%= jo.name %>
+                              <%end%>
+                            </td>
+                            <td>
+                              <%=jo.source%>
+                            </td>
+                            <td>                             
+                                <%=jo.description%>
+                            </td>
+                            <td>
+                              <%="#{jo.created_at}"%>
+                            </td>
+                            <td>                             
+                              <% if jo.status == 1 %>
+                                <span class="label label-default">Publicado</span>
+                              <% elsif jo.status == 2 %>
+                                <span class="label label-primary">Visto</span>
+                              <% elsif jo.status == 3 %>
+                                <span class="label label-success">Postulado</span>
+                              <% elsif jo.status == 4 %>
+                                <span class="label label-danger">No Postulado</span>
+                              <%end%>
+                            </td>
+                            <td>
+                              <%= link_to view_job_offer_path( id: jo.id), {:title => "Ver Oferta"} do%>
+                                  <i class=" icon-eye"></i>
+                              <%end%>
+                              <%= link_to '', jo.url, :target => '_blank', :id => 'reporte' %>
+                              <script language="JavaScript">
+                                document.getElementById('reporte').click();
+                              </script>
+                              <% unless (jo.status == 3)  %>
+                                <%= link_to jo.url, {:title => "Postulé"}, :target => '_blank' do%>
+                                    <i class=" icon-check"></i>
+                                <%end%>
+                              <%end%>
+                              <% unless (jo.status == 3 || jo.status == 4) %>
+                                <%= link_to jo.url, {:title => "No Postulé"}, :target => '_blank' do%>
+                                    <i class=" icon-thumbs-down"></i>
+                                <%end%>
+                              <%end%>
+                            </td>
+                          </tr>
+                      <%end%>
+                      </tbody>
+                    </table>
             </table>
-            <% if @job_offers %>
-                <div id="bottom-wizard">
-                  <%= will_paginate @job_offers, :params => { :method => :get } %>
-                </div><!-- end bottom-wizard -->
-            <% end %>
         <%else%>
             <p class="info">No hay ninguna oferta laboral creada para este coaching</p>
         <% end %>
@@ -55,3 +93,12 @@
 
   </div><!-- End container -->
 </section>
+<script>
+$(document).ready(function() {
+  $("#dttb").DataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+        }
+    } );
+});
+</script>

@@ -1,0 +1,118 @@
+<section id="wizard_bg">
+  <div class="container" id="admin_users" >
+    <div id="survey_container">
+      <div id="middle-wizard">
+        <div class="step">
+          <div class="row">
+            <% if params[:notice].kind_of?(Array)%>
+              <div class="alert alert-danger" role="alert">
+                <% params[:notice].each do |error| %>
+                    <%= error %><br> 
+                <%end%>
+              </div>
+            <%else%>
+              <div class="alert alert-success" role="alert">
+                    <%= params[:notice] %><br> 
+              </div>
+            <%end%>
+              <% if @user.nil? %>
+                <h3 class="col-md-6"><i class="icon-suitcase"></i> Red de Contactos : <b><%#=@coaching.name%></b></h3>
+                  <div class="col-md-4">
+                  <%= link_to new_contact_path,  :class => 'button_medium pull-right' do%>
+                      <i class="icon-plus"></i>1 Nuevo Contacto
+                  <%end%>
+                  </div>
+                  <div class="col-md-2">
+                  <%= link_to new_contact_path,  :class => 'button_medium pull-right' do%>
+                      <i class="icon-table"></i> Carga Masiva
+                  <%end%>
+                </div>
+              <% else %>
+                <h3 class="col-md-9"><i class="icon-suitcase"></i> Red de Contactos : <b><%= @user.full_name%></b></h3>
+                <div class="col-md-3">
+                  <%= link_to new_contact_path,  :class => 'button_medium pull-right' do%>
+                      <i class="icon-plus"></i> Nuevo Contacto
+                  <%end%>
+                </div>
+              <% end %>
+
+            <div class="row">
+              <div class="col-md-12">
+                <% if !@contacts.empty? %>
+                    <table id="dttb" class="table table-bordered">
+  <thead>
+    <tr>
+      <th data-data="first_name">Nombre</th>
+      <th data-data="last_name">Apellido</th>
+      <th data-data="email">Email</th>
+      <th data-data="enterprise">Empresa</th>
+      <th data-data="job">Cargo</th>
+      <th data-data="linkedin_url">Linkedin</th>
+      <th data-data="consultant">Consultor</th>
+      <th data-data="category">Industria</th>
+      <th data-data="status">Estatus</th>
+      <th data-data="url" data-orderable="false" data-class-name="all" data-searchable="false" class="skip-export" width="100px">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @contacts.each do |contact| %>
+      <tr>
+        <td>
+          <%= contact.first_name %>
+        </td>
+        <td>
+          <%= contact.last_name %>
+        </td>
+        <td>
+          <%= contact.email %>
+        </td>
+        <td>
+          <%= contact.enterprise %>
+        </td>
+        <td>
+          <%= contact.job %>
+        </td>
+        <td>
+          <%= link_to 'LinkedIn', contact.linkedin_url, :target => :blank %>
+        </td>
+        <td>
+          <%= contact.consultant %>
+        </td>
+        <td>
+          <%= contact.category %>
+        </td>
+        <td>
+          <% if contact.status == 1 %>
+            Por Contactar
+          <%end%>
+        </td>
+        <td>
+          <%= link_to 'Editar', edit_contact_path(contact) %>
+          <%= link_to 'Eliminar', contact_path(contact), :method => :delete %>
+        </td>
+      </tr>
+    <%end%>
+  </tbody>
+
+</table>
+<%else%>
+                    <p class="info">No hay ningun contacto registrado :( </p>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div><!-- end step-->
+      </div><!-- end middle-wizard -->
+
+    </div><!-- end Survey container -->
+  </div>
+</section><!-- end section main container -->
+<script>
+$(document).ready(function() {
+  $("#dttb").dataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+        }
+    } );
+});
+</script>

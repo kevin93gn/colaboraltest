@@ -19,7 +19,8 @@ default: &default
   encoding: unicode
   # For details on connection pooling, see rails configuration guide
   # http://guides.rubyonrails.org/configuring.html#database-pooling
-  user: xavi
+  user: postgres
+  password: postgres
   host: localhost
   port: 5432
   pool: 5
@@ -30,7 +31,7 @@ development:
 
 test:
   <<: *default
-  database: colaboral_  elearning_test
+  database: colaboral_elearning_test
 
 production:
   <<: *default

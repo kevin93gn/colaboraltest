@@ -14,10 +14,10 @@ admins = {
 
     },
     admin: {
-        first_name: 'Xavier',
-        last_name: 'Domingo',
+        first_name: 'Admin',
+        last_name: 'Garcia',
         rut: '16741261-0',
-        email: 'xavier@it4.cl',
+        email: 'admin@colaboral.com',
         password: 'administrador',
         password_confirmation: 'administrador',
         role: 'administrador',
@@ -27,7 +27,7 @@ admins = {
         first_name: 'John',
         last_name: 'Doe',
         rut: '22222222-2',
-        email: 'demo@indovirtual.cl',
+        email: 'demo@colaboral.com',
         password: 'demoindo',
         password_confirmation: 'demoindo',
         role: 'usuario',

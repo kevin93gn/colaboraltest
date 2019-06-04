@@ -22,6 +22,7 @@
                     <th>Plan</th>
                     <th>Activitidades</th>
                     <th>Ofertas</th>
+                    <th>Contactos</th>
                     <th>Otros</th>
                     <% if current_user.admin? %>
                       <th>Eliminar</th>
@@ -59,6 +60,11 @@
                         <td>
                           <%=link_to job_offers_admin_path(:coaching_id => coaching.id), :title => 'Ofertas Laborales' do%>
                               <i class="icon-suitcase"></i>
+                          <%end%>
+                        </td>
+                        <td>
+                          <%=link_to contacts_admin_path(:coaching_id => coaching.id), :title => 'Red De Contactos' do%>
+                              <i class="icon-users"></i>
                           <%end%>
                         </td>
                         <td>

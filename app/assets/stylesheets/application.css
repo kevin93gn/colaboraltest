@@ -19,6 +19,7 @@
  *= require color_scheme
  *= require single_course
  *= require custom
+ *= require datatables
  *= require_self
  *= require bootsy
  *= require fullcalendar-old.css

@@ -1,0 +1,64 @@
+<%= simple_form_for(@contact, html: { method: :post,  autocomplete: 'off' }) do |f| %>
+    <%= f.error_notification %>
+                <p class="col-md-12"></p>
+                <div class="col-md-6">
+                  <ul class="data-list">
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-suitcase"></i> Nombre</label>
+                        <%= f.input :first_name, required: true, :input_html => { :class => 'required form-control', :id => 'first_name'}, :label => false, :placeholder => 'Nombre' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-suitcase"></i> Apellido</label>
+                        <%= f.input :last_name, required: true, :input_html => { :class => 'required form-control', :id => 'last_name'}, :label => false, :placeholder => 'Apellido' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-suitcase"></i> Email</label>
+                        <%= f.input :email, required: true, :input_html => { :class => 'required form-control', :id => 'email'}, :label => false, :placeholder => 'email' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-suitcase"></i> Empresa</label>
+                        <%= f.input :enterprise, required: true, :input_html => { :class => 'required form-control', :id => 'enterprise'}, :label => false, :placeholder => 'empresa' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-suitcase"></i> Cargo</label>
+                        <%= f.input :job, required: true, :input_html => { :class => 'required form-control', :id => 'job'}, :label => false, :placeholder => 'cargo' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-suitcase"></i> LinkedIn</label>
+                        <%= f.input :linkedin_url, required: true, :input_html => { :class => 'required form-control', :id => 'linkedin_url'}, :label => false, :placeholder => 'linkedin url' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-suitcase"></i> Consultor</label>
+                        <%= f.input :consultant, required: true, :input_html => { :class => 'required form-control', :id => 'consultant'}, :label => false, :placeholder => 'consultor' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-suitcase"></i> Industria</label>
+                        <%= f.input :category, required: true, :input_html => { :class => 'required form-control', :id => 'category'}, :label => false, :placeholder => 'industria' %>
+                      </div>
+                    </li>
+                    <%= f.input :coaching_id, :as => :hidden, :input_html => { :value => params[:coaching_id]}%>
+                    <%= f.input :status, :as => :hidden, :input_html => { :value => 1}%>
+            </div><!-- end step-->
+          </div><!-- end middle-wizard -->
+          <div id="bottom-wizard">
+            <div><%= f.button :submit, "Crear", :class => 'button_medium' %></div>
+          </div><!-- end bottom-wizard -->
+        </div><!-- end Survey container -->
+      </div>
+    </section><!-- end section main container -->
+<% end %>

@@ -4,12 +4,27 @@
       <div id="middle-wizard">
         <div class="step">
           <div class="row">
-
+            <% if params[:notice].kind_of?(Array)%>
+              <div class="alert alert-danger" role="alert">
+                <% params[:notice].each do |error| %>
+                    <%= error %><br> 
+                <%end%>
+              </div>
+            <%else%>
+              <div class="alert alert-success" role="alert">
+                    <%= params[:notice] %><br> 
+              </div>
+            <%end%>
               <% if @user.nil? %>
-                <h3 class="col-md-9"><i class="icon-suitcase"></i> Ofertas Laborales : <b><%=@coaching.name%></b></h3>
-                  <div class="col-md-3">
+                <h3 class="col-md-6"><i class="icon-suitcase"></i> Ofertas Laborales : <b><%=@coaching.name%></b></h3>
+                  <div class="col-md-4">
                   <%= link_to new_job_offer_path(:coaching_id => @coaching.id),  :class => 'button_medium pull-right' do%>
-                      <i class="icon-plus"></i> Nueva Oferta Laboral
+                      <i class="icon-plus"></i>1 Nueva Oferta
+                  <%end%>
+                  </div>
+                  <div class="col-md-2">
+                  <%= link_to import_job_offers_path(:coaching_id => @coaching.id),  :class => 'button_medium pull-right' do%>
+                      <i class="icon-table"></i> Carga Masiva
                   <%end%>
                 </div>
               <% else %>
@@ -24,41 +39,62 @@
             <div class="row">
               <div class="col-md-12">
                 <% if !@job_offers.nil? and @job_offers.any? %>
-                    <table class="table table-bordered">
+                    <table id="dttb" class="table table-bordered">
+                      <thead>
                       <tr>
                         <th>Nombre</th>
-                        <th>Url</th>
-                        <th>Usuario</th>
+                        <th>Fuente</th>
+                        <th>Descripcion</th>
                         <th>Agregado el</th>
-                        <th>Eliminar</th>
+                        <th>Estatus</th>
+                        <th>Acciones</th>
                       </tr>
+                      </thead>
+                      <tbody>
                       <% @job_offers.each do |jo| %>
                           <tr>
                             <td>
                               <%= link_to edit_job_offer_path(:coaching_id => @coaching.id, :id => jo.id) do%>
-                                  <%= jo.name%>
+                                  <%= jo.name %>
                               <%end%>
                             </td>
                             <td>
-                              <%= link_to jo.url, jo.url, :target => '_blank' %>
+                              <%=jo.source%>
                             </td>
-                            <th>
-                              <% if jo.user.nil? %>
-                                   Todos
-                              <% else %>
-                                <%=jo.user.full_name %>
-                              <% end %>
-                            </th>
-                            <td>
-                              <%="#{jo.created_at.strftime("%d/%m/%Y")}"%>
+                            <td>                             
+                                <%=jo.description%>
                             </td>
                             <td>
+                              <%="#{jo.created_at}"%>
+                            </td>
+                            <td>                             
+                              <% if jo.status == 1 %>
+                                <span class="label label-default">Publicado</span>
+                              <% elsif jo.status == 2 %>
+                                <span class="label label-primary">Visto</span>
+                              <% elsif jo.status == 3 %>
+                                <span class="label label-success">Postuló</span>
+                              <% elsif jo.status == 4 %>
+                                <span class="label label-danger">No Postuló</span>
+                              <%end%>
+                            </td>
+                            <td>
+                              <%= link_to jo.url, :target => '_blank' do%>
+                                  <i class=" icon-eye"></i>
+                              <%end%>
+                              <%= link_to jo.url, :target => '_blank' do%>
+                                  <i class=" icon-check"></i>
+                              <%end%>
+                              <%= link_to jo.url, :target => '_blank' do%>
+                                  <i class=" icon-thumbs-down"></i>
+                              <%end%>
                               <%=link_to delete_job_offer_path(:coaching_id => @coaching.id, :id => jo.id), :onclick => "return confirm('¿Estás seguro que deseas eliminar este registro?');" do%>
-                                  <i class=" icon-cancel-alt-filled"></i>
+                                  <i class=" icon-trash"></i>
                               <%end%>
                             </td>
                           </tr>
                       <%end%>
+                      </tbody>
                     </table>
                 <%else%>
                     <p class="info">No hay ninguna oferta laboral creada :( </p>
@@ -68,11 +104,16 @@
           </div>
         </div><!-- end step-->
       </div><!-- end middle-wizard -->
-      <% if @job_offers %>
-          <div id="bottom-wizard">
-            <%= will_paginate @job_offers, :params => { :method => :get } %>
-          </div><!-- end bottom-wizard -->
-      <% end %>
+
     </div><!-- end Survey container -->
   </div>
 </section><!-- end section main container -->
+<script>
+$(document).ready(function() {
+  $("#dttb").dataTable({
+        "language": {
+            "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
+        }
+    } );
+});
+</script>

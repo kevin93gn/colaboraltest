@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  resources :contacts
   get 'evaluation/index'
 
   get 'evaluation/new'
@@ -62,6 +63,7 @@ Rails.application.routes.draw do
 
   get 'coaching/:coaching_id/job_offers/:id' => 'job_offers#show', :as => :show_job_offer
   get 'coaching/:coaching_id/job_offers' => 'job_offers#index', :as => :job_offers
+  get 'coaching/:coaching_id/job_offers/:id/view' => 'job_offers#view_offer', :as => :view_job_offer
 
 
   get 'courses/:course_id/evaluation/' => 'evaluation#show', :as => :evaluation
@@ -231,11 +233,22 @@ Rails.application.routes.draw do
 
   get 'admin/coaching/:coaching_id/job_offers/user_id/(:user_id)' => 'job_offers#admin', :as => :job_offers_admin
   get 'admin/coaching/:coaching_id/job_offers/new/user_id/(:user_id)' => 'job_offers#new', :as => :new_job_offer
+  get 'admin/coaching/:coaching_id/job_offers/import/user_id/(:user_id)' => 'job_offers#import', :as => :import_job_offers
+  post 'admin/coaching/:coaching_id/job_offers/import/user_id/(:user_id)' => 'job_offers#create_import'
   put 'admin/coaching/:coaching_id/job_offers/new/user_id/(:user_id)' => 'job_offers#create'
   get 'admin/coaching/:coaching_id/job_offers/edit/:id' => 'job_offers#edit', :as => :edit_job_offer
   put 'admin/coaching/:coaching_id/job_offers/edit/:id' => 'job_offers#update'
   get 'admin/coaching/:coaching_id/job_offers/delete/:id' => 'job_offers#delete', :as => :delete_job_offer
 
+  #Contacts
+
+
+  get 'admin/coaching/:coaching_id/contacts/' => 'contacts#admin', :as => :contacts_admin
+  get 'admin/coaching/:coaching_id/contacts/:id/change' => 'contacts#change_status', :as => :contact_status_change
+  get 'admin/coaching/:coaching_id/contacts/new/user_id/(:user_id)' => 'contacts#new', :as => :new_contact_network
+  get 'admin/coaching/:coaching_id/contacts/import/user_id/(:user_id)' => 'contacts#import', :as => :import_contacts
+  post 'admin/coaching/:coaching_id/contacts/import/user_id/(:user_id)' => 'contacts#create_import'
+  
 
   # Communication
 

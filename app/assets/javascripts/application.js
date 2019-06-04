@@ -27,4 +27,5 @@
 //= require fullcalendar-old
 //= require lang-all
 //= require slick
+//= require datatables
 //= require_self

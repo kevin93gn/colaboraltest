@@ -1,0 +1,36 @@
+<%= form_tag import_contacts_path, method: 'post', :multipart => true do  %>
+        <section id="wizard_bg">
+          <div class="container" >
+            <div id="survey_container">
+                <div id="middle-wizard">
+                  <div class="step">
+                    <div class="row" id="import_job_offers">
+                      <h3 class="col-md-8"><i class="icon-user"></i> Importar Contactos</h3>
+                      <div class="col-md-4">
+                        <%= link_to "/files/Ejemplo_contactos.xls", :target => '',  :class => 'button_medium pull-right' do%>
+                            <i class="icon-download-cloud"></i> Descargar Ejemplo
+                        <%end%>
+                      </div>
+                      <p class="col-md-12 subtitle">Permite cargar contactos para un coaching de forma masiva desde un archivo externo</p>
+                      <div class="col-md-6">
+                        <ul class="data-list">
+                          <li>
+                            <div class="form-group">
+                              <label><i class="icon-attach"></i> Archivo Excel (Extensi&oacute;n XLS)</label>
+                              <%= file_field_tag :excelfile, :class => 'required form-control' %>
+                            </div>
+                          </li>
+                        </ul>
+                      </div><!-- end col-md-6 -->
+
+                    </div><!-- end row -->
+                  </div><!-- end step-->
+                </div><!-- end middle-wizard -->
+                <div id="bottom-wizard">
+                  <div><%= button_tag "Cargar", :class => 'button_medium' %></div>
+
+                </div><!-- end bottom-wizard -->
+            </div><!-- end Survey container -->
+          </div>
+        </section><!-- end section main container -->
+    <% end %>

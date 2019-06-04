@@ -1,11 +1,9 @@
 source 'https://rubygems.org'
 
-ruby "2.4.6"
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.11.1'
+gem 'rails', '~>4.2.11.1'
 # Use postgresql as the database for Active Record
-gem 'pg', '0.21.0'
+gem 'pg', '~> 0.20'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
@@ -24,7 +22,7 @@ gem 'rails-i18n', '~> 4.0.3'
 gem 'capistrano'
 gem 'fog-aws'
 gem 'carrierwave'
-gem 'rmagick', :require => 'RMagick'
+gem 'rmagick'
 gem 'mini_magick'
 gem 'jquery-rails'
 gem 'sidekiq'
@@ -34,6 +32,8 @@ gem 'launchy', '2.2'
 gem 'axlsx_styler'
 gem 'axlsx_rails'
 gem 'puma'
+gem 'activerecord-postgis-adapter', '~> 3.0'
+gem 'jquery-datatables'
 
 
 group :production do

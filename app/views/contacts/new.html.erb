@@ -1,0 +1,22 @@
+
+
+    <section id="wizard_bg">
+      <div class="container">
+        <div id="survey_container">
+          <div id="middle-wizard">
+            <div class="step">
+              <div class="row">
+                <h3 class="col-md-9"><i class="icon-suitcase"></i> Nuevo Contacto: <b><%=@coaching.name%></b></h3>
+                <div class="col-md-3">
+                  <% if @user.nil? %>
+                      <%= link_to contacts_admin_path(:coaching_id => @coaching.id),  :class => 'button_medium pull-right' do%>
+                          <i class="icon-level-up"></i> Volver
+                      <%end%>
+                  <% else %>
+                      <%= link_to contacts_admin_path(:coaching_id => @coaching.id, :user_id => @user.id ),  :class => 'button_medium pull-right' do%>
+                          <i class="icon-level-up"></i> Volver
+                      <%end%>
+                  <% end %>
+                </div>
+                
+                <%= render 'form' %>

@@ -3,19 +3,18 @@ class JobOffersController < ApplicationController
   def index
     @per_page = 10
     @coaching = Coaching.find(params[:coaching_id])
-    @job_offers = JobOffer.where(:coaching_id => @coaching.id, :user_id => [nil, current_user.id]).order('created_at DESC').paginate(page: params[:page], per_page: @per_page)
+    @job_offers = JobOffer.where(:coaching_id => @coaching.id, :user_id => [nil, current_user.id]).order('created_at DESC')
   end
 
   def admin
-    @per_page = 10
     user_id = params[:user_id]
     @coaching = Coaching.find(params[:coaching_id])
     if user_id.nil?
-      @job_offers = JobOffer.where(:coaching_id => @coaching.id).order('created_at DESC').paginate(page: params[:page], per_page: @per_page)
+      @job_offers = JobOffer.where(:coaching_id => @coaching.id).order('created_at DESC')
     elsif
     @user = User.find(user_id)
       unless @user.nil?
-        @job_offers = JobOffer.where(:coaching_id => @coaching.id, :user_id => user_id).order('created_at DESC').paginate(page: params[:page], per_page: @per_page)
+        @job_offers = JobOffer.where(:coaching_id => @coaching.id, :user_id => user_id).order('created_at DESC')
       end
     end  end
 
@@ -65,8 +64,17 @@ class JobOffersController < ApplicationController
     end
   end
 
-  def delete
+  def view_offer
+    params.permit!
+    @job_offer = JobOffer.find(params[:id])
+    @coaching = Coaching.find(params[:coaching_id])
+    if @job_offer.status == 1
+      @job_offer.update_attributes(status: 2)
+    end
+    redirect_to :back
+  end
 
+  def delete
     job_offer = JobOffer.find(params[:id])
     if job_offer.user.nil?
       job_offer.destroy
@@ -77,5 +85,46 @@ class JobOffersController < ApplicationController
       redirect_to job_offers_admin_path(:coaching_id => params[:coaching_id], :user_id => user_id )
     end
   end
-  
+
+  def import
+    @coaching = Coaching.find(params[:coaching_id])
+  end
+
+  def create_import
+    get_file =  params[:excelfile]
+    coaching_id = params[:coaching_id]
+    File.open("#{Rails.root.join('tmp')}/temp.xls",  'wb') do |file|
+      file.write(get_file.read)
+    end
+    errors = []
+    i = 1
+    book = Spreadsheet.open "#{Rails.root.join('tmp')}/temp.xls"
+    sheet1 = book.worksheet 0
+    sheet1.each 1 do |row|
+      source = row[0]
+      name = row[2]
+      description = row[3]
+      url = row[4]
+      u = JobOffer.new(source: source, name: name, description: description, url: url, coaching_id: coaching_id, status: 1)
+      unless u.save
+        u.errors.each do |key, value|
+          errors.push("Error en linea: #{i} Campo [#{key}] = #{value}")
+        end
+        puts "Error en linea: #{i} nombre: #{name}"
+        Rails.logger.error u.errors.to_json
+      end
+      i += 1
+    end
+    3.times do 
+      errors.pop
+    end
+    if errors.empty?
+      notice = 'Carga completada sin problemas'
+    else
+      notice = errors
+    end
+    respond_to do |format|
+      format.html { redirect_to job_offers_admin_path(coaching_id: coaching_id,notice: notice)}
+    end
+  end
 end
