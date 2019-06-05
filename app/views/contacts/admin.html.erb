@@ -16,7 +16,7 @@
               </div>
             <%end%>
               <% if @user.nil? %>
-                <h3 class="col-md-6"><i class="icon-suitcase"></i> Ofertas Laborales : <b><%=@coaching.name%></b></h3>
+                <h3 class="col-md-6"><i class="icon-suitcase"></i> Red de Contactos : <b><%=@coaching.name%></b></h3>
                   <div class="col-md-4">
                   <%= link_to new_contact_path(:coaching_id => @coaching.id),  :class => 'button_medium pull-right' do%>
                       <i class="icon-plus"></i>1 Nuevo Contacto
@@ -28,10 +28,10 @@
                   <%end%>
                 </div>
               <% else %>
-                <h3 class="col-md-9"><i class="icon-suitcase"></i> Ofertas Laborales : <b><%= @user.full_name%></b></h3>
+                <h3 class="col-md-9"><i class="icon-suitcase"></i> Red de Contactos : <b><%= @user.full_name%></b></h3>
                 <div class="col-md-3">
                   <%= link_to new_contact_path(:coaching_id => @coaching.id, :user_id => @user.id),  :class => 'button_medium pull-right' do%>
-                      <i class="icon-plus"></i> Nueva Oferta Laboral
+                      <i class="icon-plus"></i> Nuevo Contacto
                   <%end%>
                 </div>
               <% end %>
@@ -110,7 +110,7 @@
                       </tbody>
                     </table>
                 <%else%>
-                    <p class="info">No hay ninguna oferta laboral creada :( </p>
+                    <p class="info">No hay ningun contacto creado :( </p>
                 <% end %>
               </div>
             </div>
