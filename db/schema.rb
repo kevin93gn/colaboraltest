@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -26,8 +25,8 @@ ActiveRecord::Schema.define(version: 20190531132257) do
   end
 
   create_table "bootsy_image_galleries", force: :cascade do |t|
-    t.integer  "bootsy_resource_id"
     t.string   "bootsy_resource_type"
+    t.integer  "bootsy_resource_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -101,10 +100,9 @@ ActiveRecord::Schema.define(version: 20190531132257) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["session_id"], name: "index_coaching_session_on_session_id", unique: true, using: :btree
+    t.index ["updated_at"], name: "index_coaching_session_on_updated_at", using: :btree
   end
-
-  add_index "coaching_session", ["session_id"], name: "index_coaching_session_on_session_id", unique: true, using: :btree
-  add_index "coaching_session", ["updated_at"], name: "index_coaching_session_on_updated_at", using: :btree
 
   create_table "coaching_sessions", force: :cascade do |t|
     t.string   "name"
@@ -150,9 +148,8 @@ ActiveRecord::Schema.define(version: 20190531132257) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.integer  "coaching_id"
+    t.index ["coaching_id"], name: "index_contacts_on_coaching_id", using: :btree
   end
-
-  add_index "contacts", ["coaching_id"], name: "index_contacts_on_coaching_id", using: :btree
 
   create_table "course_evaluation_answers", force: :cascade do |t|
     t.string   "answer"
@@ -354,10 +351,9 @@ ActiveRecord::Schema.define(version: 20190531132257) do
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.index ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
+    t.index ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
   end
-
-  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
-  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "subscriptions", force: :cascade do |t|
     t.integer  "course_id",                  null: false
@@ -418,9 +414,8 @@ ActiveRecord::Schema.define(version: 20190531132257) do
     t.string   "company_type"
     t.boolean  "external_user",          default: false
     t.string   "branch"
+    t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end

@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~>4.2.11.1'
+gem 'rails', '~> 5.0.0.beta1'
 # Use postgresql as the database for Active Record
-gem 'pg', '~> 0.20'
+gem 'pg'
+gem 'mysql2', '~> 0.5.2'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.3'
+gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -18,7 +19,7 @@ gem 'simple_form'
 gem 'spreadsheet'
 gem 'disqus_api'
 gem 'will_paginate'
-gem 'rails-i18n', '~> 4.0.3'
+gem 'rails-i18n'
 gem 'capistrano'
 gem 'fog-aws'
 gem 'carrierwave'
