@@ -16,7 +16,8 @@ class JobOffersController < ApplicationController
       unless @user.nil?
         @job_offers = JobOffer.where(:coaching_id => @coaching.id, :user_id => user_id).order('created_at DESC')
       end
-    end  end
+    end  
+  end
 
   def new
     user_id = params[:user_id]
@@ -32,6 +33,10 @@ class JobOffersController < ApplicationController
     params.permit!
     @job_offer = JobOffer.new(params[:job_offer])
     @job_offer.coaching_id = params[:coaching_id]
+    @job_offer.status = 1
+    unless params[:user_id].nil?
+      @job_offer.user_id = params[:user_id]
+    end
     if @job_offer.save
       if @job_offer.user.nil?
         redirect_to job_offers_admin_path(:coaching_id => @job_offer.coaching_id)
@@ -40,13 +45,32 @@ class JobOffersController < ApplicationController
       end
     else
       @coaching = Coaching.find(params[:coaching_id])
-      render :action => 'new'
+      @user = User.find(params[:user_id])
+      Rails.logger.error @job_offer.errors.to_json
+      render :action => 'new', flash: :errors
     end
   end
 
   def edit
     @job_offer = JobOffer.find(params[:id])
     @coaching = Coaching.find(params[:coaching_id])
+    
+    unless @job_offer.user_id.nil? 
+      @user = User.find(@job_offer.user_id)
+    end
+  end
+  
+    def change_status
+    @job_offer = JobOffer.find(params[:id])
+    respond_to do |format|
+      if @job_offer.update(status: params[:status])
+        format.html { redirect_to job_offers_admin_path(:coaching_id => params[:coaching_id]), notice: "Estatus de la oferta #{@job_offer.name} actualizada exitosamente" }
+        format.json { render :show, status: :ok, location: @job_offer }
+      else
+        format.html { redirect_to job_offer_admin_path(:coaching_id => params[:coaching_id]), notice: "Falló al cambiar el estatus de la oferta #{@job_offer.name}" }
+        format.json { render json: @job_offer.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def update
@@ -88,11 +112,15 @@ class JobOffersController < ApplicationController
 
   def import
     @coaching = Coaching.find(params[:coaching_id])
+    @coachee = User.find(params[:user_id])
   end
 
   def create_import
     get_file =  params[:excelfile]
     coaching_id = params[:coaching_id]
+    unless params[:user_id].nil? 
+      user_id = params[:user_id]
+    end
     File.open("#{Rails.root.join('tmp')}/temp.xls",  'wb') do |file|
       file.write(get_file.read)
     end
@@ -105,7 +133,11 @@ class JobOffersController < ApplicationController
       name = row[2]
       description = row[3]
       url = row[4]
-      u = JobOffer.new(source: source, name: name, description: description, url: url, coaching_id: coaching_id, status: 1)
+      if params[:user_id].nil? 
+        u = JobOffer.new(source: source, name: name, description: description, url: url, coaching_id: coaching_id, status: 1)
+      else
+        u = JobOffer.new(source: source, name: name, description: description, url: url,coaching_id: coaching_id, user_id: user_id, status: 1)
+      end
       unless u.save
         u.errors.each do |key, value|
           errors.push("Error en linea: #{i} Campo [#{key}] = #{value}")
@@ -124,7 +156,11 @@ class JobOffersController < ApplicationController
       notice = errors
     end
     respond_to do |format|
-      format.html { redirect_to job_offers_admin_path(coaching_id: coaching_id,notice: notice)}
+      if params[:user_id].nil?
+        format.html { redirect_to job_offers_admin_path(:coaching_id => coaching_id,notice: notice)}
+      else
+        format.html { redirect_to job_offers_admin_path(:coaching_id => params[:coaching_id], :user_id => params[:user_id],notice: notice)}
+      end
     end
   end
 end

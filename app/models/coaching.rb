@@ -5,7 +5,6 @@ class Coaching < ActiveRecord::Base
   has_many :sessions
   has_many :coaching_activities
   has_many :job_offers
-  has_many :contacts
 
   validates_presence_of :name
 

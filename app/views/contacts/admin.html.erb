@@ -16,21 +16,21 @@
               </div>
             <%end%>
               <% if @user.nil? %>
-                <h3 class="col-md-6"><i class="icon-suitcase"></i> Red de Contactos : <b><%=@coaching.name%></b></h3>
+                <h3 class="col-md-6"><i class="icon-suitcase"></i> Red de Contactos : <b><%=@coachee.first_name%></b></h3>
                   <div class="col-md-4">
-                  <%= link_to new_contact_path(:coaching_id => @coaching.id),  :class => 'button_medium pull-right' do%>
+                  <%= link_to new_contact_path(:coachee_id => @coachee.id),  :class => 'button_medium pull-right' do%>
                       <i class="icon-plus"></i>1 Nuevo Contacto
                   <%end%>
                   </div>
                   <div class="col-md-2">
-                  <%= link_to import_contacts_path(:coaching_id => @coaching.id),  :class => 'button_medium pull-right' do%>
+                  <%= link_to import_contacts_path(:coachee_id => @coachee.id),  :class => 'button_medium pull-right' do%>
                       <i class="icon-table"></i> Carga Masiva
                   <%end%>
                 </div>
               <% else %>
                 <h3 class="col-md-9"><i class="icon-suitcase"></i> Red de Contactos : <b><%= @user.full_name%></b></h3>
                 <div class="col-md-3">
-                  <%= link_to new_contact_path(:coaching_id => @coaching.id, :user_id => @user.id),  :class => 'button_medium pull-right' do%>
+                  <%= link_to new_contact_path(:coachee_id => @coachee.id, :user_id => @user.id),  :class => 'button_medium pull-right' do%>
                       <i class="icon-plus"></i> Nuevo Contacto
                   <%end%>
                 </div>
@@ -38,8 +38,8 @@
 
             <div class="row">
               <div class="col-md-12">
-                <% if !@contacts.nil? and @contacts.any? %>
-                    <table id="dttb" class="table table-bordered">
+                <% if !@coachee.contacts.nil? and @coachee.contacts.any? %>
+                    <table id="dttb" class="table table-bordered" style="border-collapse: collapse;">
                       <thead>
                       <tr>
                         <th data-data="first_name">Nombre</th>
@@ -55,7 +55,7 @@
                       </tr>
                       </thead>
                       <tbody>
-                      <% @contacts.each do |contact| %>
+                      <% @coachee.contacts.each do |contact| %>
                           <tr>
                             <td>
                                 <%= contact.first_name %>
@@ -95,15 +95,21 @@
                               <%end%>
                             </td>
                             <td>
-                              <%= link_to contact_status_change_path(id: contact.id, status: 2) do%>
-                                  <i class=" icon-eye"></i>
-                              <%end%>
-                              <%= link_to contact_status_change_path(id: contact.id, status: 3) do%>
-                                  <i class=" icon-check"></i>
-                              <%end%>
-                              <%= link_to contact_status_change_path(id: contact.id, status: 4) do%>
-                                  <i class=" icon-thumbs-down"></i>
-                              <%end%>
+                              <% if contact.status == 1 %>
+                                <%= link_to contact_status_change_path(id: contact.id, status: 2), :title => "Contactado" do%>
+                                    <i class=" icon-eye"></i>
+                                <%end%>
+                              <% end %>
+                              <% if contact.status == 1  || contact.status == 2 %>
+                                <%= link_to contact_status_change_path(id: contact.id, status: 3), :title => "En Proceso / Entrevista" do%>
+                                    <i class=" icon-check"></i>
+                                <%end%>
+                              <% end %>
+                              <% if contact.status != 4 %>
+                                <%= link_to contact_status_change_path(id: contact.id, status: 4), :title => "Rechazado" do%>
+                                    <i class=" icon-thumbs-down"></i>
+                                <%end%>
+                              <% end %>
                             </td>
                           </tr>
                       <%end%>

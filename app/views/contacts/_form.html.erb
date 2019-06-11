@@ -5,53 +5,53 @@
                   <ul class="data-list">
                     <li>
                       <div class="form-group">
-                        <label><i class="icon-suitcase"></i> Nombre</label>
+                        <label>Nombre</label>
                         <%= f.input :first_name, required: true, :input_html => { :class => 'required form-control', :id => 'first_name'}, :label => false, :placeholder => 'Nombre' %>
                       </div>
                     </li>
                     <li>
                       <div class="form-group">
-                        <label><i class="icon-suitcase"></i> Apellido</label>
+                        <label>Apellido</label>
                         <%= f.input :last_name, required: true, :input_html => { :class => 'required form-control', :id => 'last_name'}, :label => false, :placeholder => 'Apellido' %>
                       </div>
                     </li>
                     <li>
                       <div class="form-group">
-                        <label><i class="icon-suitcase"></i> Email</label>
+                        <label>Email</label>
                         <%= f.input :email, required: true, :input_html => { :class => 'required form-control', :id => 'email'}, :label => false, :placeholder => 'email' %>
                       </div>
                     </li>
                     <li>
                       <div class="form-group">
-                        <label><i class="icon-suitcase"></i> Empresa</label>
+                        <label>Empresa</label>
                         <%= f.input :enterprise, required: true, :input_html => { :class => 'required form-control', :id => 'enterprise'}, :label => false, :placeholder => 'empresa' %>
                       </div>
                     </li>
                     <li>
                       <div class="form-group">
-                        <label><i class="icon-suitcase"></i> Cargo</label>
+                        <label>Cargo</label>
                         <%= f.input :job, required: true, :input_html => { :class => 'required form-control', :id => 'job'}, :label => false, :placeholder => 'cargo' %>
                       </div>
                     </li>
                     <li>
                       <div class="form-group">
-                        <label><i class="icon-suitcase"></i> LinkedIn</label>
+                        <label>LinkedIn</label>
                         <%= f.input :linkedin_url, required: true, :input_html => { :class => 'required form-control', :id => 'linkedin_url'}, :label => false, :placeholder => 'linkedin url' %>
                       </div>
                     </li>
                     <li>
                       <div class="form-group">
-                        <label><i class="icon-suitcase"></i> Consultor</label>
+                        <label>Consultor</label>
                         <%= f.input :consultant, required: true, :input_html => { :class => 'required form-control', :id => 'consultant'}, :label => false, :placeholder => 'consultor' %>
                       </div>
                     </li>
                     <li>
                       <div class="form-group">
-                        <label><i class="icon-suitcase"></i> Industria</label>
+                        <label>Industria</label>
                         <%= f.input :category, required: true, :input_html => { :class => 'required form-control', :id => 'category'}, :label => false, :placeholder => 'industria' %>
                       </div>
                     </li>
-                    <%= f.input :coaching_id, :as => :hidden, :input_html => { :value => params[:coaching_id]}%>
+                    <%= f.input :coachee_id, :as => :hidden, :input_html => { :value => params[:coachee_id]}%>
                     <%= f.input :status, :as => :hidden, :input_html => { :value => 1}%>
             </div><!-- end step-->
           </div><!-- end middle-wizard -->

@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :coaching_graphs
   has_many :coaching_news
   has_many :job_offers
+  has_many :contacts
 
   valid_email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 

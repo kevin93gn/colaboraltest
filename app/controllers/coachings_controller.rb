@@ -39,7 +39,8 @@ class CoachingsController < ApplicationController
         end
       end
 =end
-a = 1
+      a = 1
+      @contacts = Contact.all
     end
   end
 

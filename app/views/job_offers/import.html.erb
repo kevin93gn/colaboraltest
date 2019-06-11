@@ -1,17 +1,17 @@
-<%= form_tag import_job_offers_path, method: 'post', :multipart => true do  %>
+<%= form_tag import_job_offers_path(:coaching_id => @coaching.id, :user_id => @coachee.id), method: 'post', :multipart => true do  %>
         <section id="wizard_bg">
           <div class="container" >
             <div id="survey_container">
                 <div id="middle-wizard">
                   <div class="step">
                     <div class="row" id="import_job_offers">
-                      <h3 class="col-md-8"><i class="icon-user"></i> Importar Ofertas de Trabajo</h3>
+                      <h3 class="col-md-8"><i class="icon-user"></i> Importar Ofertas de Trabajo: <%= @coachee.first_name+' '+@coachee.last_name %></h3>
                       <div class="col-md-4">
                         <%= link_to "/files/Ejemplo_ofertas.xls", :target => '',  :class => 'button_medium pull-right' do%>
                             <i class="icon-download-cloud"></i> Descargar Ejemplo
                         <%end%>
                       </div>
-                      <p class="col-md-12 subtitle">Permite cargar ofertas de trabajo para un coaching de forma masiva desde un archivo externo</p>
+                      <p class="col-md-12 subtitle">Permite cargar ofertas de trabajo para un coachee de forma masiva desde un archivo externo</p>
                       <div class="col-md-6">
                         <ul class="data-list">
                           <li>

@@ -19,6 +19,7 @@
                         <th>Nombre</th>
                         <th>Seguimiento Plan</th>
                         <th>Ofertas</th>
+                        <th>Red de Contactos</th>
                         <th>PDI</th>
                         <th>Gr&aacute;fico</th>
                         <% if current_user.admin? %>
@@ -55,6 +56,11 @@
                             <td>
                               <%=link_to job_offers_admin_path(:coaching_id => @coaching.id, :user_id => user.id), :title => 'Ofertas Laborales' do%>
                                   <i class="icon-suitcase"></i>
+                              <%end%>
+                            </td>
+                            <td>
+                              <%=link_to contacts_admin_path(:coachee_id => user.id), :title => 'Red De Contactos' do%>
+                                  <i class="icon-users"></i>
                               <%end%>
                             </td>
                             <td>

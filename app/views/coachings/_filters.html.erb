@@ -14,6 +14,20 @@
     </ul>
     <br>
   </div>
+  <div class="box_style_1">
+    <h4><i class="icon-users"></i>Mis Contactos</h4>
+    <ul class="submenu-col">
+      <% @contacts.each do |c| %>
+          <h4>
+            <%= link_to "#{c.first_name} #{c.last_name}", contact_path(c)%>
+            <%= link_to  contact_path(c) do%>
+              <span class="pull-right">Ver</span></h4>
+            <%end%>
+          <h4>
+      <% end %>
+    </ul>
+    <br>
+  </div>
   <% if @courses.nil? or @courses.count > 0 %>
       <div class="box_style_1">
         <h4><i class="icon-book-open"></i> Mis Cursos</h4>
@@ -78,6 +92,16 @@
     </div>
   </div>
 
+  <div class="box_style_1">
+    <h4>
+      <i     class="icon-link-1"></i>Links</h4>
+    <ul class="list_1">
+      <li>
+        <a data-toggle="modal" href="#contact_modal"><i class="icon-mail"></i> Contactar al Tutor</a>
+      </li>
+    </ul>
+  </div>
+  
   <div class="box_style_1">
     <h4>
       <i     class="icon-link-1"></i>Links</h4>

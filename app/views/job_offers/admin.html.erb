@@ -10,7 +10,7 @@
                     <%= error %><br> 
                 <%end%>
               </div>
-            <%else%>
+            <%elsif params[:notice].present?%>
               <div class="alert alert-success" role="alert">
                     <%= params[:notice] %><br> 
               </div>
@@ -28,12 +28,17 @@
                   <%end%>
                 </div>
               <% else %>
-                <h3 class="col-md-9"><i class="icon-suitcase"></i> Ofertas Laborales : <b><%= @user.full_name%></b></h3>
-                <div class="col-md-3">
+                <h3 class="col-md-6"><i class="icon-suitcase"></i> Ofertas Laborales : <b><%= @user.full_name%></b></h3>
+                <div class="col-md-4">
                   <%= link_to new_job_offer_path(:coaching_id => @coaching.id, :user_id => @user.id),  :class => 'button_medium pull-right' do%>
                       <i class="icon-plus"></i> Nueva Oferta Laboral
                   <%end%>
                 </div>
+                  <div class="col-md-2">
+                    <%= link_to import_job_offers_path(:coaching_id => @coaching.id, :user_id => @user.id),  :class => 'button_medium pull-right' do%>
+                        <i class="icon-table"></i> Carga Masiva
+                    <%end%>
+                  </div>
               <% end %>
 
             <div class="row">
@@ -73,20 +78,26 @@
                               <% elsif jo.status == 2 %>
                                 <span class="label label-primary">Visto</span>
                               <% elsif jo.status == 3 %>
-                                <span class="label label-success">Postuló</span>
+                                <span class="label label-success">Postulado</span>
                               <% elsif jo.status == 4 %>
-                                <span class="label label-danger">No Postuló</span>
+                                <span class="label label-danger">No Postulado</span>
                               <%end%>
                             </td>
                             <td>
-                              <%= link_to jo.url, :target => '_blank' do%>
-                                  <i class=" icon-eye"></i>
+                              <% if jo.status == 1 %>
+                                <%= link_to job_offer_status_change_path(id: jo.id, status: 2), :onclick => "window.open('"+jo.url+"', '_blank');" , :title => "Visto" do %>
+                                    <i class=" icon-eye"></i>
+                                <%end%>
                               <%end%>
-                              <%= link_to jo.url, :target => '_blank' do%>
-                                  <i class=" icon-check"></i>
+                              <% if jo.status == 1 || jo.status == 2 %>
+                                <%= link_to job_offer_status_change_path(id: jo.id, status: 3), :onclick => "window.open('"+jo.url+"', '_blank');" , :title => "Postulado" do %>
+                                    <i class=" icon-check"></i>
+                                <%end%>
                               <%end%>
-                              <%= link_to jo.url, :target => '_blank' do%>
-                                  <i class=" icon-thumbs-down"></i>
+                              <% if jo.status != 4 %>
+                                <%= link_to job_offer_status_change_path(id: jo.id, status: 4), :onclick => "window.open('"+jo.url+"', '_blank');" do %>
+                                    <i class=" icon-thumbs-down"></i>
+                                <%end%>
                               <%end%>
                               <%=link_to delete_job_offer_path(:coaching_id => @coaching.id, :id => jo.id), :onclick => "return confirm('¿Estás seguro que deseas eliminar este registro?');" do%>
                                   <i class=" icon-trash"></i>

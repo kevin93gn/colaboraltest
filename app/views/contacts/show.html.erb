@@ -1,49 +1,48 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>First name:</strong>
-  <%= @contact.first_name %>
-</p>
-
-<p>
-  <strong>Last name:</strong>
-  <%= @contact.last_name %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @contact.email %>
-</p>
-
-<p>
-  <strong>Enterprise:</strong>
-  <%= @contact.enterprise %>
-</p>
-
-<p>
-  <strong>Job:</strong>
-  <%= @contact.job %>
-</p>
-
-<p>
-  <strong>Linkedin url:</strong>
-  <%= @contact.linkedin_url %>
-</p>
-
-<p>
-  <strong>Consultant:</strong>
-  <%= @contact.consultant %>
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @contact.category %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @contact.status %>
-</p>
-
-<%= link_to 'Edit', edit_contact_path(@contact) %> |
-<%= link_to 'Back', contacts_path %>
+<div class="row">
+  <div class="row" align="center"><h2>Contactos</h2></div>
+  <div class="col-md-6 col-md-offset-3">
+    <div class="box_style_1">
+      <h4 align="center"><i class="icon-user-1"></i><%= @contact.first_name %> <%= @contact.last_name %></h4>
+      <ul class="list_1">
+        <li style="border-bottom: 1px solid #eaeff3;">
+          <h5>
+            <label><i class="icon-mail"></i> Email: </label>
+            <%= @contact.email %>
+          </h5>
+        </li>
+        <li style="border-bottom: 1px solid #eaeff3;">
+          <h5>
+            <label><i class="icon-building"></i> Empresa: </label>
+            <%= @contact.enterprise %>
+          </h5>
+        </li>
+        <li style="border-bottom: 1px solid #eaeff3;">
+          <h5>
+            <label><i class="icon-sitemap"></i> Cargo: </label>
+            <%= @contact.job %>
+          </h5>
+        </li>
+        <li style="border-bottom: 1px solid #eaeff3;">
+          <h5>
+            <label><i class="icon-linkedin"></i> LinkedIn: </label>
+            <%= link_to "Ver", @contact.linkedin_url, :target => 'blank', :style=>"display: inline-block;" %>
+          </h5>
+        </li>
+        <li style="border-bottom: 1px solid #eaeff3;">
+          <h5>
+            <label><i class="icon-user"></i> Consultor: </label>
+            <%= @contact.consultant %>
+          </h5>
+        </li>
+        <li style="border-bottom: 1px solid #eaeff3;">
+          <h5>
+            <label><i class="icon-buffer"></i> Industria: </label>
+            <%= @contact.category %>
+          </h5>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -7,8 +7,8 @@
         <% end %>
       </li>
       <li class="">
-        <%= link_to coachings_path(:coaching_id => @coaching.id) do%>
-            <%= @coaching.name %>
+        <%= link_to coachees_path(:coachee_id => @coaching.id) do%>
+            <%= @coachee.user.first_name %>
         <% end %>
       <li class="active"> Ofertas Laborales Recomendadas </li>
     </ol>
@@ -37,7 +37,7 @@
               <% @job_offers.each do |jo| %>
                           <tr>
                             <td>
-                              <%= link_to edit_job_offer_path(:coaching_id => @coaching.id, :id => jo.id) do%>
+                              <%= link_to edit_job_offer_path(:coachee_id => @coachee.id, :id => jo.id) do%>
                                   <%= jo.name %>
                               <%end%>
                             </td>
@@ -86,7 +86,7 @@
                     </table>
             </table>
         <%else%>
-            <p class="info">No hay ninguna oferta laboral creada para este coaching</p>
+            <p class="info">No hay ninguna oferta laboral creada para este coachee</p>
         <% end %>
       </div>
     </div>

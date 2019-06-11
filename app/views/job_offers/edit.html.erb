@@ -1,5 +1,5 @@
 
-<%= simple_form_for(@job_offer, url: edit_job_offer_path(:coaching_id => @job_offer.coaching_id), html: { method: :put,  autocomplete: 'off' }) do |f| %>
+<%= simple_form_for(@job_offer, url: edit_job_offer_path(:coaching_id => @coaching.id, :id => @job_offer.id), html: { method: :put,  autocomplete: 'off' }) do |f| %>
     <%= f.error_notification %>
     <section id="wizard_bg">
       <div class="container">
@@ -7,14 +7,16 @@
           <div id="middle-wizard">
             <div class="step">
               <div class="row">
+                <% if @job_offer.user.nil? %>
                 <h3 class="col-md-9"><i class="icon-suitcase"></i> Editar Oferta Laboral : <b><%=@coaching.name%></b></h3>
                 <div class="col-md-3">
-                  <% if @job_offer.user.nil? %>
                     <%= link_to job_offers_admin_path(:coaching_id => @coaching.id),  :class => 'button_medium pull-right' do%>
                         <i class="icon-level-up"></i> Volver
                     <%end%>
                   <% else %>
-                    <%= link_to job_offers_admin_path(:coaching_id => @coaching.id, :user_id => @job_offer.user.id ),  :class => 'button_medium pull-right' do%>
+                <h3 class="col-md-9"><i class="icon-suitcase"></i> Editar Oferta Laboral : <b><%=@user.first_name%></b></h3>
+                <div class="col-md-3">
+                    <%= link_to job_offers_admin_path(:coaching_id => @coaching.id, :user_id => @user.id ),  :class => 'button_medium pull-right' do%>
                         <i class="icon-level-up"></i> Volver
                     <%end%>
                   <% end %>
@@ -24,8 +26,20 @@
                   <ul class="data-list">
                     <li>
                       <div class="form-group">
+                        <label><i class="icon-box"></i> Fuente</label>
+                        <%= f.input :source, required: true, :input_html => { :class => 'required form-control', :id => 'source'}, :label => false, :placeholder => 'Fuente' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
                         <label><i class="icon-suitcase"></i> Nombre</label>
                         <%= f.input :name, required: true, :input_html => { :class => 'required form-control', :id => 'name'}, :label => false, :placeholder => 'Nombre' %>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-group">
+                        <label><i class="icon-pen"></i> Descripcion</label>
+                        <%= f.input :description, required: true, :input_html => { :class => 'required form-control', :id => 'description'}, :label => false, :placeholder => 'Descripcion' %>
                       </div>
                     </li>
                     <li>

@@ -147,8 +147,8 @@ ActiveRecord::Schema.define(version: 20190531132257) do
     t.integer  "status"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.integer  "coaching_id"
-    t.index ["coaching_id"], name: "index_contacts_on_coaching_id", using: :btree
+    t.integer  "user_id"
+    t.index ["user_id"], name: "index_contacts_on_user_id", using: :btree
   end
 
   create_table "course_evaluation_answers", force: :cascade do |t|
