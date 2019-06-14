@@ -6,6 +6,10 @@ class ContactsController < ApplicationController
   def index
     @contacts = Contact.all
   end
+  
+  def my_contacts
+    @contacts = Contact.where(user_id: params[:user_id])
+  end
 
   def admin
     user_id = params[:user_id]

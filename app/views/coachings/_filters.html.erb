@@ -14,18 +14,22 @@
     </ul>
     <br>
   </div>
-  <div class="box_style_1">
-    <h4><i class="icon-users"></i>Mis Contactos</h4>
+  <div class="box_style_1" >
+    <h4><i class="icon-users"></i>Mis Redes<%= link_to my_contacts_path(:user_id => current_user.id) do%>
+        <span class="view_more_link">
+            Ver <i class="icon-plus-squared"></i>
+        </span>
+    <% end %></h4>
+    
+    <div style="overflow: scroll; height: 200px;">
     <ul class="submenu-col">
       <% @contacts.each do |c| %>
           <h4>
             <%= link_to "#{c.first_name} #{c.last_name}", contact_path(c)%>
-            <%= link_to  contact_path(c) do%>
-              <span class="pull-right">Ver</span></h4>
-            <%end%>
           <h4>
       <% end %>
     </ul>
+    </div>
     <br>
   </div>
   <% if @courses.nil? or @courses.count > 0 %>
@@ -92,16 +96,6 @@
     </div>
   </div>
 
-  <div class="box_style_1">
-    <h4>
-      <i     class="icon-link-1"></i>Links</h4>
-    <ul class="list_1">
-      <li>
-        <a data-toggle="modal" href="#contact_modal"><i class="icon-mail"></i> Contactar al Tutor</a>
-      </li>
-    </ul>
-  </div>
-  
   <div class="box_style_1">
     <h4>
       <i     class="icon-link-1"></i>Links</h4>

@@ -10,7 +10,7 @@
                     <%= error %><br> 
                 <%end%>
               </div>
-            <%else%>
+            <%elsif params[:notice].present?%>
               <div class="alert alert-success" role="alert">
                     <%= params[:notice] %><br> 
               </div>

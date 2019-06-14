@@ -231,6 +231,7 @@ Rails.application.routes.draw do
 
   # Job Offers
 
+  
   get 'admin/coaching/:coaching_id/job_offers/user_id/(:user_id)' => 'job_offers#admin', :as => :job_offers_admin
   get 'admin/coaching/:coaching_id/job_offers/new/user_id/(:user_id)' => 'job_offers#new', :as => :new_job_offer
   get 'admin/coaching/:coaching_id/job_offers/import/user_id/(:user_id)' => 'job_offers#import', :as => :import_job_offers
@@ -240,15 +241,17 @@ Rails.application.routes.draw do
   put 'admin/coaching/:coaching_id/job_offers/edit/:id' => 'job_offers#update'
   get 'admin/coaching/:coaching_id/job_offers/delete/:id' => 'job_offers#delete', :as => :delete_job_offer
   get 'admin/coaching/:coaching_id/job_offers/:id/change' => 'job_offers#change_status', :as => :job_offer_status_change
+  
   #Contacts
 
-
+  get 'admin/contacts/user_id/(:user_id)' => 'contacts#my_contacts', :as => :my_contacts
   get 'admin/coaching/:coachee_id/contacts/' => 'contacts#admin', :as => :contacts_admin
   get 'admin/coaching/:coachee_id/contacts/:id/change' => 'contacts#change_status', :as => :contact_status_change
   get 'admin/coaching/:coachee_id/contacts/new/user_id/(:user_id)' => 'contacts#new', :as => :new_contact_network
   get 'admin/coaching/:coachee_id/contacts/import/user_id/(:user_id)' => 'contacts#import', :as => :import_contacts
   post 'admin/coaching/:coachee_id/contacts/import/user_id/(:user_id)' => 'contacts#create_import'
-  
+  get 'admin/coaching/:coachee_id/contacts/delete/:id' => 'contacts#delete', :as => :delete_contact
+
 
   # Communication
 

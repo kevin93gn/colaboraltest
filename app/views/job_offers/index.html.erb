@@ -8,7 +8,7 @@
       </li>
       <li class="">
         <%= link_to coachees_path(:coachee_id => @coaching.id) do%>
-            <%= @coachee.user.first_name %>
+            <%= @coachee.first_name %>
         <% end %>
       <li class="active"> Ofertas Laborales Recomendadas </li>
     </ol>
@@ -37,7 +37,7 @@
               <% @job_offers.each do |jo| %>
                           <tr>
                             <td>
-                              <%= link_to edit_job_offer_path(:coachee_id => @coachee.id, :id => jo.id) do%>
+                              <%= link_to view_job_offer_path(coaching_id: current_user.id, id: jo.id), {:title => "Ver Oferta"} do%>
                                   <%= jo.name %>
                               <%end%>
                             </td>
@@ -62,7 +62,7 @@
                               <%end%>
                             </td>
                             <td>
-                              <%= link_to view_job_offer_path( id: jo.id), {:title => "Ver Oferta"} do%>
+                              <%= link_to view_job_offer_path(coachee_id: current_user.id, id: jo.id), {:title => "Ver Oferta"} do%>
                                   <i class=" icon-eye"></i>
                               <%end%>
                               <%= link_to '', jo.url, :target => '_blank', :id => 'reporte' %>

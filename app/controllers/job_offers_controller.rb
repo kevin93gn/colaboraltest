@@ -4,6 +4,7 @@ class JobOffersController < ApplicationController
     @per_page = 10
     @coaching = Coaching.find(params[:coaching_id])
     @job_offers = JobOffer.where(:coaching_id => @coaching.id, :user_id => [nil, current_user.id]).order('created_at DESC')
+    @coachee = current_user
   end
 
   def admin

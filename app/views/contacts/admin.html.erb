@@ -58,19 +58,19 @@
                       <% @coachee.contacts.each do |contact| %>
                           <tr>
                             <td>
-                                <%= contact.first_name %>
+                              <%= contact.first_name %>
                             </td>
                             <td>
-                              <%=contact.last_name%>
+                              <%= contact.last_name %>
                             </td>
                             <td>                             
-                                <%=contact.email%>
+                              <%= contact.email %>
                             </td>
                             <td>
-                              <%="#{contact.enterprise}"%>
+                              <%= contact.enterprise %>
                             </td>
                             <td>
-                              <%="#{contact.job}"%>
+                              <%= contact.job %>
                             </td>
                             <td>
                               <%=link_to contact.linkedin_url, :title => 'Red De Contactos' do%>
@@ -78,10 +78,10 @@
                               <%end%>
                             </td>
                             <td>
-                              <%="#{contact.consultant}"%>
+                              <%= contact.consultant %>
                             </td>
                             <td>
-                              <%="#{contact.category}"%>
+                              <%= contact.category %>
                             </td>
                             <td>                             
                               <% if contact.status == 1 %>
@@ -89,7 +89,7 @@
                               <% elsif contact.status == 2 %>
                                 <span class="label label-primary">Contactado</span>
                               <% elsif contact.status == 3 %>
-                                <span class="label label-success">En proceso / Entrevista</span>
+                                <span class="label label-success">En proceso</span>
                               <% elsif contact.status == 4 %>
                                 <span class="label label-danger">Rechazado</span>
                               <%end%>
@@ -110,6 +110,9 @@
                                     <i class=" icon-thumbs-down"></i>
                                 <%end%>
                               <% end %>
+                              <%=link_to delete_contact_path(:coachee_id => @coachee.id, :id => contact.id), :onclick => "return confirm('¿Estás seguro que deseas eliminar este registro?');" do%>
+                                  <i class=" icon-trash"></i>
+                              <%end%>
                             </td>
                           </tr>
                       <%end%>
