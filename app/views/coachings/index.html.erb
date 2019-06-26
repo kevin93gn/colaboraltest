@@ -1,378 +1,393 @@
 <section id="main_content">
   <div class="container" id="home_coaching">
-
-  <ol class="breadcrumb">
-    <li>
-      <%= link_to root_path do%>
-          <i class="icon-home"></i> Home
+    <ol class="breadcrumb">
+      <li>
+        <%= link_to root_path do%>
+        <i class="icon-home"></i> Home
+        <% end %>
+      </li>
+      <li class="active">Coachings</li>
+      <% unless @coaching.nil? %>
+      <li class="active"><%= @coaching.name %></li>
       <% end %>
-    </li>
-    <li class="active">Coachings</li>
-    <% unless @coaching.nil? %>
-        <li class="active"><%= @coaching.name %></li>
-    <% end %>
-  </ol>
-
-  <div class="row">
-    <% if !@coaching.nil? %>
-        <%= render 'coachings/filters' %>
-      <div class="col-lg-9 col-md-8 col-sm-8">
+    </ol>
+    <div class="row">
+      <% unless @coaching.nil? %>
+      <%= render 'coachings/filters' %>
+        <div class="col-lg-9 col-md-8 col-sm-8">
           <div class="row row-2">
-            <div class="col-md-6 col-1">
-              <h2><i class="icon-adult"></i> Participante </h2>
-              <div class="row" style="margin-top:10px">
-                <div class="col-md-3">
-                  <% if current_user.avatar_url.to_s.length != 0 %>
-                      <%= image_tag current_user.avatar_url, size: '90' %>
-                  <% elsif File.exist?(("#{Rails.root}/public/images/#{current_user.rut.upcase}.jpg") ) %>
-                      <img src="<%="/images/#{current_user.rut.upcase}.jpg"%>" height="90">
-                  <% else %>
-                      <%= image_tag 'default-course.png', size: '90' %>
-                  <%end%>
-                </div>
-                <div class="col-md-9">
-                  <ul>
-                    <li class="name">
-                      <%= current_user.full_name %>
-                    </li>
-                    <li>
-                      <% unless current_user.institution.nil? %>
-                        <%= current_user.institution %>
-                      <% end %>
-                    </li>
-                    <li>
-                      <% unless current_user.profession.nil? %>
-                        <%= current_user.profession %>
-                      <% end %>
-                    </li>
-                    <li>
-                      <%= current_user.email %>
-                    </li>
-                  </ul>
-                </div>
+        <div class="col-md-6 col-1">
+          <% unless @contacts.empty? %>
+            <div class="row">
+              <div class="col-md-8">
+                <h2><i class="icon-users"></i> Mis Redes</h2>
               </div>
-            </div>
-            <div class="col-md-6">
-                  <div class="col-md-8">
-                    <h2><i class="icon-calendar-7"></i> Proximas Sesiones</h2>
-                  </div>
-                  <div class="col-md-4">
-                    <%= link_to coaching_sessions_path(:coaching_id => @coaching.id) do%>
-                        <div class="view_more_link">
-                            <i class="icon-plus-squared"></i> Ver Todas (<%=@all_sessions %>)
-                        </div>
-                    <% end %>
-                  </div>
-              <% if (!@sessions.nil? and @sessions.any?) %>
-                <table class="table table-bordered">
-                    <% @sessions.each do |s| %>
-                    <tr>
-                      <td>
-                        <%= link_to coaching_session_path(:coaching_id => @coaching.id, :id => s.id) do%>
-                            <%=s.name%></a>
-                        <% end %>
-                      </td>
-                      <td><%="#{s.date.strftime("%d/%m/%Y")}"%></td>
-                      <td align="center">
-                        <% if s.file.to_s.length != 0 %>
-                            <%= link_to s.file.to_s, :target => '_blank',  :class => '' do%>
-                                <i class="icon-download-cloud"></i>
-                            <%end%>
-                        <%end%>
-                      </td>
-                    </tr>
-                    <% end %>
-                  </table>
-                </div>
-              <% else %>
-                  <ul class="coaching_no_data row col-md-12">
-                    <li><p class="info pull-right" style="margin-bottom: 0px !important;">En este momento no hay futuras sesiones</p></li>
-                  </div>
-              <% end %>
-          </div><!-- End row -->
-
-          <div class="row row-3">
-            <div class="col-md-6 col-1">
-              <% if @job_offers.count != 0 %>
-                <div class="col-md-8">
-                    <h2><i class="icon-suitcase"></i> Ofertas Laborales</h2>
-                </div>
               <div class="col-md-4">
-                <%= link_to job_offers_path(:coaching_id => @coaching.id) do%>
-                    <div class="view_more_link">
-                        <i class="icon-plus-squared"></i> Ver Todas (<%=@job_offers.count%>)
-                    </div>
+                <%= link_to my_contacts_path(:user_id => current_user.id) do%>
+                <div class="view_more_link">
+                  <i class="icon-plus-squared"></i> Ver Todas (<%=@contacts.count%>)
+                </div>
                 <% end %>
               </div>
-              <ul class="news">
-                <table>
-                <% @job_offers.limit(4).each.with_index do |j, index| %>
-                        <li class="row">
-                          <div class="col-md-10">
-                            <%= link_to j.name, j.url, :target => '_blank'%>
-                          </div>
-                          <div class="col-md-2">
-                            <%= j.created_at.strftime("%d/%m")%>
-                          </div>
-                        </li>
-                    <%end%>
-                </table>
-              </ul>
-              <% else %>
-                  <div class="col-md-12">
-                    <h2><i class="icon-suitcase"></i> Ofertas Laborales</h2>
-                  </div>
-                  <div class="row col-md-12">
-                  <ul class="coaching_no_data row col-md-12">
-                      <li><p class="info">En este momento no hay ofertas laborales recomendadas</p></li>
-                  </ul>
-                  </div>
-            <% end %>
             </div>
-            <div class="col-md-6 goals">
-              <% if @goals.count != 0 %>
-                  <div class="col-md-8 ">
-                    <h2><i class="icon-check-1"></i> Compromisos</h2>
+            <ul class="news">
+              <table>
+                <% @contacts.limit(4).each.with_index do |contact, index| %>
+                <li class="row">
+                  <div>
+                    <i class="icon-linkedin"></i><%= link_to "#{contact.first_name} #{contact.last_name}", contact.linkedin_url, :target => '_blank'%>
                   </div>
-                  <div class="col-md-4">
-                    <%= link_to coaching_goals_path(:coaching_id => @coaching.id) do%>
-                        <div class="view_more_link">
-                          <i class="icon-plus-squared"></i> Ver Todos (<%=@goals.count%>)
-                        </div>
-                    <% end %>
-                  </div>
-                  <table class="table table-bordered">
-                    <% @goals.each do |g| %>
-                        <tr>
-                          <% if g.goal.is_global %>
-                              <td><%= g.goal.name %></td>
-                          <% else %>
-                              <td>
-                            <%= link_to edit_goal_path(:id => g.goal.id, :coaching_id => @coaching.id) do%>
-                              <%=g.goal.name%>
-                            <%end%>
-                              </td>
-                          <% end %>
-                          <td><%="#{g.goal.end_date.strftime("%d/%m/%Y")}"%></td>
-                          <% if g.completed %>
-                              <td><i class="icon-circle goal-fulfilled"></i> Cumplida</td>
-                          <% elsif !g.completed and g.goal.end_date >= DateTime.now %>
-                              <td><i class="icon-circle goal-in-progress"></i> Pendiente</td>
-                          <% else %>
-                              <td><i class="icon-circle goal-not-fullfiled"></i> No Cumplida</td>
-                          <% end %>
-                        </tr>
-                    <% end %>
-                  </table>
-                </div>
-            <% else %>
-                  <div class="col-md-7">
-                    <h2><i class="icon-check-1"></i> Compromisos</h2>
-                  </div>
-                  <div class="col-md-5">
-                    <%= link_to new_goal_path(:coaching_id => @coaching.id) do%>
-                        <div class="view_more_link">
-                          <i class="icon-plus-squared"></i> Crear Compromiso
-                        </div>
-                    <% end %>
-                  </div>
-              <ul class="coaching_no_data row col-md-12">
-                  <li>
-                    <p class="info" style="text-align: center;">En este momento no hay Compromisos asignados</p>
-                  </li>
-                </ul>
-            <% end %>
-          </div><!-- End row -->
-        </div><!-- End col-lg-9-->
-      </div><!-- End row -->
-    <% else %>
-        <div class="col-lg-12 col-md-12 col-sm-12">
-          <div class="row graph">
+                </li>
+                <%end%>
+              </table>
+            </ul>
+          <% else %>
             <div class="col-md-12">
-              <h2><i class="icon-puzzle"></i> Coachings</h2>
-              <p class="info"> En este momento no tienes ning&uacute;n Coaching asignado</p>
+              <h2><i class="icon-users"></i> Mis Redes</h2>
             </div>
-          </div><!-- End row -->
-    <% end %>
+            <div class="row col-md-12">
+              <ul class="coaching_no_data row col-md-12">
+                <li>
+                  <p class="info">En este momento no hay contactos recomendados</p>
+                </li>
+              </ul>
+            </div>
+          <% end %>
+        </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-md-8">
+                  <h2>
+                    <i class="icon-calendar-7"></i> Proximas Sesiones
+                  </h2>
+                </div>
+                <div class="col-md-4">
+                  <%= link_to coaching_sessions_path(:coaching_id => @coaching.id) do%>
+                    <div class="view_more_link">
+                      <i class="icon-plus-squared"></i> Ver Todas (<%=@all_sessions %>)
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <% if (!@sessions.nil? and @sessions.any?) %>
+                      <table class="table table-bordered">
+                        <% @sessions.each do |s| %>
+                        <tr>
+                          <td>
+                            <%= link_to coaching_session_path(:coaching_id => @coaching.id, :id => s.id) do%>
+                            <%=s.name%></a>
+                            <% end %>
+                          </td>
+                          <td><%="#{s.date.strftime("%d/%m/%Y")}"%></td>
+                          <td align="center">
+                            <% if s.file.to_s.length != 0 %>
+                            <%= link_to s.file.to_s, :target => '_blank',  :class => '' do%>
+                            <i class="icon-download-cloud"></i>
+                            <%end%>
+                            <%end%>
+                          </td>
+                        </tr>
+                        <% end %>
+                      </table>
+                  <% else %>
+                    <ul class="coaching_no_data row col-md-12">
+                      <li>
+                        <p class="info pull-right" style="margin-bottom: 0px !important;">En este momento no hay futuras sesiones</p>
+                      </li>
+                    </ul>
+                  <% end %>
+                </div>
+              </div>
+          </div>
+        </div>
+      <!-- End row -->
+      <div class="row row-2">
+        <div class="col-md-6 col-1">
+          <% if @job_offers.count != 0 %>
+            <div class="col-md-8">
+              <h2><i class="icon-suitcase"></i> Ofertas Laborales</h2>
+            </div>
+            <div class="col-md-4">
+              <%= link_to my_job_offers_path(:coachee_id => current_user.id) do%>
+                <div class="view_more_link">
+                  <i class="icon-plus-squared"></i> Ver Todas (<%=@job_offers.count%>)
+                </div>
+              <% end %>
+            </div>
+            <ul class="news">
+              <table>
+                <% @job_offers.limit(4).each.with_index do |j, index| %>
+                <li class="row">
+                  <div class="col-md-10">
+                    <%= link_to j.name, j.url, :target => '_blank'%>
+                  </div>
+                  <div class="col-md-2">
+                    <%= j.created_at.strftime("%d/%m")%>
+                  </div>
+                </li>
+                <%end%>
+              </table>
+            </ul>
+          <% else %>
+            <div class="col-md-12">
+              <h2><i class="icon-suitcase"></i> Ofertas Laborales</h2>
+            </div>
+            <div class="row col-md-12">
+              <ul class="coaching_no_data row col-md-12">
+                <li>
+                  <p class="info">En este momento no hay ofertas laborales recomendadas</p>
+                </li>
+              </ul>
+            </div>
+          <% end %>
+        </div>
+        <div class="col-md-6 goals">
+          <% if @goals.count != 0 %>
+            <div class="col-md-8 ">
+              <h2><i class="icon-check-1"></i> Compromisos</h2>
+            </div>
+            <div class="col-md-4">
+              <%= link_to coaching_goals_path(:coaching_id => @coaching.id) do%>
+              <div class="view_more_link">
+                <i class="icon-plus-squared"></i> Ver Todos (<%=@goals.count%>)
+              </div>
+              <% end %>
+            </div>
+            <table class="table table-bordered">
+              <% @goals.each do |g| %>
+              <tr>
+                <% if g.goal.is_global %>
+                <td><%= g.goal.name %></td>
+                <% else %>
+                <td>
+                  <%= link_to edit_goal_path(:id => g.goal.id, :coaching_id => @coaching.id) do%>
+                  <%=g.goal.name%>
+                  <%end%>
+                </td>
+                <% end %>
+                <td><%="#{g.goal.end_date.strftime("%d/%m/%Y")}"%></td>
+                <% if g.completed %>
+                <td><i class="icon-circle goal-fulfilled"></i> Cumplida</td>
+                <% elsif !g.completed and g.goal.end_date >= DateTime.now %>
+                <td><i class="icon-circle goal-in-progress"></i> Pendiente</td>
+                <% else %>
+                <td><i class="icon-circle goal-not-fullfiled"></i> No Cumplida</td>
+                <% end %>
+              </tr>
+              <% end %>
+            </table>
+          <% else %>
+          <div class="col-md-7">
+            <h2><i class="icon-check-1"></i> Compromisos</h2>
+          </div>
+          <div class="col-md-5">
+            <%= link_to new_goal_path(:coaching_id => @coaching.id) do%>
+            <div class="view_more_link">
+              <i class="icon-plus-squared"></i> Crear Compromiso
+            </div>
+            <% end %>
+          </div>
+          <ul class="coaching_no_data row col-md-12">
+            <li>
+              <p class="info" style="text-align: center; margin: 60px 0 50px;">En este momento no hay Compromisos asignados</p>
+            </li>
+          </ul>
+          <% end %>
+        </div>
+      </div>
+    <!-- End row --
+      </div><!-- End col-lg-9-->
+  </div>
+  <!-- End row -->
+  <% else %>
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="row graph">
+      <div class="col-md-12">
+        <h2><i class="icon-puzzle"></i> Coachings</h2>
+        <p class="info"> En este momento no tienes ning&uacute;n Coaching asignado</p>
+      </div>
     </div>
+    <!-- End row -->
+    <% end %>
+  </div>
   </div>
 </section>
-
 <%=render 'coachings/graph_info'%>
-
 <% if !@coaching.nil? %>
-    <script>
-    var chart = new Chartist.Line('#chart_coachee', {
-        labels: ['A', 'B', 'C', 'D', 'E','F', 'G', 'H', 'I'],
-        series: [
-            <% unless @graph.nil? %>
-                <%="[#{@graph.point_1}, #{@graph.point_2}, #{@graph.point_3}, #{@graph.point_4}, #{@graph.point_5}, #{@graph.point_6}, #{@graph.point_7}, #{@graph.point_8}, #{@graph.point_9}]" %>
-            <% end %>
-        ]
-    }, {
-        high: 4,
-        low: 0,
-        showArea: true,
-        showPoint: true,
-        fullWidth: true,
-        lineSmooth: Chartist.Interpolation.none(),
-    });
-
-    // Let's put a sequence number aside so we can use it in the event callbacks
-    var seq = 0,
-            delays = 40,
-            durations = 150;
-
-    // Once the chart is fully created we reset the sequence
-    chart.on('created', function() {
-        seq = 0;
-    });
-
-    // On each drawn element by Chartist we use the Chartist.Svg API to trigger SMIL animations
-    chart.on('draw', function(data) {
-        seq++;
-
-        if(data.type === 'line') {
-            // If the drawn element is a line we do a simple opacity fade in. This could also be achieved using CSS3 animations.
-            data.element.animate({
-                opacity: {
-                    // The delay when we like to start the animation
-                    begin: seq * delays + 1000,
-                    // Duration of the animation
-                    dur: durations,
-                    // The value where the animation should start
-                    from: 0,
-                    // The value where it should end
-                    to: 1
-                }
-            });
-        } else if(data.type === 'label' && data.axis === 'x') {
-            data.element.animate({
-                y: {
-                    begin: seq * delays,
-                    dur: durations,
-                    from: data.y + 100,
-                    to: data.y,
-                    // We can specify an easing function from Chartist.Svg.Easing
-                    easing: 'easeOutQuart'
-                }
-            });
-        } else if(data.type === 'label' && data.axis === 'y') {
-            data.element.animate({
-                x: {
-                    begin: seq * delays,
-                    dur: durations,
-                    from: data.x - 100,
-                    to: data.x,
-                    easing: 'easeOutQuart'
-                }
-            });
-        } else if(data.type === 'point') {
-            data.element.animate({
-                x1: {
-                    begin: seq * delays,
-                    dur: durations,
-                    from: data.x - 10,
-                    to: data.x,
-                    easing: 'easeOutQuart'
-                },
-                x2: {
-                    begin: seq * delays,
-                    dur: durations,
-                    from: data.x - 10,
-                    to: data.x,
-                    easing: 'easeOutQuart'
-                },
-                opacity: {
-                    begin: seq * delays,
-                    dur: durations,
-                    from: 0,
-                    to: 1,
-                    easing: 'easeOutQuart'
-                }
-            });
-        } else if(data.type === 'grid') {
-            // Using data.axis we get x or y which we can use to construct our animation definition objects
-            var pos1Animation = {
-                begin: seq * delays,
-                dur: durations,
-                from: data[data.axis.units.pos + '1'] - 30,
-                to: data[data.axis.units.pos + '1'],
-                easing: 'easeOutQuart'
-            };
-
-            var pos2Animation = {
-                begin: seq * delays,
-                dur: durations,
-                from: data[data.axis.units.pos + '2'] - 100,
-                to: data[data.axis.units.pos + '2'],
-                easing: 'easeOutQuart'
-            };
-
-            var animations = {};
-            animations[data.axis.units.pos + '1'] = pos1Animation;
-            animations[data.axis.units.pos + '2'] = pos2Animation;
-            animations['opacity'] = {
-                begin: seq * delays,
-                dur: durations,
-                from: 0,
-                to: 1,
-                easing: 'easeOutQuart'
-            };
-
-            data.element.animate(animations);
-        }
-    });
-
+<script>
+  var chart = new Chartist.Line('#chart_coachee', {
+      labels: ['A', 'B', 'C', 'D', 'E','F', 'G', 'H', 'I'],
+      series: [
+          <% unless @graph.nil? %>
+              <%="[#{@graph.point_1}, #{@graph.point_2}, #{@graph.point_3}, #{@graph.point_4}, #{@graph.point_5}, #{@graph.point_6}, #{@graph.point_7}, #{@graph.point_8}, #{@graph.point_9}]" %>
+          <% end %>
+      ]
+  }, {
+      high: 4,
+      low: 0,
+      showArea: true,
+      showPoint: true,
+      fullWidth: true,
+      lineSmooth: Chartist.Interpolation.none(),
+  });
+  
+  // Let's put a sequence number aside so we can use it in the event callbacks
+  var seq = 0,
+          delays = 40,
+          durations = 150;
+  
+  // Once the chart is fully created we reset the sequence
+  chart.on('created', function() {
+      seq = 0;
+  });
+  
+  // On each drawn element by Chartist we use the Chartist.Svg API to trigger SMIL animations
+  chart.on('draw', function(data) {
+      seq++;
+  
+      if(data.type === 'line') {
+          // If the drawn element is a line we do a simple opacity fade in. This could also be achieved using CSS3 animations.
+          data.element.animate({
+              opacity: {
+                  // The delay when we like to start the animation
+                  begin: seq * delays + 1000,
+                  // Duration of the animation
+                  dur: durations,
+                  // The value where the animation should start
+                  from: 0,
+                  // The value where it should end
+                  to: 1
+              }
+          });
+      } else if(data.type === 'label' && data.axis === 'x') {
+          data.element.animate({
+              y: {
+                  begin: seq * delays,
+                  dur: durations,
+                  from: data.y + 100,
+                  to: data.y,
+                  // We can specify an easing function from Chartist.Svg.Easing
+                  easing: 'easeOutQuart'
+              }
+          });
+      } else if(data.type === 'label' && data.axis === 'y') {
+          data.element.animate({
+              x: {
+                  begin: seq * delays,
+                  dur: durations,
+                  from: data.x - 100,
+                  to: data.x,
+                  easing: 'easeOutQuart'
+              }
+          });
+      } else if(data.type === 'point') {
+          data.element.animate({
+              x1: {
+                  begin: seq * delays,
+                  dur: durations,
+                  from: data.x - 10,
+                  to: data.x,
+                  easing: 'easeOutQuart'
+              },
+              x2: {
+                  begin: seq * delays,
+                  dur: durations,
+                  from: data.x - 10,
+                  to: data.x,
+                  easing: 'easeOutQuart'
+              },
+              opacity: {
+                  begin: seq * delays,
+                  dur: durations,
+                  from: 0,
+                  to: 1,
+                  easing: 'easeOutQuart'
+              }
+          });
+      } else if(data.type === 'grid') {
+          // Using data.axis we get x or y which we can use to construct our animation definition objects
+          var pos1Animation = {
+              begin: seq * delays,
+              dur: durations,
+              from: data[data.axis.units.pos + '1'] - 30,
+              to: data[data.axis.units.pos + '1'],
+              easing: 'easeOutQuart'
+          };
+  
+          var pos2Animation = {
+              begin: seq * delays,
+              dur: durations,
+              from: data[data.axis.units.pos + '2'] - 100,
+              to: data[data.axis.units.pos + '2'],
+              easing: 'easeOutQuart'
+          };
+  
+          var animations = {};
+          animations[data.axis.units.pos + '1'] = pos1Animation;
+          animations[data.axis.units.pos + '2'] = pos2Animation;
+          animations['opacity'] = {
+              begin: seq * delays,
+              dur: durations,
+              from: 0,
+              to: 1,
+              easing: 'easeOutQuart'
+          };
+  
+          data.element.animate(animations);
+      }
+  });
+  
 </script>
 <script type="text/javascript">
-    /* <![CDATA[ */
-
-    setTimeout(function(){
-
-        $('.progress .progress-bar').each(function() {
-            var me = $(this);
-            var perc = me.attr("data-percentage");
-
-            var current_perc = 0;
-
-            var progress = setInterval(function() {
-                if (current_perc>=perc) {
-                    clearInterval(progress);
-                } else {
-                    current_perc +=1;
-                    me.css('width', (current_perc)+'%');
-                }
-
-                me.text((current_perc)+'%');
-
-            }, 50);
-
-        });
-
-    },500);
-    /* ]]> */
-</script>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        $('#calendar').fullCalendar({
-          lang: 'es',
-          height: 250,
-          header: {
-            left: 'prev,next',
-            center: 'title',
-            right: 'month,agendaWeek',
-
-          },
-          editable: false,
-          events: [
-            <% for activity in @activities %>
-            <% event = "{ title: '#{activity.name}', start: '#{activity.date.strftime("%Y-%m-%d %H:%M")}', url: '#{coaching_activity_path(:id => activity.id, :coaching_id => @coaching.id)}' }," %>
-            <%= event.html_safe %>
-            <% end %>
-          ]
-        });
+  /* <![CDATA[ */
+  
+  setTimeout(function(){
+  
+      $('.progress .progress-bar').each(function() {
+          var me = $(this);
+          var perc = me.attr("data-percentage");
+  
+          var current_perc = 0;
+  
+          var progress = setInterval(function() {
+              if (current_perc>=perc) {
+                  clearInterval(progress);
+              } else {
+                  current_perc +=1;
+                  me.css('width', (current_perc)+'%');
+              }
+  
+              me.text((current_perc)+'%');
+  
+          }, 50);
+  
       });
-    </script>
+  
+  },500);
+  /* ]]> */
+</script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#calendar').fullCalendar({
+      lang: 'es',
+      height: 250,
+      header: {
+        left: 'prev,next',
+        center: 'title',
+        right: 'month,agendaWeek',
+  
+      },
+      editable: false,
+      events: [
+        <% for activity in @activities %>
+        <% event = "{ title: '#{activity.name}', start: '#{activity.date.strftime("%Y-%m-%d %H:%M")}', url: '#{coaching_activity_path(:id => activity.id, :coaching_id => @coaching.id)}' }," %>
+        <%= event.html_safe %>
+        <% end %>
+      ]
+    });
+  });
+</script>
 <%= render 'layouts/contact_modal_coaching' %>
 <% end %>

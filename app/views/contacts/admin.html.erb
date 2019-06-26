@@ -91,7 +91,7 @@
                               <% elsif contact.status == 3 %>
                                 <span class="label label-success">En proceso</span>
                               <% elsif contact.status == 4 %>
-                                <span class="label label-danger">Rechazado</span>
+                                <span class="label label-danger">Rechazado</span><i class=" icon-question" title="<%=contact.reject_reason%>"></i>
                               <%end%>
                             </td>
                             <td>

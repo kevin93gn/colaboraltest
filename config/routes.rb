@@ -64,7 +64,9 @@ Rails.application.routes.draw do
   get 'coaching/:coaching_id/job_offers/:id' => 'job_offers#show', :as => :show_job_offer
   get 'coaching/:coaching_id/job_offers' => 'job_offers#index', :as => :job_offers
   get 'coaching/:coachee_id/job_offers/:id/view' => 'job_offers#view_offer', :as => :view_job_offer
-
+  get 'coaching/job_offers/my_job_offers' => 'job_offers#my_job_offers', :as => :my_job_offers
+  get 'coaching/:coachee_id/job_offers/:id/reject' => 'job_offers#reject', :as => :reject_job_offer
+  post 'coaching/:coachee_id/job_offers/:id/rejected' => 'job_offers#rejected', :as => :rejected_job_offer
 
   get 'courses/:course_id/evaluation/' => 'evaluation#show', :as => :evaluation
   get 'evaluation/:id' => 'evaluation#send_evaluation', :as => :deliver_evaluation
@@ -244,7 +246,10 @@ Rails.application.routes.draw do
   
   #Contacts
 
-  get 'admin/contacts/user_id/(:user_id)' => 'contacts#my_contacts', :as => :my_contacts
+  get 'contacts/user_id/(:user_id)' => 'contacts#my_contacts', :as => :my_contacts
+  get 'contacts/:id/change' => 'contacts#change_status', :as => :my_contact_status_change
+  get 'contacts/:id/reject' => 'contacts#reject_contact', :as => :reject_contact
+  post 'contacts/:id/rejected' => 'contacts#rejected_contact', :as => :rejected_contact
   get 'admin/coaching/:coachee_id/contacts/' => 'contacts#admin', :as => :contacts_admin
   get 'admin/coaching/:coachee_id/contacts/:id/change' => 'contacts#change_status', :as => :contact_status_change
   get 'admin/coaching/:coachee_id/contacts/new/user_id/(:user_id)' => 'contacts#new', :as => :new_contact_network

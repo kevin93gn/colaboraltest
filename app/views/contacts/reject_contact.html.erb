@@ -1,0 +1,69 @@
+<% if notice %>
+  <div class="alert alert-success" role="alert">
+    <p id="notice"><%= notice %></p>
+  </div>
+<%end%>
+<div class="row">
+  <div class="row" align="center"><h2><i class="icon-users"></i>Rechazar Contacto</h2></div>
+  <div class="col-md-6 col-md-offset-3">
+    <div class="box_style_1">
+      <h4 align="center"><i class="icon-user-1"></i><%= @contact.first_name %> <%= @contact.last_name %></h4>
+      <ul class="list_1">
+        <li style="border-bottom: 1px solid #eaeff3;">
+          <h5>
+            <label><i class="icon-mail"></i> Email: </label>
+            <%= @contact.email %>
+          </h5>
+        </li>
+        <li style="border-bottom: 1px solid #eaeff3;">
+          <h5>
+            <label><i class="icon-building"></i> Empresa: </label>
+            <%= @contact.enterprise %>
+          </h5>
+        </li>
+        <li style="border-bottom: 1px solid #eaeff3;">
+          <h5>
+            <label><i class="icon-sitemap"></i> Cargo: </label>
+            <%= @contact.job %>
+          </h5>
+        </li>
+        <li style="border-bottom: 1px solid #eaeff3;">
+          <h5>
+            <label><i class="icon-linkedin"></i> LinkedIn: </label>
+            <%= link_to "Ver", @contact.linkedin_url, :target => 'blank', :style=>"display: inline-block;" %>
+          </h5>
+        </li>
+        <li style="border-bottom: 1px solid #eaeff3;">
+          <h5>
+            <label><i class="icon-user"></i> Consultor: </label>
+            <%= @contact.consultant %>
+          </h5>
+        </li>
+        <li style="border-bottom: 1px solid #eaeff3;">
+          <h5>
+            <label><i class="icon-buffer"></i> Industria: </label>
+            <%= @contact.category %>
+          </h5>
+        </li>
+        <li style="border-bottom: 1px solid #eaeff3;">
+          <h5>
+            <label><i class="icon-buffer"></i> Razon de Rechazo: </label>
+            <%= @contact.reject_reason %>
+          </h5>
+        </li>
+      </ul>
+    </div>
+    <div class="row">
+      <%= simple_form_for(@contact,:url => rejected_contact_path,  html: { method: :post,  autocomplete: 'off' }) do |f| %>
+        <%= f.error_notification %>
+          <div class="form-group">
+            <label>Razón de Rechazo</label>
+            <%= f.input :reject_reason, required: true, :input_html => { :class => 'required form-control', :id => 'reject_reason'}, :label => false, :placeholder => 'Razon de Rechazo' %>
+          </div>
+        <div id="bottom-wizard">
+            <div><%= f.button :submit, "Rechazar", :class => 'btn btn-danger icon-times', data: {confirm: "¿Está seguro de rechazar este contacto?"} %></div>
+          </div><!-- end bottom-wizard -->
+      <% end %>
+    </div>
+  </div>
+</div>

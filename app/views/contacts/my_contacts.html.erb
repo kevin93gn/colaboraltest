@@ -17,6 +17,12 @@
             <%end%>
 
             <div class="row">
+                              <h3 class="col-md-6"><i class="icon-suitcase"></i> Tu Red de Contactos : <b></b></h3>
+                <div class="col-md-3 col-md-offset-3">
+                  <%= link_to new_contact_path(coachee_id: current_user.id),  :class => 'button_medium pull-right' do%>
+                      <i class="icon-plus"></i>1 Nuevo Contacto
+                  <%end%>
+                  </div>
               <div class="col-md-12">
                 <% if !@contacts.empty? %>
                     <table id="dttb" class="table table-bordered">
@@ -53,7 +59,11 @@
           <%= contact.job %>
         </td>
         <td>
-          <%= link_to 'LinkedIn', contact.linkedin_url, :target => :blank %>
+          <% if contact.status == 1 %>
+            <%= link_to 'LinkedIn', my_contact_status_change_path(id: contact.id, status: 2), :title => "Contactado", :onclick => "window.open('"+contact.linkedin_url+"', '_blank');" %>
+          <% else %>                          
+            <%= link_to 'LinkedIn', contact.linkedin_url, :target => :blank %>
+          <% end %>
         </td>
         <td>
           <%= contact.consultant %>
@@ -61,11 +71,34 @@
         <td>
           <%= contact.category %>
           </td>
-          <td>
-            <% if contact.status == 1 %>
-              Por Contactar
-            <%end%>
-          </td>
+          <td>                             
+                              <% if contact.status == 1 %>
+                                <span class="label label-default">Por contactar</span>
+                              <% elsif contact.status == 2 %>
+                                <span class="label label-primary">Contactado</span>
+                              <% elsif contact.status == 3 %>
+                                <span class="label label-success">En proceso</span>
+                              <% elsif contact.status == 4 %>
+                                <span class="label label-danger">Rechazado</span><i class=" icon-question" title="<%=contact.reject_reason%>"></i>
+                              <%end%>
+                            </td>
+                            <td>
+                              <% if contact.status == 1 %>
+                                <%= link_to my_contact_status_change_path(id: contact.id, status: 2), :title => "Contactado" do%>
+                                    <i class=" icon-eye"></i>
+                                <%end%>
+                              <% end %>
+                              <% if contact.status == 1  || contact.status == 2 %>
+                                <%= link_to my_contact_status_change_path(id: contact.id, status: 3), :title => "En Proceso / Entrevista" do%>
+                                    <i class=" icon-check"></i>
+                                <%end%>
+                              <% end %>
+                              <% if contact.status != 4 %>
+                                <%= link_to reject_contact_path(contact), :title => "Rechazado" do%>
+                                      <i class=" icon-thumbs-down"></i>
+                                <%end%>
+                              <% end %>
+                            </td>
       </tr>
     <%end%>
   </tbody>

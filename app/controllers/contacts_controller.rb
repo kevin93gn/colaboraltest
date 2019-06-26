@@ -20,7 +20,32 @@ class ContactsController < ApplicationController
     @contact = Contact.find(params[:id])
     respond_to do |format|
       if @contact.update(status: params[:status])
+        if params[:coachee_id].present?
         format.html { redirect_to contacts_admin_path(:coachee_id => params[:coachee_id]), notice: "Estatus del contacto #{@contact.email} actualizado exitosamente" }
+      else
+        format.html { redirect_to my_contacts_path(:user_id => current_user.id), notice: "Estatus del contacto #{@contact.email} actualizado exitosamente" }
+      end
+        format.json { render :show, status: :ok, location: @contact }
+      else
+        format.html { redirect_to contacts_admin_path(:coachee_id => params[:coachee_id]), notice: "Falló al cambiar el estatus del contacto #{@contact.email}" }
+        format.json { render json: @contact.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
+  def reject_contact
+    @contact = Contact.find(params[:id])
+  end
+  
+  def rejected_contact
+    @contact = Contact.find(params[:id])
+    respond_to do |format|
+      if @contact.update(status: 4, reject_reason: params[:contact][:reject_reason])
+        if params[:coachee_id].present?
+        format.html { redirect_to contacts_admin_path(:coachee_id => params[:coachee_id]), notice: "Estatus del contacto #{@contact.email} actualizado exitosamente" }
+        else
+          format.html { redirect_to my_contacts_path(:user_id => current_user.id), notice: "Estatus del contacto #{@contact.email} actualizado exitosamente" }
+        end
         format.json { render :show, status: :ok, location: @contact }
       else
         format.html { redirect_to contacts_admin_path(:coachee_id => params[:coachee_id]), notice: "Falló al cambiar el estatus del contacto #{@contact.email}" }
@@ -100,8 +125,11 @@ class ContactsController < ApplicationController
     @contact = @coachee.contacts.new(contact_params)
     respond_to do |format|
       if @contact.save
-        format.html { redirect_to contacts_admin_path(:coachee_id => @coachee.id), notice: 'Contacto creado exitosamente.' }
-        format.json { render :show, status: :created, location: @contact }
+        unless current_user.role == "usuario"
+          format.html { redirect_to contacts_admin_path(:coachee_id => @coachee.id), notice: 'Contacto creado exitosamente.' }
+        else
+          format.html { redirect_to my_contacts_path(:user_id => current_user.id), notice: 'Contacto creado exitosamente.' }
+        end
       else
         format.html { render :new }
         format.json { render json: @contact.errors, status: :unprocessable_entity }

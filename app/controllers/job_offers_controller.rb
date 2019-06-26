@@ -6,6 +6,11 @@ class JobOffersController < ApplicationController
     @job_offers = JobOffer.where(:coaching_id => @coaching.id, :user_id => [nil, current_user.id]).order('created_at DESC')
     @coachee = current_user
   end
+  
+  def my_job_offers
+    @job_offers = JobOffer.where(:user_id => current_user.id).order('created_at DESC')
+    @coachee = current_user
+  end
 
   def admin
     user_id = params[:user_id]
@@ -73,6 +78,25 @@ class JobOffersController < ApplicationController
       end
     end
   end
+  
+  
+  def reject
+    @job_offer = JobOffer.find(params[:id])
+  end
+  
+  def rejected
+    @job_offer = JobOffer.find(params[:id])
+    respond_to do |format|
+       if @job_offer.update(status: 4, reject_reason: params[:job_offer][:reject_reason])
+        format.html { redirect_to my_job_offers_path(:coaching_id => params[:coachee_id]), notice: "Estatus de la oferta #{@job_offer.name} actualizada exitosamente" }
+        format.json { render :show, status: :ok, location: @job_offer }
+      else
+        format.html { redirect_to my_job_offers_path(:coaching_id => params[:coaching_id]), notice: "Falló al cambiar el estatus de la oferta #{@job_offer.name}" }
+        format.json { render json: @job_offer.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+  
 
   def update
     params.permit!
@@ -92,9 +116,9 @@ class JobOffersController < ApplicationController
   def view_offer
     params.permit!
     @job_offer = JobOffer.find(params[:id])
-    @coaching = Coaching.find(params[:coaching_id])
+    @coachee = User.find(params[:coachee_id])
     if @job_offer.status == 1
-      @job_offer.update_attributes(status: 2)
+      @job_offer.update_attributes(status: params[:status])
     end
     redirect_to :back
   end

@@ -80,7 +80,7 @@
                               <% elsif jo.status == 3 %>
                                 <span class="label label-success">Postulado</span>
                               <% elsif jo.status == 4 %>
-                                <span class="label label-danger">No Postulado</span>
+                                <span class="label label-danger">No Postulado</span><i class=" icon-question" title="<%=jo.reject_reason%>"></i>
                               <%end%>
                             </td>
                             <td>
